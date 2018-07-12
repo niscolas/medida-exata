@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "930451388649",
+    "firebase_url": "https://medida-exata.firebaseio.com",
+    "project_id": "medida-exata",
+    "storage_bucket": "medida-exata.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930451388649:android:dfd8d0d1b2390aaf",
+        "android_client_info": {
+          "package_name": "com.cefetmg.inf.android.medidaexata"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930451388649-k778a753v2i4l3sahlv1ooh192nbgvb0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cefetmg.inf.android.medidaexata",
+            "certificate_hash": "d3226361efb491dc54dc7ea5e80e1427c42d6f27"
+          }
+        },
+        {
+          "client_id": "930451388649-khfqoo25o2ke2p1o13qana0d7fdddp50.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXVsqEAXxcHG-l0SWVJuqe-phFt__v79Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "930451388649-khfqoo25o2ke2p1o13qana0d7fdddp50.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
