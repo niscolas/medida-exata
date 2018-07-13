@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">MedidaExata</string>
+    <string name="app_name">Medida Exata</string>
+    <string name="bem_vindo">Bem-vindo</string>
+    <string name="ao">ao</string>
 </resources>
