@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Medida Exata</string>
-    <string name="bem_vindo">Bem-vindo</string>
-    <string name="ao">ao</string>
+    <string name="bem_vindo">Bem vindo\nao</string>
+    <string name="vamos_comecar">Vamos começar</string>
+
+    <string name="contDes_iv_medida_exata_logo">Logo do aplicativo Medida Exata</string>
 </resources>

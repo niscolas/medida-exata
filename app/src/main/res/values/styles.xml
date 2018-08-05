@@ -1,11 +1,23 @@
 <resources>
-
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Cores -->
+            <!--Cores do aplicativo-->
+                <item name="colorPrimary">@color/colorPrimary</item>
+                <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+                <item name="colorSecondary">@color/colorSecondary</item>
+                <!-- Coloquei só por precaução, porque equivale ao secondary color -->
+                    <item name="colorAccent">?attr/colorSecondary</item>
+
     </style>
 
+    <!-- Estilo padrão para botões Material preenchidos -->
+    <style name="AppTheme.MaterialButtonsFilled" parent="Widget.MaterialComponents.Button">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
 </resources>

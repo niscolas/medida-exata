@@ -1,63 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryLight">
 
-    <TextView
-        android:id="@+id/vwTxt-nome_App"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/bem_vindo"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-        android:textColor="@android:color/holo_blue_bright"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.154" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_bem_vindo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="72dp"
+            android:gravity="center"
+
+            android:letterSpacing="0.1"
+            android:text="@string/bem_vindo"
+            android:textColor="@color/branco"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_app_name1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="32dp"
+            android:gravity="center_horizontal"
+
+            android:text="@string/app_name"
+            android:textColor="@color/branco"
+            android:textSize="32sp" />
+    </LinearLayout>
 
     <ImageView
-        android:id="@+id/vwImg-logo_medida_exata"
-        android:layout_width="254dp"
-        android:layout_height="300dp"
-        android:layout_marginBottom="56dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/logo_medida_exata" />
+        android:id="@+id/iv_medida_exata_logo"
+        android:layout_width="match_parent"
+        android:layout_height="275dp"
 
-    <TextView
-        android:id="@+id/vwTxt-ao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/ao"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-        android:textColor="@color/colorAccent"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.273" />
+        android:contentDescription="@string/contDes_iv_medida_exata_logo"
+        android:src="@drawable/ic_medida_exata" />
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/bt_comecar"
+            style="@style/AppTheme.MaterialButtonsFilled"
+
+            android:layout_centerInParent="true"
+
+            android:text="@string/vamos_comecar" />
+    </RelativeLayout>
+</LinearLayout>
