@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.cefetmg.inf.medidaexata.view.activities.IntroducaoActivity"
+    android:background="@color/branco"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/ic_medida_exata" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+
+        android:text="@string/introducao_ao_app"
+        android:textColor="@color/colorPrimary" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <android.support.design.button.MaterialButton
+        android:id="@+id/bt_interessante"
+        style="@style/MaterialButtonsFilled"
+
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/mtrl_bt_margin_btt"
+
+        android:text="@string/interessante" />
+</LinearLayout>

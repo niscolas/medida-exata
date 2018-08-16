@@ -1,7 +1,29 @@
 <resources>
+    <!-- Nome do app -->
     <string name="app_name">Medida Exata</string>
-    <string name="bem_vindo">Bem vindo\nao</string>
-    <string name="vamos_comecar">Vamos começar</string>
 
-    <string name="contDes_iv_medida_exata_logo">Logo do aplicativo Medida Exata</string>
+    <!-- Text Views -->
+    <!-- Boas Vindas -->
+    <string name="bem_vindo">Bem vindo\nao</string>
+    <!-- Introdução -->
+    <string name="introducao_ao_app">TEXTOO</string>
+    <!-- Disciplinas / Conteúdos -->
+    <string name="menu">Menu inicial</string>
+    <string name="toque_em_um_botao">Toque em um dos botões abaixo para ver as questões</string>
+    <string name="perfil">Perfil</string>
+
+    <!-- Botões -->
+    <string name="vamos_comecar">Vamos começar</string>
+    <string name="interessante">Interessante!</string>
+
+    <!-- Matérias -->
+    <string name="matematica">Matemática</string>
+    <string name="biologia">Biologia</string>
+    <string name="ciencias">Ciências</string>
+    <string name="cienciasAllCaps">CIÊNCIAS</string>
+    <string name="fisica">Física</string>
+    <string name="quimica">Química</string>
+
+    <!-- Content Description(s)-->
+    <string name="ctntdes_iv_medida_exata_logo">Logo do aplicativo Medida Exata</string>
 </resources>

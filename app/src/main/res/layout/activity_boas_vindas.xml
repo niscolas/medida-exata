@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryLight">
+    android:background="@color/branco" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/tv_bem_vindo"
@@ -21,7 +21,7 @@
 
             android:letterSpacing="0.1"
             android:text="@string/bem_vindo"
-            android:textColor="@color/branco"
+            android:textColor="@color/colorPrimary"
             android:textSize="24sp" />
 
         <TextView
@@ -29,31 +29,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_marginBottom="32dp"
             android:gravity="center_horizontal"
 
             android:text="@string/app_name"
-            android:textColor="@color/branco"
+            android:textColor="@color/colorPrimary"
             android:textSize="32sp" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/iv_medida_exata_logo"
         android:layout_width="match_parent"
-        android:layout_height="275dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32sp"
 
-        android:contentDescription="@string/contDes_iv_medida_exata_logo"
-        android:src="@drawable/ic_medida_exata" />
+        android:contentDescription="@string/ctntdes_iv_medida_exata_logo"
+        android:src="@drawable/ic_medida_exata_transparente" />
 
-    <RelativeLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
-            android:id="@+id/bt_comecar"
-            style="@style/AppTheme.MaterialButtonsFilled"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
-            android:layout_centerInParent="true"
+    <android.support.design.button.MaterialButton
+        android:id="@+id/bt_comecar"
+        style="@style/MaterialButtonsFilled"
+        android:layout_marginBottom="@dimen/mtrl_bt_margin_btt"
+        android:layout_gravity="center"
 
-            android:text="@string/vamos_comecar" />
-    </RelativeLayout>
+        android:text="@string/vamos_comecar" />
 </LinearLayout>
