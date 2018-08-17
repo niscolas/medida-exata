@@ -1,61 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/branco" >
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_bem_vindo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/tv_bem_vindo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
 
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="72dp"
-            android:gravity="center"
+        android:gravity="center"
+        android:letterSpacing="0.1"
+        android:text="@string/bem_vindo"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp" />
 
-            android:letterSpacing="0.1"
-            android:text="@string/bem_vindo"
-            android:textColor="@color/colorPrimary"
-            android:textSize="24sp" />
+    <TextView
+        android:id="@+id/tv_app_name1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-        <TextView
-            android:id="@+id/tv_app_name1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:gravity="center_horizontal"
-
-            android:text="@string/app_name"
-            android:textColor="@color/colorPrimary"
-            android:textSize="32sp" />
-    </LinearLayout>
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="143dp"
+        android:gravity="center_horizontal"
+        android:text="@string/app_name"
+        android:textColor="@color/colorPrimary"
+        android:textSize="32sp" />
 
     <ImageView
         android:id="@+id/iv_medida_exata_logo"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32sp"
+
+        android:layout_centerInParent="true"
 
         android:contentDescription="@string/ctntdes_iv_medida_exata_logo"
         android:src="@drawable/ic_medida_exata_transparente" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
     <android.support.design.button.MaterialButton
         android:id="@+id/bt_comecar"
         style="@style/MaterialButtonsFilled"
+
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/mtrl_bt_margin_btt"
-        android:layout_gravity="center"
 
         android:text="@string/vamos_comecar" />
-</LinearLayout>
+</RelativeLayout>

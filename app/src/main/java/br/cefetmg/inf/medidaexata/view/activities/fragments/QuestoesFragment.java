@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -71,7 +70,7 @@ public class QuestoesFragment extends Fragment {
 //            } else {
 //                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
 //            }
-            recyclerView.setAdapter(new QuestoesAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new QuestaoAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
     }

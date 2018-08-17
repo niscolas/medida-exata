@@ -3,6 +3,9 @@
     <!-- Material Button  -->
     <dimen name="mtrl_bt_margin_btt">64dp</dimen>
 
+    <!-- Material Card Margin -->
+    <dimen name="mtrl_card_margin">8dp</dimen>
+
     <!-- Text -->
     <dimen name="text_margin">16dp</dimen>
 </resources>

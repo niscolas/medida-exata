@@ -18,12 +18,12 @@ import java.util.List;
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class QuestoesAdapter extends RecyclerView.Adapter<QuestoesAdapter.ViewHolder> {
+public class QuestaoAdapter extends RecyclerView.Adapter<QuestaoAdapter.ViewHolder> {
 
     private final List<DummyItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public QuestoesAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public QuestaoAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
