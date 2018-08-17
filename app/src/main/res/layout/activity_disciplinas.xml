@@ -11,12 +11,12 @@
     android:orientation="vertical"
     android:animateLayoutChanges="true">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbarlt_menu_disciplinas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_menu_disciplinas"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -24,14 +24,17 @@
             app:title="@string/menu"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-    </android.support.design.widget.AppBarLayout>
-
+    </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="?attr/actionBarSize" >
+
         <LinearLayout
+            android:id="@+id/ll_disciplinas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -53,10 +56,10 @@
         </LinearLayout>
     </FrameLayout>
 
-    <android.support.design.widget.BottomNavigationView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bttnav_conteudos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
 
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"

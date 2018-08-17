@@ -1,9 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:orientation="vertical"-->
+<!--android:background="@color/branco" >-->
+
+<!--<TextView-->
+<!--android:id="@+id/tv_bem_vindo"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+
+<!--android:layout_marginTop="72dp"-->
+
+<!--android:gravity="center"-->
+<!--android:letterSpacing="0.1"-->
+<!--android:text="@string/bem_vindo"-->
+<!--android:textColor="@color/colorPrimary"-->
+<!--android:textSize="24sp" />-->
+
+<!--<TextView-->
+<!--android:id="@+id/tv_app_name1"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+
+<!--android:layout_alignParentTop="true"-->
+<!--android:layout_marginTop="143dp"-->
+<!--android:gravity="center_horizontal"-->
+<!--android:text="@string/app_name"-->
+<!--android:textColor="@color/colorPrimary"-->
+<!--android:textSize="32sp" />-->
+
+<!--<ImageView-->
+<!--android:id="@+id/iv_medida_exata_logo"-->
+<!--android:layout_width="250dp"-->
+<!--android:layout_height="250dp"-->
+
+<!--android:layout_centerInParent="true"-->
+
+<!--android:contentDescription="@string/ctntdes_iv_medida_exata_logo"-->
+<!--android:src="@drawable/ic_medida_exata_transparente" />-->
+
+<!--<com.google.android.material.button.MaterialButton-->
+<!--android:id="@+id/bt_comecar"-->
+<!--style="@style/MaterialButtonsFilled"-->
+
+<!--android:layout_alignParentBottom="true"-->
+<!--android:layout_centerHorizontal="true"-->
+<!--android:layout_marginBottom="@dimen/mtrl_bt_margin_btt"-->
+
+<!--android:text="@string/vamos_comecar" />-->
+<!--</RelativeLayout>-->
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/branco" >
 
     <TextView
@@ -31,23 +82,23 @@
         android:textColor="@color/colorPrimary"
         android:textSize="32sp" />
 
-    <ImageView
-        android:id="@+id/iv_medida_exata_logo"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-
-        android:layout_centerInParent="true"
-
-        android:contentDescription="@string/ctntdes_iv_medida_exata_logo"
-        android:src="@drawable/ic_medida_exata_transparente" />
-
-    <android.support.design.button.MaterialButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_comecar"
         style="@style/MaterialButtonsFilled"
-
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/mtrl_bt_margin_btt"
 
-        android:text="@string/vamos_comecar" />
+        android:text="@string/vamos_comecar"/>
+
+    <ImageView
+        android:id="@+id/iv_medida_exata_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+
+        android:layout_centerInParent="true"
+
+        android:src="@drawable/ic_medida_exata_transparente"
+        android:contentDescription="@string/ctntdes_iv_medida_exata_logo"/>
+
 </RelativeLayout>

@@ -1,20 +1,20 @@
 package br.cefetmg.inf.medidaexata.view.activities;
 
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.cefetmg.inf.android.medidaexata.activities.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import br.cefetmg.inf.medidaexata.view.activities.fragments.QuestoesFragment;
 
 public class DisciplinasActivity extends AppCompatActivity {
@@ -86,6 +86,8 @@ public class DisciplinasActivity extends AppCompatActivity {
     private void iniciaFragment(Fragment f) {
         final TextView refTvToque = findViewById(R.id.tv_toque);
         refTvToque.setVisibility(View.GONE);
+        final LinearLayout refLlDisciplinas = findViewById(R.id.ll_disciplinas);
+        refLlDisciplinas.setVisibility(View.GONE);
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -107,7 +109,7 @@ public class DisciplinasActivity extends AppCompatActivity {
                                         refBttNavConteudos.getContext(),
                                         colorStateList));
         refBttNavConteudos
-                .setItemIconTintList(
+                .setItemTextColor(
                         ContextCompat
                                 .getColorStateList(
                                         refBttNavConteudos.getContext(),

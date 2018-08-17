@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_rootv_fragment_questoes"
     style="@style/Widget.MaterialComponents.CardView"
     android:layout_width="match_parent"
@@ -16,29 +16,66 @@
     app:cardBackgroundColor="@color/branco"
 
     app:cardCornerRadius="4dp"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp" >
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
         <TextView
-            android:id="@+id/item_number"
+            android:id="@+id/tv_enunciado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginBottom="4dp"
 
-            android:textColor="@color/preto"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            tools:text="João é legal"
+            android:textColor="@color/cinza"/>
 
         <TextView
-            android:id="@+id/content"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_conhecimento_abordado"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginTop="4dp"
+            android:gravity="right"
 
-            android:textColor="@color/preto"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            tools:text="Conhecimento abordado:"
+            android:textColor="@color/preto" />
+
+        <TextView
+            android:id="@+id/tv_obj_con"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="64dp"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="4dp"
+            android:gravity="end"
+
+            tools:text="asdasdasdasdsadasd"
+            android:textColor="@color/cinza"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bt_ver_questao"
+                style="@style/MaterialButtonsOutlined"
+                tools:text="ver questão"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bt_ver_materia"
+                style="@style/MaterialButtonsOutlined"
+                tools:text="ver matéria"/>
+        </LinearLayout>
     </LinearLayout>
-</android.support.design.card.MaterialCardView>
+
+</com.google.android.material.card.MaterialCardView>
