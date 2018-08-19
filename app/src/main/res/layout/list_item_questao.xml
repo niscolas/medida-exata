@@ -8,10 +8,10 @@
     android:layout_height="wrap_content"
     android:minHeight="75dp"
 
-    android:layout_marginBottom="@dimen/mtrl_card_margin"
+    android:layout_marginLeft="@dimen/mtrl_card_margin_hrz"
+    android:layout_marginRight="@dimen/mtrl_card_margin_hrz"
     android:layout_marginTop="@dimen/mtrl_card_margin"
-    android:layout_marginLeft="@dimen/mtrl_card_margin"
-    android:layout_marginRight="@dimen/mtrl_card_margin"
+    android:layout_marginBottom="@dimen/mtrl_card_margin_btt"
 
     app:cardBackgroundColor="@color/branco"
 
@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
+
         <TextView
             android:id="@+id/tv_enunciado"
             android:layout_width="wrap_content"
@@ -33,6 +34,7 @@
             android:layout_marginBottom="4dp"
 
             tools:text="João é legal"
+            android:maxLength="100"
             android:textColor="@color/cinza"/>
 
         <TextView
@@ -45,7 +47,7 @@
             android:layout_marginTop="4dp"
             android:gravity="right"
 
-            tools:text="Conhecimento abordado:"
+            android:text="@string/con_abordado"
             android:textColor="@color/preto" />
 
         <TextView
@@ -69,12 +71,27 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_ver_questao"
-                style="@style/MaterialButtonsOutlined"
-                tools:text="ver questão"/>
+                style="@style/AppTheme.MaterialButtonOutlined"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="@dimen/mtrl_bt_margin_hrz"
+                android:layout_marginTop="@dimen/mtrl_bt_soft_margin_vrt"
+                android:layout_marginBottom="@dimen/mtrl_bt_soft_margin_vrt"
+
+                android:text="@string/ver_materia" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_ver_materia"
-                style="@style/MaterialButtonsOutlined"
-                tools:text="ver matéria"/>
+                style="@style/AppTheme.MaterialButtonOutlined"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginRight="@dimen/mtrl_bt_margin_hrz"
+                android:layout_marginTop="@dimen/mtrl_bt_soft_margin_vrt"
+                android:layout_marginBottom="@dimen/mtrl_bt_soft_margin_vrt"
+
+                android:text="@string/ver_questao" />
         </LinearLayout>
     </LinearLayout>
 

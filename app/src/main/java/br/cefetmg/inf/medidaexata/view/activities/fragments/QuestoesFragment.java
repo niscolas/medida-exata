@@ -6,40 +6,30 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.cefetmg.inf.android.medidaexata.activities.R;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
+import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
+import br.cefetmg.inf.medidaexata.view.adapters.QuestaoAdapter;
+import butterknife.ButterKnife;
 
-import br.cefetmg.inf.medidaexata.model.domain.QuestaoFechada;
-
-
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class QuestoesFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private final static String TAG = QuestoesFragment.class.getSimpleName();
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    private QuestaoAdapter adapter;
+    private IProgressBarShower frgListener;
+
     public QuestoesFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static Fragment newInstance() {
         QuestoesFragment f = new QuestoesFragment();
 //        Bundle args = new Bundle();
@@ -58,55 +48,72 @@ public class QuestoesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_questoes_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-//            if (mColumnCount <= 1) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//            } else {
-//                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-//            }
-            // TODO substituir 'new ArrayList<QuestaoFechada>()' pela lista de questões a serem mostradas
-            recyclerView.setAdapter(new QuestaoAdapter(new ArrayList<QuestaoFechada>(), mListener));
+        View v = inflater.inflate(R.layout.fragment_questoes_list, container, false);
+        ButterKnife.bind(this, v);
+
+        if (v instanceof RecyclerView) {
+            RecyclerView rv = (RecyclerView) v;
+            rv.setLayoutManager(new LinearLayoutManager(v.getContext()));
+
+            Log.d(TAG, "Setando adapter");
+
+            FirebaseFirestore bd = FirebaseFirestore.getInstance();
+            FirestoreRecyclerOptions<QuestaoFechada> options
+                    = new FirestoreRecyclerOptions
+                    .Builder<QuestaoFechada>()
+                    .setQuery(
+                            bd.collection("questoes")
+                            , QuestaoFechada.class)
+                    .build();
+
+            adapter = new QuestaoAdapter(options, frgListener);
+            adapter.notifyDataSetChanged();
+            rv.setAdapter(adapter);
+
+            Log.d(TAG, "Adapter setado");
         }
-        return view;
+        return v;
     }
 
+    @Override
+    public void onAttach(Context ctxt) {
+        super.onAttach(ctxt);
+        if (ctxt instanceof IProgressBarShower) {
+            frgListener = (IProgressBarShower) ctxt;
+        } else {
+            throw new RuntimeException(ctxt.toString()
+                    + " tem de implementar IProgressBarShower");
+        }
+    }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnListFragmentInteractionListener) {
-//            mListener = (OnListFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnListFragmentInteractionListener");
-//        }
-//    }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        frgListener = null;
+    }
 
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(QuestaoFechada item);
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    public interface IProgressBarShower {
+        void escondeProgressBar();
+    }
+
+    public interface OnQuestaoInteractionListener {
+        void onVerQuestaoInteraction(QuestaoFechada qst);
+        void onVerMateriaInteraction(QuestaoFechada qst);
     }
 }

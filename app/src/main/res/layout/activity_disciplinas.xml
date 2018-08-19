@@ -16,15 +16,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tb_menu_disciplinas"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:title="@string/menu"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tb_menu_disciplinas"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:title="@string/menu"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     </com.google.android.material.appbar.AppBarLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_questoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -56,8 +63,10 @@
         </LinearLayout>
     </FrameLayout>
 
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bttnav_conteudos"
+        style="@style/Widget.MaterialComponents.BottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
 
@@ -66,6 +75,8 @@
 
         app:itemIconTint="@color/selector_bttnav_colors_mat"
         app:itemTextColor="@color/selector_bttnav_colors_mat"
+
+        app:elevation="32dp"
 
         app:menu="@menu/menu_btt_nav" />
 </RelativeLayout>

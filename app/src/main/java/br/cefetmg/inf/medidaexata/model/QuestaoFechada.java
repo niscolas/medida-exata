@@ -1,4 +1,4 @@
-package br.cefetmg.inf.medidaexata.model.domain;
+package br.cefetmg.inf.medidaexata.model;
 
 import java.util.List;
 

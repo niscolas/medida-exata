@@ -11,10 +11,15 @@
     <string name="menu">Menu inicial</string>
     <string name="toque_em_um_botao">Toque em um dos botões abaixo para ver as questões</string>
     <string name="perfil">Perfil</string>
+    
 
     <!-- Botões -->
     <string name="vamos_comecar">Vamos começar</string>
     <string name="interessante">Interessante!</string>
+        <!-- ItemQuestao -->
+        <string name="con_abordado">Conhecimento abordado:</string>
+        <string name="ver_questao">Ver questão</string>
+        <string name="ver_materia">Ver matéria</string>
 
     <!-- Matérias -->
     <string name="matematica">Matemática</string>

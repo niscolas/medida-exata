@@ -7,4 +7,6 @@
     <item
         android:state_checked="false"
         android:color="@color/colorSecondaryLight" />
+    <!-- Estado Default -->
+    <item android:color="@color/colorSecondary"/>
 </selector>

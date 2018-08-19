@@ -1,16 +1,12 @@
 apply plugin: 'com.android.application'
 
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
-
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.1'
     defaultConfig {
         multiDexEnabled true
         applicationId "com.cefetmg.inf.android.medidaexata"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -25,22 +21,19 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //Kotlin
-//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     // AppCompat e Material
     implementation 'androidx.appcompat:appcompat:1.0.0-rc01'
     implementation 'com.google.android.material:material:1.0.0-rc01'
-    // Constraint Layout
-//    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     // Recycler View
     implementation 'androidx.recyclerview:recyclerview:1.0.0-rc01'
-
     // Google FireBase
-    implementation 'com.google.firebase:firebase-firestore:17.1.0' // Fire Store
-//  implementation 'com.google.firebase:firebase-admin:6.3.0' // FireBase Admin (não é necessário)
-    implementation 'com.google.firebase:firebase-core:16.0.1' // Fire Core (Analytics)
-
+    implementation 'com.google.firebase:firebase-firestore:17.1.0'
+    implementation 'com.firebaseui:firebase-ui-firestore:4.1.0'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    // Butter Knife
+    implementation 'com.jakewharton:butterknife:9.0.0-SNAPSHOT'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-SNAPSHOT'
     // JUnit e testes
 //    testImplementation 'junit:junit:4.12'
 //    androidTestImplementation 'com.android.support.test:runner:1.0.2'

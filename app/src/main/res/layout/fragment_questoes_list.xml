@@ -3,12 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rv_questoes"
     android:name="br.cefetmg.inf.medidaexata.view.activities.fragments.QuestoesMatFragment"
+    tools:context="br.cefetmg.inf.medidaexata.view.activities.fragments.QuestoesFragment"
+
+    android:id="@+id/rv_questoes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:context="br.cefetmg.inf.medidaexata.view.activities.fragments.QuestoesFragment"
-    tools:listitem="@layout/item_questao" />
+    tools:listitem="@layout/list_item_questao" />
