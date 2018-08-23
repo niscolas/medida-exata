@@ -31,5 +31,20 @@
         <item name="strokeWidth">0dp</item>
     </style>
 
-    <!-- Progress Bar Style -->
+    <!-- Estilo para Material Card -->
+    <style name="AppTheme.MaterialCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="android:minHeight">@dimen/mtrl_card_min_height</item>
+
+        <item name="android:layout_marginStart">@dimen/mtrl_card_margin_hrz</item>
+        <item name="android:layout_marginLeft">@dimen/mtrl_card_margin_hrz</item>
+        <item name="android:layout_marginEnd">@dimen/mtrl_card_margin_hrz</item>
+        <item name="android:layout_marginRight">@dimen/mtrl_card_margin_hrz</item>
+        <item name="android:layout_marginTop">@dimen/mtrl_card_margin_vrt</item>
+        <item name="android:layout_marginBottom">@dimen/mtrl_card_margin_vrt</item>
+
+        <item name="cardBackgroundColor">@color/branco</item>
+
+        <item name="cardCornerRadius">@dimen/mtrl_card_corner_radius</item>
+        <item name="cardElevation">@dimen/mtrl_card_default_elevation</item>
+    </style>
 </resources>

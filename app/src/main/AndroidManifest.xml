@@ -3,10 +3,10 @@
     package="com.cefetmg.inf.android.medidaexata.activities">
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/ic_medida_exata"
+        android:roundIcon="@drawable/ic_medida_exata"
+        android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -18,10 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.IntroducaoActivity"
+        <activity
+            android:name="br.cefetmg.inf.medidaexata.view.activities.IntroducaoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.DisciplinasActivity"
+        <activity
+            android:name="br.cefetmg.inf.medidaexata.view.activities.DisciplinasActivity"
             android:screenOrientation="portrait" />
+        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.QuestaoActivity"></activity>
     </application>
 
 </manifest>

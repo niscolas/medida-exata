@@ -6,10 +6,13 @@
     <dimen name="mtrl_bt_margin_hrz">16dp</dimen>
 
     <!-- Material Card Margin -->
-    <dimen name="mtrl_card_margin">16dp</dimen>
+    <dimen name="mtrl_card_margin_vrt">8dp</dimen>
     <dimen name="mtrl_card_margin_hrz">8dp</dimen>
-    <dimen name="mtrl_card_margin_btt">2dp</dimen>
+    <dimen name="mtrl_card_corner_radius">4dp</dimen>
+    <dimen name="mtrl_card_min_height">75dp</dimen>
+    <dimen name="mtrl_card_default_elevation">4dp</dimen>
 
     <!-- Text -->
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="text_margin_separador">2dp</dimen>
 </resources>

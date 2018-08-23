@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="br.cefetmg.inf.medidaexata.view.activities.DisciplinasActivity"
 
+    android:id="@+id/rl_rootv_disciplinas_act"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
@@ -11,20 +12,14 @@
     android:orientation="vertical"
     android:animateLayoutChanges="true">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbarlt_menu_disciplinas"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_menu_disciplinas_act"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/tb_menu_disciplinas"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:title="@string/menu"
-                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:title="@string/menu"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <ProgressBar
         android:id="@+id/pb_questoes"

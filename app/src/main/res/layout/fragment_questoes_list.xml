@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:name="br.cefetmg.inf.medidaexata.view.activities.fragments.QuestoesMatFragment"
-    tools:context="br.cefetmg.inf.medidaexata.view.activities.fragments.QuestoesFragment"
+    tools:context="br.cefetmg.inf.medidaexata.view.fragments.QuestoesFragment"
 
     android:id="@+id/rv_questoes"
     android:layout_width="match_parent"

@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/i_btt_nav_matematica"
-        android:title="@string/matematica"
+        android:title="@string/disc_matematica"
         android:icon="@drawable/ic_calculator"/>
     <item
         android:id="@+id/i_btt_nav_ciencias"
-        android:title="@string/ciencias"
+        android:title="@string/disc_ciencias"
         android:icon="@drawable/ic_atom"/>
     <item
         android:id="@+id/i_btt_nav_perfil"

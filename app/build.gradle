@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.1'
     // Butter Knife
     implementation 'com.jakewharton:butterknife:9.0.0-SNAPSHOT'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-SNAPSHOT'
     // JUnit e testes
 //    testImplementation 'junit:junit:4.12'

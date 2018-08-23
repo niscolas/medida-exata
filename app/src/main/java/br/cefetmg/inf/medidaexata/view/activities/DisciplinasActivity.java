@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,21 +18,38 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import br.cefetmg.inf.medidaexata.model.Conteudo;
 import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
-import br.cefetmg.inf.medidaexata.view.activities.fragments.QuestoesFragment;
+import br.cefetmg.inf.medidaexata.view.fragments.ConteudosFragment;
+import br.cefetmg.inf.medidaexata.view.fragments.QuestoesFragment;
+import br.cefetmg.inf.medidaexata.view.adapters.ConteudoAdapter;
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DisciplinasActivity extends AppCompatActivity
-        implements QuestoesFragment.IProgressBarShower, QuestoesFragment.OnQuestaoInteractionListener {
+        implements QuestoesFragment.OnQuestaoInteractionListener,
+        ConteudoAdapter.IAlteraProgressBar, ConteudosFragment.OnConteudoInteractionListener {
 
+    /**
+     * Declaração de campos static final
+     */
     private static final int FRAGMENT_CONTAINER_ID = R.id.fragment_container;
+    private static final String TAG_CONTEUDOS_FRAGMENT = "conteudos_fragment";
+    private static final String TAG_QUESTOES_FRAGMENT = "questoes_fragment";
     private static final String TAG  = DisciplinasActivity.class.getSimpleName();
 
     private int ultimoItemClicado = 0;
 
+    /**
+     * Área de Binding de Resources e Views
+     */
+    // Binding de Views
+    @BindView(R.id.rl_rootv_disciplinas_act)
+    RelativeLayout refRlDiscAct;
     @BindView(R.id.bttnav_conteudos)
     BottomNavigationView refBttNavConteudos;
     @BindView(R.id.ll_disciplinas)
@@ -40,25 +58,49 @@ public class DisciplinasActivity extends AppCompatActivity
     ProgressBar refPbQuestoes;
     @BindView(R.id.tv_toque)
     TextView refTvToque;
-    @BindView(R.id.tb_menu_disciplinas)
+    @BindView(R.id.tb_menu_disciplinas_act)
     Toolbar refTbMenu;
 
+    // Binding de Cores
+    // Cores Primárias
     @BindColor(R.color.colorPrimaryLight)
-    ColorStateList corPrimariaClara;
+    int corPrimariaClara;
     @BindColor(R.color.colorPrimary)
     int corPrimaria;
+    @BindColor(R.color.colorPrimaryDark)
+    int corPrimariaEscura;
+    // Cores Primárias - ColorStateLists e Selectors
+    @BindColor(R.color.colorPrimaryLight)
+    ColorStateList corStateListPrimariaClara;
     @BindColor(R.color.selector_bttnav_colors_mat)
     ColorStateList selectorItemBttNavMat;
+    // Cores Secundárias
+    @BindColor(R.color.colorSecondaryLight)
+    int corSecundariaClara;
     @BindColor(R.color.colorSecondary)
     int corSecundaria;
+    @BindColor(R.color.colorSecondaryDark)
+    int corSecundariaEscura;
+    // Cores Secundárias - ColorStateLists e Selectors
     @BindColor(R.color.selector_bttnav_colors_cie)
     ColorStateList selectorItemBttNavCie;
 
-    @BindString(R.string.matematica)
+    // Binding de Strings
+    @BindString(R.string.disc_matematica)
     String discMat;
-    @BindString(R.string.ciencias)
+    @BindString(R.string.disc_ciencias)
     String discCie;
+    @BindString(R.string.matematica)
+    String matematica;
+    @BindString(R.string.ciencias)
+    String ciencias;
+    /**
+     * Termina área de Binding
+     */
 
+    /**
+     * Variável responsável por receber o toque de um dos botões da Bottom Nav e tratá-lo
+     */
     private final BottomNavigationView.OnNavigationItemSelectedListener
             bttNavConteudosClickListener =
             new BottomNavigationView.OnNavigationItemSelectedListener(){
@@ -70,27 +112,44 @@ public class DisciplinasActivity extends AppCompatActivity
 
                         switch (itemClicado) {
                             case R.id.i_btt_nav_matematica:
+                                escondeHomeButton();
                                 mostraProgressBar();
 
-                                atualizaCores(
-                                        corPrimaria,
+                                atualizaUi(
+                                        new int[]{corPrimariaClara,
+                                                corPrimaria,
+                                                corPrimariaEscura},
                                         discMat,
                                         selectorItemBttNavMat);
 
-                                final Fragment qfm = QuestoesFragment.newInstance();
-                                iniciaFragment(qfm);
+                                final Fragment frgMat =
+                                        ConteudosFragment
+                                                .newInstance(
+                                                        new int[]{corPrimariaClara,
+                                                                corPrimaria,
+                                                                corPrimariaEscura},
+                                                        matematica);
+                                iniciaFragment(frgMat, TAG_CONTEUDOS_FRAGMENT);
                                 break;
 
                             case R.id.i_btt_nav_ciencias:
+                                escondeHomeButton();
                                 mostraProgressBar();
 
-                                atualizaCores(
-                                        corSecundaria,
+                                atualizaUi(new int[]{corSecundariaClara,
+                                                corSecundaria,
+                                                corSecundariaEscura},
                                         discCie,
                                         selectorItemBttNavCie);
 
-                                final Fragment qfc = QuestoesFragment.newInstance();
-                                iniciaFragment(qfc);
+                                final Fragment frgCie =
+                                        ConteudosFragment
+                                                .newInstance(
+                                                        new int[]{corSecundariaClara,
+                                                                corSecundaria,
+                                                                corSecundariaEscura},
+                                                        ciencias);
+                                iniciaFragment(frgCie, TAG_CONTEUDOS_FRAGMENT);
                                 break;
 
                             case R.id.i_btt_nav_perfil:
@@ -111,36 +170,68 @@ public class DisciplinasActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disciplinas);
         ButterKnife.bind(this);
+        setSupportActionBar(refTbMenu);
+        escondeHomeButton();
+        escondeProgressBar();
 
         refBttNavConteudos
-                .setItemIconTintList(corPrimariaClara);
+                .setItemIconTintList(corStateListPrimariaClara);
         refBttNavConteudos
-                .setItemTextColor(corPrimariaClara);
+                .setItemTextColor(corStateListPrimariaClara);
         refBttNavConteudos.setOnNavigationItemSelectedListener(bttNavConteudosClickListener);
     }
 
-    private void iniciaFragment(Fragment frg) {
+    private void iniciaFragment(Fragment frg, final String TAG_FRAGMENT) {
         refTvToque.setVisibility(View.GONE);
         refLlDisciplinas.setVisibility(View.GONE);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(FRAGMENT_CONTAINER_ID, frg)
-                .commit();
+        FragmentManager frgManager = getSupportFragmentManager();
+        FragmentTransaction transaction = frgManager.beginTransaction();
+        transaction.replace(FRAGMENT_CONTAINER_ID, frg, TAG_FRAGMENT);
+        transaction.addToBackStack(TAG_FRAGMENT);
+        transaction.commit();
     }
 
-    private void atualizaCores(int cor, String titulo, ColorStateList colorStateList) {
-        refPbQuestoes.getIndeterminateDrawable().setColorFilter(cor,PorterDuff.Mode.SRC_IN );
+    private void atualizaUi(int[] cores, String titulo, ColorStateList colorStateList) {
+        refRlDiscAct.setBackgroundColor(cores[0]);
+
+        refPbQuestoes.getIndeterminateDrawable().setColorFilter(cores[1], PorterDuff.Mode.SRC_IN );
 
         refTbMenu.setTitle(titulo);
-        refTbMenu.setBackgroundColor(cor);
+        refTbMenu.setBackgroundColor(cores[1]);
 
-        refBttNavConteudos.setBackgroundColor(cor);
+        refBttNavConteudos.setBackgroundColor(cores[1]);
         refBttNavConteudos.setItemIconTintList(colorStateList);
         refBttNavConteudos.setItemTextColor(colorStateList);
     }
 
-    private void mostraProgressBar() {
+    private void mostraHomeButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
+
+    private void escondeHomeButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Fragment frg = getSupportFragmentManager().findFragmentByTag(TAG_QUESTOES_FRAGMENT);
+                if(frg != null && frg.isVisible()) {
+                    mostraProgressBar();
+                    onBackPressed();
+                    escondeHomeButton();
+                    return true;
+                }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void mostraProgressBar() {
         refPbQuestoes.setVisibility(View.VISIBLE);
     }
 
@@ -150,8 +241,17 @@ public class DisciplinasActivity extends AppCompatActivity
     }
 
     @Override
-    public void onVerQuestaoInteraction(QuestaoFechada qst) { }
+    public void onVerQuestaoInteraction(QuestaoFechada qst) {}
 
     @Override
-    public void onVerMateriaInteraction(QuestaoFechada qst) { }
+    public void onVerMateriaInteraction(QuestaoFechada qst) {}
+
+    @Override
+    public void onConteudoInteraction(Conteudo conteudo, int[] coresTexto) {
+        mostraProgressBar();
+        mostraHomeButton();
+
+        final Fragment frgQsts = QuestoesFragment.newInstance(coresTexto, conteudo.getNome());
+        iniciaFragment(frgQsts, TAG_QUESTOES_FRAGMENT);
+    }
 }

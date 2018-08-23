@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll_rootv_fragment_questoes"
-    style="@style/Widget.MaterialComponents.CardView"
+
+    android:id="@+id/cv_rootv_frg_questoes"
+    style="@style/AppTheme.MaterialCardView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="75dp"
-
-    android:layout_marginLeft="@dimen/mtrl_card_margin_hrz"
-    android:layout_marginRight="@dimen/mtrl_card_margin_hrz"
-    android:layout_marginTop="@dimen/mtrl_card_margin"
-    android:layout_marginBottom="@dimen/mtrl_card_margin_btt"
-
-    app:cardBackgroundColor="@color/branco"
-
-    app:cardCornerRadius="4dp"
-    app:cardElevation="4dp" >
+    android:layout_height="wrap_content" >
 
     <LinearLayout
         android:layout_width="match_parent"

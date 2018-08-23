@@ -20,7 +20,10 @@ public class IntroducaoActivity extends AppCompatActivity {
     void onClickBtInteressante() {
         final Intent INTENT_MATERIAS_ACTIVITY
                 = new Intent(IntroducaoActivity.this, DisciplinasActivity.class);
+        INTENT_MATERIAS_ACTIVITY
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(INTENT_MATERIAS_ACTIVITY);
+        finish();
     }
 
     @Override

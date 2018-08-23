@@ -1,4 +1,7 @@
 <resources>
+
+    <string name="amo">Eu te amooo</string>
+    <string name="isabella">Isabellaaa</string>
     <!-- Nome do app -->
     <string name="app_name">Medida Exata</string>
 
@@ -11,20 +14,22 @@
     <string name="menu">Menu inicial</string>
     <string name="toque_em_um_botao">Toque em um dos botões abaixo para ver as questões</string>
     <string name="perfil">Perfil</string>
-    
+
 
     <!-- Botões -->
     <string name="vamos_comecar">Vamos começar</string>
     <string name="interessante">Interessante!</string>
-        <!-- ItemQuestao -->
-        <string name="con_abordado">Conhecimento abordado:</string>
-        <string name="ver_questao">Ver questão</string>
-        <string name="ver_materia">Ver matéria</string>
+    <!-- ItemQuestao -->
+    <string name="con_abordado">Conhecimento abordado:</string>
+    <string name="ver_questao">Ver questão</string>
+    <string name="ver_materia">Ver matéria</string>
 
     <!-- Matérias -->
-    <string name="matematica">Matemática</string>
+    <string name="disc_matematica">Matemática</string>
+    <string name="matematica">matematica</string>
     <string name="biologia">Biologia</string>
-    <string name="ciencias">Ciências</string>
+    <string name="disc_ciencias">Ciências</string>
+    <string name="ciencias">ciencias</string>
     <string name="cienciasAllCaps">CIÊNCIAS</string>
     <string name="fisica">Física</string>
     <string name="quimica">Química</string>

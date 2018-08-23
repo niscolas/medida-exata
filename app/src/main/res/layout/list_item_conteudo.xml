@@ -1,20 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
 
-    <TextView
-        android:id="@+id/item_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+    android:id="@+id/cv_rootv_frg_conteudos"
+    style="@style/AppTheme.MaterialCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
-</LinearLayout>
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_nome_conteudo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginEnd="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/text_margin_separador"
+
+            tools:text="Álgebra"
+            android:textSize="20sp"
+            android:textColor="@color/preto"/>
+
+        <TextView
+            android:id="@+id/tv_des_conteudo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="center"
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginEnd="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin_separador"
+            android:layout_marginBottom="@dimen/text_margin"
+
+            tools:text="asdasdasdasdsadasd"
+            android:textColor="@color/cinza"
+            android:maxLength="100"/>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
