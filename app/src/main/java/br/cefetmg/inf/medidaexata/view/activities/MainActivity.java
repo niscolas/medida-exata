@@ -1,8 +1,11 @@
 package br.cefetmg.inf.medidaexata.view.activities;
 
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 
 import com.cefetmg.inf.android.medidaexata.activities.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,26 +29,29 @@ import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
 import br.cefetmg.inf.medidaexata.view.fragments.ConteudosFragment;
 import br.cefetmg.inf.medidaexata.view.fragments.QuestoesFragment;
 import br.cefetmg.inf.medidaexata.view.adapters.ConteudoAdapter;
+import br.cefetmg.inf.medidaexata.view.fragments.VerQuestaoFragment;
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DisciplinasActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements QuestoesFragment.OnQuestaoInteractionListener,
-        ConteudoAdapter.IAlteraProgressBar, ConteudosFragment.OnConteudoInteractionListener {
+        ConteudoAdapter.IAlteraProgressBar, ConteudosFragment.OnConteudoInteractionListener ,
+        VerQuestaoFragment.OnAlternativaSelecionadaListener{
 
-    /**
+    /*
      * Declaração de campos static final
      */
     private static final int FRAGMENT_CONTAINER_ID = R.id.fragment_container;
     private static final String TAG_CONTEUDOS_FRAGMENT = "conteudos_fragment";
     private static final String TAG_QUESTOES_FRAGMENT = "questoes_fragment";
-    private static final String TAG  = DisciplinasActivity.class.getSimpleName();
+    private static final String TAG_VER_QUESTAO_FRAGMENT = "ver_questao_fragment";
+    private static final String TAG  = MainActivity.class.getSimpleName();
 
     private int ultimoItemClicado = 0;
 
-    /**
+    /*
      * Área de Binding de Resources e Views
      */
     // Binding de Views
@@ -70,10 +77,9 @@ public class DisciplinasActivity extends AppCompatActivity
     @BindColor(R.color.colorPrimaryDark)
     int corPrimariaEscura;
     // Cores Primárias - ColorStateLists e Selectors
-    @BindColor(R.color.colorPrimaryLight)
-    ColorStateList corStateListPrimariaClara;
     @BindColor(R.color.selector_bttnav_colors_mat)
     ColorStateList selectorItemBttNavMat;
+
     // Cores Secundárias
     @BindColor(R.color.colorSecondaryLight)
     int corSecundariaClara;
@@ -85,6 +91,12 @@ public class DisciplinasActivity extends AppCompatActivity
     @BindColor(R.color.selector_bttnav_colors_cie)
     ColorStateList selectorItemBttNavCie;
 
+    //Outras cores
+    @BindColor(R.color.vermelho)
+    int corVermelho;
+    @BindColor(R.color.branco)
+    int corBranco;
+
     // Binding de Strings
     @BindString(R.string.disc_matematica)
     String discMat;
@@ -94,11 +106,11 @@ public class DisciplinasActivity extends AppCompatActivity
     String matematica;
     @BindString(R.string.ciencias)
     String ciencias;
-    /**
-     * Termina área de Binding
+    /*
+      Termina área de Binding
      */
 
-    /**
+    /*
      * Variável responsável por receber o toque de um dos botões da Bottom Nav e tratá-lo
      */
     private final BottomNavigationView.OnNavigationItemSelectedListener
@@ -154,7 +166,7 @@ public class DisciplinasActivity extends AppCompatActivity
 
                             case R.id.i_btt_nav_perfil:
                                 Toast.makeText(
-                                        DisciplinasActivity.this,
+                                        MainActivity.this,
                                         "TODO",
                                         Toast.LENGTH_SHORT)
                                         .show();
@@ -168,28 +180,33 @@ public class DisciplinasActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_disciplinas);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(refTbMenu);
         escondeHomeButton();
         escondeProgressBar();
 
         refBttNavConteudos
-                .setItemIconTintList(corStateListPrimariaClara);
+                .setItemIconTintList(ColorStateList.valueOf(corPrimariaClara));
         refBttNavConteudos
-                .setItemTextColor(corStateListPrimariaClara);
+                .setItemTextColor(ColorStateList.valueOf(corPrimariaClara));
         refBttNavConteudos.setOnNavigationItemSelectedListener(bttNavConteudosClickListener);
     }
 
     private void iniciaFragment(Fragment frg, final String TAG_FRAGMENT) {
-        refTvToque.setVisibility(View.GONE);
-        refLlDisciplinas.setVisibility(View.GONE);
+        someConteudoActivity();
 
         FragmentManager frgManager = getSupportFragmentManager();
         FragmentTransaction transaction = frgManager.beginTransaction();
         transaction.replace(FRAGMENT_CONTAINER_ID, frg, TAG_FRAGMENT);
         transaction.addToBackStack(TAG_FRAGMENT);
         transaction.commit();
+    }
+
+    private void someConteudoActivity() {
+        // Seta o conteúdo do meio da página como GONE
+        refTvToque.setVisibility(View.GONE);
+        refLlDisciplinas.setVisibility(View.GONE);
     }
 
     private void atualizaUi(int[] cores, String titulo, ColorStateList colorStateList) {
@@ -219,12 +236,20 @@ public class DisciplinasActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Fragment frg = getSupportFragmentManager().findFragmentByTag(TAG_QUESTOES_FRAGMENT);
+                // Pega o Fragment visível
+                Fragment frg = getSupportFragmentManager().findFragmentById(FRAGMENT_CONTAINER_ID);
                 if(frg != null && frg.isVisible()) {
-                    mostraProgressBar();
-                    onBackPressed();
-                    escondeHomeButton();
-                    return true;
+                    if(frg instanceof QuestoesFragment) {
+                        mostraProgressBar();
+                        onBackPressed();
+                        escondeHomeButton();
+                        return true;
+                    } else if (frg instanceof VerQuestaoFragment) {
+                        mostraProgressBar();
+                        onBackPressed();
+                        refBttNavConteudos.setVisibility(View.VISIBLE);
+                        return true;
+                    }
                 }
         }
         return super.onOptionsItemSelected(item);
@@ -234,18 +259,39 @@ public class DisciplinasActivity extends AppCompatActivity
     public void mostraProgressBar() {
         refPbQuestoes.setVisibility(View.VISIBLE);
     }
-
     @Override
     public void escondeProgressBar() {
         refPbQuestoes.setVisibility(View.GONE);
     }
 
+    /*
+     * Métodos implementados de 'QuestoesFragment'
+     */
     @Override
-    public void onVerQuestaoInteraction(QuestaoFechada qst) {}
+    public void onVerQuestaoInteraction(QuestaoFechada qst, int[] cores) {
+        // Transforma o List<String> de alternativas num Array
+        String[] alternativas = qst.getAlternativas().toArray(new String[0]);
 
+        // Obtém uma instância de 'VerQuestaoFragment'
+        final Fragment frgVerQst = VerQuestaoFragment.newInstance(
+                qst.getEnunciado(),
+                alternativas,
+                cores,
+                qst.getResposta());
+
+        // Faz a barra inferior desaparecer
+        refBttNavConteudos.setVisibility(View.GONE);
+
+        Log.d(TAG, "chegou aki");
+        // Inicia o fragment
+        iniciaFragment(frgVerQst, TAG_VER_QUESTAO_FRAGMENT);
+    }
     @Override
-    public void onVerMateriaInteraction(QuestaoFechada qst) {}
+    public void onVerMateriaInteraction(QuestaoFechada qst, int[] cores) {}
 
+    /*
+     * Métodos implementados de 'ConteudosFragment'
+     */
     @Override
     public void onConteudoInteraction(Conteudo conteudo, int[] coresTexto) {
         mostraProgressBar();
@@ -253,5 +299,41 @@ public class DisciplinasActivity extends AppCompatActivity
 
         final Fragment frgQsts = QuestoesFragment.newInstance(coresTexto, conteudo.getNome());
         iniciaFragment(frgQsts, TAG_QUESTOES_FRAGMENT);
+    }
+
+    /*
+     * Métodos implementados de 'VerQuestaoFragment'
+     */
+    @Override
+    public void onAlternativaSelecionada(MaterialButton[] refMtrlBts,
+                                         int altSelecionada, int resposta) {
+        boolean altCerta = altSelecionada == resposta;
+        // Verifica se o usuário tocou na alternativa certa e troca a cor do botão
+        if(altCerta) {
+            refMtrlBts[altSelecionada]
+                    .setBackgroundTintList(ColorStateList.valueOf(corSecundariaClara));
+        } else {
+            refMtrlBts[altSelecionada]
+                    .setBackgroundTintList(ColorStateList.valueOf(corVermelho));
+        }
+
+        // Troca a cor do texto do botão para branco para melhorar a visualização
+        String textoAlt = String.valueOf(refMtrlBts[altSelecionada].getText());
+        refMtrlBts[altSelecionada].setText(textoAlt);
+        refMtrlBts[altSelecionada].setTextColor(corBranco);
+
+        // Impede que o usuário clique em outros botões e ative suas funções
+        for(MaterialButton mtBt : refMtrlBts) {
+            mtBt.setOnClickListener(null);
+            mtBt.setClickable(false);
+        }
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Redireciona para a página de pontuação da questão
+            }
+        }, 1000);
     }
 }

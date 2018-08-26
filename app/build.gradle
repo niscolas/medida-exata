@@ -21,10 +21,14 @@ android {
 }
 
 dependencies {
+    def lifecycle_version = "2.0.0-beta01"
+
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     // AppCompat e Material
     implementation 'androidx.appcompat:appcompat:1.0.0-rc01'
     implementation 'com.google.android.material:material:1.0.0-rc01'
+    // View Model
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     // Recycler View
     implementation 'androidx.recyclerview:recyclerview:1.0.0-rc01'
     // Google FireBase
@@ -33,8 +37,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.1'
     // Butter Knife
     implementation 'com.jakewharton:butterknife:9.0.0-SNAPSHOT'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-SNAPSHOT'
+
     // JUnit e testes
 //    testImplementation 'junit:junit:4.12'
 //    androidTestImplementation 'com.android.support.test:runner:1.0.2'

@@ -78,13 +78,13 @@ public class QuestaoAdapter
             qstHolder.refBtVerQuestao.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    frgListener.onVerQuestaoInteraction(qst);
+                    frgListener.onVerQuestaoInteraction(qst, coresTexto);
                 }
             });
             qstHolder.refBtVerMateria.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    frgListener.onVerMateriaInteraction(qst);
+                    frgListener.onVerMateriaInteraction(qst, coresTexto);
                 }
             });
         }

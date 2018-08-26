@@ -50,7 +50,7 @@ public class ConteudosFragment extends Fragment {
      * @param cores => corresponde as cores que serão mostradas na UI
      * @param disciplina => corresponde ao nome da disciplina a ser usado na query do Firebase
      * @return => retorna uma instância da superclasse Fragment para
-     *      generalizar a chamada de Fragments em 'DisciplinasActivity'
+     *      generalizar a chamada de Fragments em 'MainActivity'
      */
     public static Fragment newInstance(int[] cores, String disciplina) {
         ConteudosFragment frg = new ConteudosFragment();

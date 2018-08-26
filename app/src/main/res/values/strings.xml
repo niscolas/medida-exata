@@ -36,4 +36,7 @@
 
     <!-- Content Description(s)-->
     <string name="ctntdes_iv_medida_exata_logo">Logo do aplicativo Medida Exata</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

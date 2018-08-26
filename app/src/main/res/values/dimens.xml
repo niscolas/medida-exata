@@ -4,6 +4,9 @@
     <dimen name="mtrl_bt_margin_btt">32dp</dimen>
     <dimen name="mtrl_bt_soft_margin_vrt">8dp</dimen>
     <dimen name="mtrl_bt_margin_hrz">16dp</dimen>
+    <dimen name="mtrl_bt_soft_margin_hrz">8dp</dimen>
+    <dimen name="mtrl_bt_alternativa_margin_btt">-8dp</dimen>
+    <dimen name="mtrl_bt_alternativa_min_height">50dp</dimen>
 
     <!-- Material Card Margin -->
     <dimen name="mtrl_card_margin_vrt">8dp</dimen>

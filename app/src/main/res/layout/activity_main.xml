@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="br.cefetmg.inf.medidaexata.view.activities.DisciplinasActivity"
+    tools:context="br.cefetmg.inf.medidaexata.view.activities.MainActivity"
 
     android:id="@+id/rl_rootv_disciplinas_act"
     android:layout_width="match_parent"

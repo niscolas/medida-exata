@@ -69,7 +69,7 @@
                 android:layout_marginTop="@dimen/mtrl_bt_soft_margin_vrt"
                 android:layout_marginBottom="@dimen/mtrl_bt_soft_margin_vrt"
 
-                android:text="@string/ver_materia" />
+                android:text="@string/ver_questao" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_ver_materia"
@@ -81,7 +81,7 @@
                 android:layout_marginTop="@dimen/mtrl_bt_soft_margin_vrt"
                 android:layout_marginBottom="@dimen/mtrl_bt_soft_margin_vrt"
 
-                android:text="@string/ver_questao" />
+                android:text="@string/ver_materia" />
         </LinearLayout>
     </LinearLayout>
 

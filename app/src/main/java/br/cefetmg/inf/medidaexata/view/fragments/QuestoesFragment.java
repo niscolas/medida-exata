@@ -74,7 +74,6 @@ public class QuestoesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.fragment_questoes_list, container, false);
         ButterKnife.bind(this, v);
 
@@ -142,7 +141,7 @@ public class QuestoesFragment extends Fragment {
     }
 
     public interface OnQuestaoInteractionListener {
-        void onVerQuestaoInteraction(QuestaoFechada qst);
-        void onVerMateriaInteraction(QuestaoFechada qst);
+        void onVerQuestaoInteraction(QuestaoFechada qst, int[] cores);
+        void onVerMateriaInteraction(QuestaoFechada qst, int[] cores);
     }
 }

@@ -16,10 +16,27 @@
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
     </style>
+    <!-- Estilo acima para alternativas de questões -->
+    <style name="AppTheme.MaterialButtonFilled.Alternativa" parent="AppTheme.MaterialButtonFilled">
+        <item name="android:minHeight">@dimen/mtrl_bt_alternativa_min_height</item>
+
+        <item name="android:layout_marginStart">@dimen/mtrl_bt_soft_margin_hrz</item>
+        <item name="android:layout_marginLeft">@dimen/mtrl_bt_soft_margin_hrz</item>
+        <item name="android:layout_marginEnd">@dimen/mtrl_bt_soft_margin_hrz</item>
+        <item name="android:layout_marginRight">@dimen/mtrl_bt_soft_margin_hrz</item>
+        <item name="android:layout_marginTop">@dimen/mtrl_bt_soft_margin_vrt</item>
+        <item name="android:layout_marginBottom">@dimen/mtrl_bt_alternativa_margin_btt</item>
+
+        <item name="android:gravity">left|center_vertical</item>
+
+        <item name="backgroundTint">@color/branco</item>
+
+        <item name="android:textAllCaps">false</item>
+    </style>
 
     <!-- Estilo padrão para botões Material Text -->
     <style name="AppTheme.MaterialButtonText" parent="Widget.MaterialComponents.Button.TextButton">
-        <!-- Atributos -->
+        <item name="android:layout_margin">@dimen/text_margin</item>
     </style>
 
     <!-- Estilo padrão para botões Material Outlined -->
@@ -46,5 +63,14 @@
 
         <item name="cardCornerRadius">@dimen/mtrl_card_corner_radius</item>
         <item name="cardElevation">@dimen/mtrl_card_default_elevation</item>
+    </style>
+    <!-- Estilo acima só que para as alternativas de cada questão -->
+    <!--<style name="AppTheme.MaterialCardView.Alternativa" parent="AppTheme.MaterialCardView">-->
+        <!--<item name="android:layout_marginBottom">@dimen/mtrl_card_alternativa_margin_btt</item>-->
+    <!--</style>-->
+
+    <!-- Material Card Text -->
+    <style name="AppTheme.MaterialCardText" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:layout_margin">@dimen/text_margin</item>
     </style>
 </resources>

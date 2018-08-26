@@ -19,7 +19,7 @@ public class IntroducaoActivity extends AppCompatActivity {
     @OnClick(R.id.bt_interessante)
     void onClickBtInteressante() {
         final Intent INTENT_MATERIAS_ACTIVITY
-                = new Intent(IntroducaoActivity.this, DisciplinasActivity.class);
+                = new Intent(IntroducaoActivity.this, MainActivity.class);
         INTENT_MATERIAS_ACTIVITY
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(INTENT_MATERIAS_ACTIVITY);
