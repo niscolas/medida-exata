@@ -1,9 +1,7 @@
 package br.cefetmg.inf.medidaexata.view.adapters;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +12,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.button.MaterialButton;
 
+import java.util.Map;
+
+import br.cefetmg.inf.medidaexata.model.CoresUI;
 import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
 import br.cefetmg.inf.medidaexata.view.fragments.QuestoesFragment;
 import butterknife.BindView;
@@ -30,12 +31,12 @@ public class QuestaoAdapter
     private final ConteudoAdapter.IAlteraProgressBar altPbListener;
 
     // int[] que armazena as cores do texto de cada ViewHolder
-    private final int[] coresTexto;
+    private final Map<String, Integer> coresTexto;
 
     public QuestaoAdapter(FirestoreRecyclerOptions<QuestaoFechada> options,
                           QuestoesFragment.OnQuestaoInteractionListener frgListener,
                           ConteudoAdapter.IAlteraProgressBar altPbListener,
-                          int[] coresTexto) {
+                          Map<String, Integer> coresTexto) {
         super(options);
         this.frgListener = frgListener;
         this.altPbListener = altPbListener;
@@ -61,32 +62,29 @@ public class QuestaoAdapter
     protected void onBindViewHolder(final QuestaoHolder qstHolder,
                                     int posicao,
                                     final QuestaoFechada qst) {
+        // Obtém cores do Map<S, I> coresTexto
+        int corClara = coresTexto.get(CoresUI.COR_CLARA);
+        int corPadrao = coresTexto.get(CoresUI.COR_PADRAO);
+//        int corEscura = coresTexto.get(CoresUI.COR_ESCURA);
+
         // Seta cor mais clara ao enunciado de cada questão
-        qstHolder.refTvEnunciado.setTextColor(coresTexto[0]);
+        qstHolder.refTvEnunciado.setTextColor(corClara);
         qstHolder.refTvEnunciado.setText(qst.getEnunciado());
 
         // Seta cor mais clara ao objeto de conhecimento
-        qstHolder.refTvObjCon.setTextColor(coresTexto[0]);
+        qstHolder.refTvObjCon.setTextColor(corClara);
         qstHolder.refTvObjCon.setText(qst.getObjCon());
 
         // Seta cores padrão para os botões das questões
-        qstHolder.refBtVerQuestao.setTextColor(coresTexto[1]);
-        qstHolder.refBtVerMateria.setTextColor(coresTexto[1]);
+        qstHolder.refBtVerQuestao.setTextColor(corPadrao);
+        qstHolder.refBtVerMateria.setTextColor(corPadrao);
 
         // Adiciona Listeners para cada botão
         if(frgListener != null) {
-            qstHolder.refBtVerQuestao.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    frgListener.onVerQuestaoInteraction(qst, coresTexto);
-                }
-            });
-            qstHolder.refBtVerMateria.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    frgListener.onVerMateriaInteraction(qst, coresTexto);
-                }
-            });
+            qstHolder.refBtVerQuestao.setOnClickListener(v ->
+                    frgListener.onVerQuestaoInteraction(qst));
+            qstHolder.refBtVerMateria.setOnClickListener(v ->
+                    frgListener.onVerMateriaInteraction(qst));
         }
     }
 

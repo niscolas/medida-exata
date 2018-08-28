@@ -12,7 +12,10 @@ import com.cefetmg.inf.android.medidaexata.activities.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
+import java.util.Map;
+
 import br.cefetmg.inf.medidaexata.model.Conteudo;
+import br.cefetmg.inf.medidaexata.model.CoresUI;
 import br.cefetmg.inf.medidaexata.view.fragments.ConteudosFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,12 +27,12 @@ public class ConteudoAdapter
     private final ConteudosFragment.OnConteudoInteractionListener frgListener;
     private IAlteraProgressBar altPbListener;
     // Cores dos textos mostrados
-    private int[] coresTexto;
+    private Map<String, Integer> coresTexto;
 
     public ConteudoAdapter(FirestoreRecyclerOptions<Conteudo> options,
                            ConteudosFragment.OnConteudoInteractionListener frgListener,
                            IAlteraProgressBar altPbListener,
-                           int[] coresTexto) {
+                           Map<String, Integer> coresTexto) {
         super(options);
         this.frgListener = frgListener;
         this.altPbListener = altPbListener;
@@ -55,19 +58,20 @@ public class ConteudoAdapter
     protected void onBindViewHolder(final ConteudoHolder conteudoHolder,
                                     int posicao,
                                     final Conteudo conteudo) {
+        int corClara = coresTexto.get(CoresUI.COR_CLARA);
+//        int corPadrao = coresTexto.get(CoresUI.COR_PADRAO);
+        int corEscura = coresTexto.get(CoresUI.COR_ESCURA);
+
         // Altera o texto e sua cor a ser mostrada no nome de cada Conteúdo
-        conteudoHolder.refTvNomeConteudo.setTextColor(coresTexto[2]);
+        conteudoHolder.refTvNomeConteudo.setTextColor(corEscura);
         conteudoHolder.refTvNomeConteudo.setText(conteudo.getNome());
         // Altera o texto e sua cor a ser mostrada na descrição de cada Conteúdo
-        conteudoHolder.refTvDesConteudo.setTextColor(coresTexto[0]);
+        conteudoHolder.refTvDesConteudo.setTextColor(corClara);
         conteudoHolder.refTvDesConteudo.setText(conteudo.getDescricao());
         // Seta um novo ClickListener à CardView
-        conteudoHolder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (frgListener != null) {
-                    frgListener.onConteudoInteraction(conteudo, coresTexto);
-                }
+        conteudoHolder.cardView.setOnClickListener(v -> {
+            if (frgListener != null) {
+                frgListener.onConteudoInteraction(conteudo);
             }
         });
     }
