@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" >
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/bt_pular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

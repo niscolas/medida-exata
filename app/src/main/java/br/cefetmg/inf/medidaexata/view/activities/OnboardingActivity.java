@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.cefetmg.inf.android.medidaexata.activities.R;
-import com.gc.materialdesign.views.ButtonFlat;
 import com.google.android.material.button.MaterialButton;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
@@ -22,10 +21,10 @@ import butterknife.ButterKnife;
 
 public class OnboardingActivity extends FragmentActivity {
 
-    @BindView(R.id.vp_onboarding) private ViewPager refVpOnboarding;
-    @BindView(R.id.stl_indicador) private SmartTabLayout refStlIndicador;
-    @BindView(R.id.bt_pular) private MaterialButton refBtPular;
-    @BindView(R.id.bt_proximo) private MaterialButton refBtProximo;
+    @BindView(R.id.vp_onboarding) ViewPager refVpOnboarding;
+    @BindView(R.id.stl_indicador) SmartTabLayout refStlIndicador;
+    @BindView(R.id.bt_pular) MaterialButton refBtPular;
+    @BindView(R.id.bt_proximo) MaterialButton refBtProximo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,6 @@ public class OnboardingActivity extends FragmentActivity {
                     case 2 : return new OnboardingFragment3();
                     default: return null;
                 }
-
             }
 
             @Override
