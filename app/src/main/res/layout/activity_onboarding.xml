@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="br.cefetmg.inf.medidaexata.view.activities.OnboardingActivity">
+
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pager"
+        />
+
+
+    <!--<Button
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="45dp"
+        android:text="PULAR" />
+
+    <Button
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="45dp"
+        android:text="PROXIMO" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/navigation">
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="PULAR"
+            android:id="@+id/pular"
+            />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="Proximo"
+            android:id="@+id/proximo"
+            />
+
+    </LinearLayout>
+
+    <com.ogaclejapan.smarttablayout.SmartTabLayout
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/navigation"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
+        app:stl_dividerThickness="0dp"
+        app:stl_indicatorColor="#1e88e5"
+        />
+
+
+
+
+</RelativeLayout>
+
+
+
+

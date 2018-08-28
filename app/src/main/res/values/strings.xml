@@ -39,4 +39,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_guia_usuario">GuiaUsuarioActivity</string>
+    <string name="BemVindo">Seja bem vindo</string>
+    <string name="ComoEstudar">Como estudar?</string>
+    <string name="ComoEstudarUmaDisciplina">Como estudar uma disciplina?</string>
+    <string name="SelecioneDisciplina">Selecione a disciplina que você quer estudar primeiro: Ciências ou Matemática!</string>
+    <string name="EscolhaConteudo">Após clicar em uma disciplina, escolha um conteúdo dentre vários. Ao selecionar o conteúdo, você irá aprendê-lo e fazer exercícios.</string>
+    <string name="EscolhaAssunto">Escolha um conteúdo da disciplina</string>
 </resources>

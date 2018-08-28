@@ -7,5 +7,5 @@ import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
 public class MedidaExataViewModel extends ViewModel {
     QuestaoFechada qst;
     Conteudo conteudo;
-    int[]
+    //int[]
 }
