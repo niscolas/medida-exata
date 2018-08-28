@@ -128,7 +128,7 @@ public class ConteudosFragment extends Fragment {
                 .setQuery(conteudosQry, Conteudo.class)
                 .build();
 
-        Map<String, Integer> coresTexto = vm.getCoresUI().getConjCoresAtuais();
+        Map<String, Integer> coresTexto = vm.getCoresUI().getCoresAtuais();
         adapter = new ConteudoAdapter(options, frgListener, iAltPbListener, coresTexto);
         adapter.notifyDataSetChanged();
         rv.setAdapter(adapter);

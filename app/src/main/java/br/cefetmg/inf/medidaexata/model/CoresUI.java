@@ -1,6 +1,7 @@
 package br.cefetmg.inf.medidaexata.model;
 
-import java.util.HashMap;
+import android.util.Log;
+
 import java.util.Map;
 
 import androidx.lifecycle.MutableLiveData;
@@ -25,9 +26,9 @@ public class CoresUI {
         setTipoCoresAtuais(CORES_PRIMARIAS);
         conjCores = cores;
     }
-    public static synchronized CoresUI getInstance(Map<String, Map<String, Integer>> cores) {
+    public static synchronized CoresUI getInstance(Map<String, Map<String, Integer>> mapCoresPadronizado) {
         if(instancia == null) {
-            instancia = new CoresUI(cores);
+            instancia = new CoresUI(mapCoresPadronizado);
         }
         return instancia;
     }
@@ -35,7 +36,7 @@ public class CoresUI {
     public MutableLiveData<String> getTipoCoresAtuais() {
         return tipoCoresAtuais;
     }
-    // Alterna entre o padrão de cores azul e verde
+
     public void setTipoCoresAtuais(String constConjDeCores) {
         if(constConjDeCores.equals(CORES_PRIMARIAS) || constConjDeCores.equals(CORES_SECUNDARIAS)) {
             tipoCoresAtuais.setValue(constConjDeCores);

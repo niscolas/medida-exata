@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.cefetmg.inf.android.medidaexata.activities.R;
 import com.google.android.material.button.MaterialButton;
 
+import java.util.Map;
+
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import br.cefetmg.inf.medidaexata.model.CoresUI;
@@ -76,9 +78,10 @@ public class VerQuestaoFragment extends Fragment {
 
         // Obtém os recursos necessários do ViewModel para popular os campos da questão
         // Obtém cores para o texto
-        int corClara = vm.getCoresUI().getCoresAtuais(CoresUI.COR_CLARA);
-        int corPadrao = vm.getCoresUI().getCoresAtuais(CoresUI.COR_PADRAO);
-        int corEscura = vm.getCoresUI().getCoresAtuais(CoresUI.COR_ESCURA);
+        Map<String, Integer> coresAtuais = vm.getCoresUI().getCoresAtuais();
+        int corClara = coresAtuais.get(CoresUI.COR_CLARA);
+        int corPadrao = coresAtuais.get(CoresUI.COR_PADRAO);
+        int corEscura = coresAtuais.get(CoresUI.COR_ESCURA);
         // Obtém informações da questão
         String enunciado = vm.getQst().getEnunciado();
         String[] alternativas = vm.getQst().getAlternativas().toArray(new String[0]);

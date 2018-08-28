@@ -117,7 +117,7 @@ public class QuestoesFragment extends Fragment {
                 .build();
 
         // Obtém o set de cores ativas na interface
-        Map<String, Integer> coresTexto = vm.getCoresUI().getConjCoresAtuais();
+        Map<String, Integer> coresTexto = vm.getCoresUI().getCoresAtuais();
 
         adapter = new QuestaoAdapter(options, frgListener, altPbListener, coresTexto);
         adapter.notifyDataSetChanged();

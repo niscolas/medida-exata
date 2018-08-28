@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity
     //
     // Declaração de campos static final
 
+    private boolean acabouDeIniciar = true;
     // Indica o último item clicado, para impossibilitar que seja clicado de novo
     private int ultimoItemClicado = 0;
     // Declara o ViewModel do aplicativo
@@ -167,7 +168,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // Vincula as Views que estão no topo do arquivo com a Activity
         ButterKnife.bind(this);
 
@@ -188,7 +188,9 @@ public class MainActivity extends AppCompatActivity
         escondeHomeButton();
         escondeProgressBar();
 
-        vm.getCoresUI().setTipoCoresAtuais(CoresUI.CORES_PRIMARIAS);
+//        // Seta a cor inicial da UI
+//        vm.getCoresUI().setTipoCoresAtuais(CoresUI.CORES_PRIMARIAS);
+//        refRlDiscAct.setBackgroundColor(corBranco);
 
         setBttNavColorStateList(ColorStateList
                 .valueOf(vm.getCoresUI().getCoresAtuais().get(CoresUI.COR_CLARA)));
@@ -207,12 +209,19 @@ public class MainActivity extends AppCompatActivity
         // Coloca no corMapCompleto apenas as cores Primárias
         corMapCompleto.put(CoresUI.CORES_PRIMARIAS, corMapParte);
 
+        Log.d(TAG, "MAP COMPLETO 1 = " + corMapCompleto.toString());
+
+        // Limpa o Map para colocar as cores Secundárias
+        corMapParte = new HashMap<>();
+        Log.d(TAG, "corMapParte.size() = " + corMapParte.size());
         // Coloca cores Secundárias no corMapParte
         corMapParte.put(CoresUI.COR_CLARA, corSecClara);
         corMapParte.put(CoresUI.COR_PADRAO, corSec);
         corMapParte.put(CoresUI.COR_ESCURA, corSecEscura);
         // Coloca no corMapCompleto apenas as cores Secundárias
         corMapCompleto.put(CoresUI.CORES_SECUNDARIAS, corMapParte);
+
+        Log.d(TAG, "MAP COMPLETO 2  = " + corMapCompleto.toString());
 
         return corMapCompleto;
     }
@@ -223,7 +232,8 @@ public class MainActivity extends AppCompatActivity
         refBttNavConteudos.setItemIconTintList(csl);
         refBttNavConteudos.setItemTextColor(csl);
     }
-
+    // Métodos de Observer
+    //
     private void onNomeDisciplinaChange(String s) {
         refTbMenu.setTitle(s);
         // Seta 'disciplina' igual à 'nomeDisciplina', no entanto,
@@ -232,22 +242,27 @@ public class MainActivity extends AppCompatActivity
         vm.setDisciplina(StringUtils.tiraAcentos(s.toLowerCase()));
     }
 
-    // Métodos de Observer
-    //
     private void atualizaCoresUi(String constCoresUi) {
+        Log.d(TAG, "constCoresUI = " + constCoresUi);
         // Obtém cores atuais da Ui
         Map<String, Integer> cores = vm.getCoresUI().getCoresAtuais();
 
-        refRlDiscAct.setBackgroundColor(cores.get(CoresUI.COR_CLARA));
+        Log.d(TAG, "Map 'cores' = " + cores.toString());
+        Log.d(TAG, "Tipo cores atual = "  + vm.getCoresUI().getTipoCoresAtuais().getValue());
 
-        refPbQuestoes.getIndeterminateDrawable().setColorFilter(corPadrao, PorterDuff.Mode.SRC_IN );
-
-        refTbMenu.setBackgroundColor(corPadrao);
-
-        refBttNavConteudos.setBackgroundColor(corPadrao);
+        // Atualiza os componentes principais da UI
+        if(acabouDeIniciar) {
+            refRlDiscAct.setBackgroundColor(corBranco);
+            acabouDeIniciar = false;
+        } else {
+            refRlDiscAct.setBackgroundColor(cores.get(CoresUI.COR_CLARA));
+        }
+        refPbQuestoes.getIndeterminateDrawable().setColorFilter(cores.get(CoresUI.COR_PADRAO), PorterDuff.Mode.SRC_IN );
+        refTbMenu.setBackgroundColor(cores.get(CoresUI.COR_PADRAO));
+        refBttNavConteudos.setBackgroundColor(cores.get(CoresUI.COR_PADRAO));
     }
-
-
+    //
+    // Métodos de Observer
     //
     // Métodos usados para atualizar a UI
 
@@ -375,7 +390,7 @@ public class MainActivity extends AppCompatActivity
         // Verifica se o usuário tocou na alternativa certa e troca a cor do botão
         if(altCerta) {
             refMtrlBts[altSelecionada]
-                    .setBackgroundTintList(ColorStateList.valueOf(corAltCerta));
+                    .setBackgroundTintList(ColorStateList.valueOf(corSecClara));
         } else {
             refMtrlBts[altSelecionada]
                     .setBackgroundTintList(ColorStateList.valueOf(corAltErrada));
