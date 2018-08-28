@@ -7,35 +7,31 @@ import android.view.View;
 
 import com.cefetmg.inf.android.medidaexata.activities.R;
 import com.gc.materialdesign.views.ButtonFlat;
+import com.google.android.material.button.MaterialButton;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import br.cefetmg.inf.medidaexata.view.fragments.OnboardingFragment1;
-import br.cefetmg.inf.medidaexata.view.fragments.OnboardingFragment2;
-import br.cefetmg.inf.medidaexata.view.fragments.OnboardingFragment3;
+import br.cefetmg.inf.medidaexata.view.fragments.onboarding.OnboardingFragment1;
+import br.cefetmg.inf.medidaexata.view.fragments.onboarding.OnboardingFragment2;
+import br.cefetmg.inf.medidaexata.view.fragments.onboarding.OnboardingFragment3;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class OnboardingActivity extends FragmentActivity {
 
-    private ViewPager pager;
-    private SmartTabLayout indicator;
-    private ButtonFlat pular;
-    private ButtonFlat proximo;
+    @BindView(R.id.vp_onboarding) private ViewPager refVpOnboarding;
+    @BindView(R.id.stl_indicador) private SmartTabLayout refStlIndicador;
+    @BindView(R.id.bt_pular) private MaterialButton refBtPular;
+    @BindView(R.id.bt_proximo) private MaterialButton refBtProximo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*setContentView(R.layout.activity_onboarding);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);*/
         setContentView(R.layout.activity_onboarding);
-
-        pager = (ViewPager) findViewById(R.id.pager);
-        indicator = (SmartTabLayout)findViewById(R.id.indicator);
-        pular = (ButtonFlat) findViewById(R.id.pular);
-        proximo = (ButtonFlat) findViewById(R.id.proximo);
+        ButterKnife.bind(this);
 
         //a FragmentStatePagerAdapter that the ViewPager can use to display the onboarding screens
         FragmentStatePagerAdapter adapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
@@ -57,40 +53,40 @@ public class OnboardingActivity extends FragmentActivity {
             }
         };//fim do adapter
 
-        pager.setAdapter(adapter);
-        indicator.setViewPager(pager);
+        refVpOnboarding.setAdapter(adapter);
+        refStlIndicador.setViewPager(refVpOnboarding);
 
         //agora os botao
-        pular.setOnClickListener(new View.OnClickListener() {
+        refBtPular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finishOnboarding();
             }
         });
 
-        proximo.setOnClickListener(new View.OnClickListener() {
+        refBtProximo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pager.getCurrentItem() == 2) { // The last screen
+                if(refVpOnboarding.getCurrentItem() == 2) { // The last screen
                     finishOnboarding();
                 } else {
-                    pager.setCurrentItem(
-                            pager.getCurrentItem() + 1,
+                    refVpOnboarding.setCurrentItem(
+                            refVpOnboarding.getCurrentItem() + 1,
                             true
                     );
                 }
             }
         });
 
-        indicator.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        refStlIndicador.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 if(position == 2){
-                    pular.setVisibility(View.GONE);
-                    proximo.setText("Done");
+                    refBtPular.setVisibility(View.GONE);
+                    refBtProximo.setText("Done");
                 } else {
-                    pular.setVisibility(View.VISIBLE);
-                    proximo.setText("Next");
+                    refBtPular.setVisibility(View.VISIBLE);
+                    refBtProximo.setText("Next");
                 }
             }
         });
