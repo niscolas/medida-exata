@@ -9,15 +9,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Seja Bem Vindo"
+        android:text="@string/ComoEstudarUmaDisciplina"
         android:textSize="48sp" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="151dp"
         android:layout_marginTop="20dp"
-        android:contentDescription="@string/BemVindo"
-        android:text="Se você está usando o aplicativo pela primeira vez, assista a este tutorial para aprender mais."
+
+        android:text="@string/selecione_disciplina"
         android:textSize="24sp" />
 
 </LinearLayout>

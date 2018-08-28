@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:orientation="vertical"
     android:gravity="center_horizontal">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_marginTop="50dp"
-        android:text="@string/EscolhaAssunto"
+        android:text="@string/seja_bem_vindo"
         android:textSize="48sp" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="184dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/EscolhaConteudo"
+        android:contentDescription="@string/BemVindo"
+        android:text="@string/texto_onboarding_1"
         android:textSize="24sp" />
-
 </LinearLayout>
