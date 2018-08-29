@@ -1,77 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context="br.cefetmg.inf.medidaexata.view.activities.MainActivity"
 
     android:id="@+id/rl_rootv_disciplinas_act"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:background="@color/branco"
     android:orientation="vertical"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="true"
+    android:background="@color/branco">
+
+    <FrameLayout
+        android:id="@+id/frg_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/bttnav_app"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tb_menu_disciplinas_act"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_toque"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+
+        android:layout_centerInParent="true"
+
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:gravity="center"
+        android:text="@string/toque_em_um_botao"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bttnav_app"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tb_menu_disciplinas_act" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bttnav_app"
+        style="@style/Widget.MaterialComponents.BottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+
+        android:background="@color/colorPrimary"
+        app:itemIconTint="@color/selector_bttnav_colors_mat"
+        app:itemTextColor="@color/selector_bttnav_colors_mat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_btt_nav" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_menu_disciplinas_act"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="@string/menu"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/menu" />
 
     <ProgressBar
-        android:id="@+id/pb_questoes"
+        android:id="@+id/pb_carregando"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="gone" />
-
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:layout_marginBottom="?attr/actionBarSize" >
-
-        <LinearLayout
-            android:id="@+id/ll_disciplinas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_toque"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-
-                android:layout_marginRight="@dimen/text_margin"
-                android:layout_marginLeft="@dimen/text_margin"
-
-                android:text="@string/toque_em_um_botao"
-                android:textColor="@color/colorPrimary"
-                android:textSize="24sp"/>
-        </LinearLayout>
-    </FrameLayout>
-
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bttnav_conteudos"
-        style="@style/Widget.MaterialComponents.BottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-
-        app:itemIconTint="@color/selector_bttnav_colors_mat"
-        app:itemTextColor="@color/selector_bttnav_colors_mat"
-
-        app:elevation="32dp"
-
-        app:menu="@menu/menu_btt_nav" />
-</RelativeLayout>
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

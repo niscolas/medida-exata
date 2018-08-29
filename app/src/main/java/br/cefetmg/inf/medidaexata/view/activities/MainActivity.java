@@ -1,16 +1,13 @@
 package br.cefetmg.inf.medidaexata.view.activities;
 
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,18 +15,26 @@ import com.cefetmg.inf.android.medidaexata.activities.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 import br.cefetmg.inf.medidaexata.model.Conteudo;
+import br.cefetmg.inf.medidaexata.model.CoresUI;
 import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
 import br.cefetmg.inf.medidaexata.view.fragments.ConteudosFragment;
 import br.cefetmg.inf.medidaexata.view.fragments.QuestoesFragment;
 import br.cefetmg.inf.medidaexata.view.adapters.ConteudoAdapter;
 import br.cefetmg.inf.medidaexata.view.fragments.VerQuestaoFragment;
+import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
+import br.cefetmg.inf.util.StringUtils;
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -40,79 +45,70 @@ public class MainActivity extends AppCompatActivity
         ConteudoAdapter.IAlteraProgressBar, ConteudosFragment.OnConteudoInteractionListener ,
         VerQuestaoFragment.OnAlternativaSelecionadaListener{
 
-    /*
-     * Declaração de campos static final
-     */
-    private static final int FRAGMENT_CONTAINER_ID = R.id.fragment_container;
+
+    // Declaração de campos static final
+    //
+    // Referência a View que receberá os Fragments
+    private static final int FRAGMENT_CONTAINER_ID = R.id.frg_container;
+    // Tags referentes aos Fragment do app
     private static final String TAG_CONTEUDOS_FRAGMENT = "conteudos_fragment";
     private static final String TAG_QUESTOES_FRAGMENT = "questoes_fragment";
     private static final String TAG_VER_QUESTAO_FRAGMENT = "ver_questao_fragment";
+    // TAG usada para Logging
     private static final String TAG  = MainActivity.class.getSimpleName();
+    //
+    // Declaração de campos static final
 
+    private boolean acabouDeIniciar = true;
+    // Indica o último item clicado, para impossibilitar que seja clicado de novo
     private int ultimoItemClicado = 0;
+    // Declara o ViewModel do aplicativo
+    private MedidaExataViewModel vm;
 
-    /*
-     * Área de Binding de Resources e Views
-     */
+    // Área de Binding de Resources e Views
+    //
+
     // Binding de Views
-    @BindView(R.id.rl_rootv_disciplinas_act)
-    RelativeLayout refRlDiscAct;
-    @BindView(R.id.bttnav_conteudos)
-    BottomNavigationView refBttNavConteudos;
-    @BindView(R.id.ll_disciplinas)
-    LinearLayout refLlDisciplinas;
-    @BindView(R.id.pb_questoes)
-    ProgressBar refPbQuestoes;
-    @BindView(R.id.tv_toque)
-    TextView refTvToque;
-    @BindView(R.id.tb_menu_disciplinas_act)
-    Toolbar refTbMenu;
+    //
+    @BindView(R.id.bttnav_app) BottomNavigationView refBttNavConteudos;
+    @BindView(R.id.rl_rootv_disciplinas_act) ConstraintLayout refRootViewMainAct;
+    @BindView(R.id.pb_carregando)ProgressBar refPbQuestoes;
+    @BindView(R.id.tv_toque) TextView refTvToque;
+    @BindView(R.id.tb_menu_disciplinas_act) Toolbar refTbMenu;
+    //
+    // Binding de Views
 
     // Binding de Cores
+    //
     // Cores Primárias
-    @BindColor(R.color.colorPrimaryLight)
-    int corPrimariaClara;
-    @BindColor(R.color.colorPrimary)
-    int corPrimaria;
-    @BindColor(R.color.colorPrimaryDark)
-    int corPrimariaEscura;
+    @BindColor(R.color.colorPrimaryLight) int corPrimClara;
+    @BindColor(R.color.colorPrimary) int corPrim;
+    @BindColor(R.color.colorPrimaryDark) int corPrimEscura;
     // Cores Primárias - ColorStateLists e Selectors
-    @BindColor(R.color.selector_bttnav_colors_mat)
-    ColorStateList selectorItemBttNavMat;
-
+    @BindColor(R.color.selector_bttnav_colors_mat) ColorStateList selectorItemBttNavMat;
     // Cores Secundárias
-    @BindColor(R.color.colorSecondaryLight)
-    int corSecundariaClara;
-    @BindColor(R.color.colorSecondary)
-    int corSecundaria;
-    @BindColor(R.color.colorSecondaryDark)
-    int corSecundariaEscura;
+    @BindColor(R.color.colorSecondaryLight) int corSecClara;
+    @BindColor(R.color.colorSecondary) int corSec;
+    @BindColor(R.color.colorSecondaryDark) int corSecEscura;
     // Cores Secundárias - ColorStateLists e Selectors
-    @BindColor(R.color.selector_bttnav_colors_cie)
-    ColorStateList selectorItemBttNavCie;
-
+    @BindColor(R.color.selector_bttnav_colors_cie) ColorStateList selectorItemBttNavCie;
     //Outras cores
-    @BindColor(R.color.vermelho)
-    int corVermelho;
-    @BindColor(R.color.branco)
-    int corBranco;
+    @BindColor(R.color.vermelho) int corAltErrada;
+    @BindColor(R.color.branco) int corBranco;
+    //
+    // Binding de Cores
 
     // Binding de Strings
-    @BindString(R.string.disc_matematica)
-    String discMat;
-    @BindString(R.string.disc_ciencias)
-    String discCie;
-    @BindString(R.string.matematica)
-    String matematica;
-    @BindString(R.string.ciencias)
-    String ciencias;
-    /*
-      Termina área de Binding
-     */
+    //
+    @BindString(R.string.disc_matematica) String discMat;
+    @BindString(R.string.disc_ciencias) String discCie;
+    //
+    // Binding de Strings
 
-    /*
-     * Variável responsável por receber o toque de um dos botões da Bottom Nav e tratá-lo
-     */
+    //
+    // Termina área de Binding
+
+    // Variável responsável por receber o toque de um dos botões da Bottom Nav e tratá-lo
     private final BottomNavigationView.OnNavigationItemSelectedListener
             bttNavConteudosClickListener =
             new BottomNavigationView.OnNavigationItemSelectedListener(){
@@ -127,20 +123,14 @@ public class MainActivity extends AppCompatActivity
                                 escondeHomeButton();
                                 mostraProgressBar();
 
-                                atualizaUi(
-                                        new int[]{corPrimariaClara,
-                                                corPrimaria,
-                                                corPrimariaEscura},
-                                        discMat,
-                                        selectorItemBttNavMat);
+                                // Atualiza UI
+                                // Atualiza título
+                                vm.setNomeDisciplina(discMat);
+                                // Atualiza a UI para as cores Primárias
+                                vm.getCoresUI().setTipoCoresAtuais(CoresUI.CORES_PRIMARIAS);
+                                setBttNavColorStateList(selectorItemBttNavMat);
 
-                                final Fragment frgMat =
-                                        ConteudosFragment
-                                                .newInstance(
-                                                        new int[]{corPrimariaClara,
-                                                                corPrimaria,
-                                                                corPrimariaEscura},
-                                                        matematica);
+                                final Fragment frgMat = ConteudosFragment.newInstance();
                                 iniciaFragment(frgMat, TAG_CONTEUDOS_FRAGMENT);
                                 break;
 
@@ -148,19 +138,14 @@ public class MainActivity extends AppCompatActivity
                                 escondeHomeButton();
                                 mostraProgressBar();
 
-                                atualizaUi(new int[]{corSecundariaClara,
-                                                corSecundaria,
-                                                corSecundariaEscura},
-                                        discCie,
-                                        selectorItemBttNavCie);
+                                // Atualiza UI
+                                // Atualiza título
+                                vm.setNomeDisciplina(discCie);
+                                // Atualiza a UI para as cores Primárias
+                                vm.getCoresUI().setTipoCoresAtuais(CoresUI.CORES_SECUNDARIAS);
+                                setBttNavColorStateList(selectorItemBttNavCie);
 
-                                final Fragment frgCie =
-                                        ConteudosFragment
-                                                .newInstance(
-                                                        new int[]{corSecundariaClara,
-                                                                corSecundaria,
-                                                                corSecundariaEscura},
-                                                        ciencias);
+                                final Fragment frgCie = ConteudosFragment.newInstance();
                                 iniciaFragment(frgCie, TAG_CONTEUDOS_FRAGMENT);
                                 break;
 
@@ -181,20 +166,112 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Vincula as Views que estão no topo do arquivo com a Activity
         ButterKnife.bind(this);
+
+        // Instancia o ViewModel
+        vm = ViewModelProviders
+                .of(this)
+                .get(MedidaExataViewModel.class);
+        vm.initViewModel(getCorMap());
+
+        // Seta os Observer do LiveData
+        vm.getCoresUI().getTipoCoresAtuais().observe(this, this::atualizaCoresUi);
+        vm.getNomeDisciplina().observe(this, this::onNomeDisciplinaChange);
+
+        // Seta a Toolbar como a SupportActionBar
         setSupportActionBar(refTbMenu);
+
+        // Esconde o botão de Home e a ProgressBar
+        // (quando a Activity é criada esses itens não são necessários)
         escondeHomeButton();
         escondeProgressBar();
 
-        refBttNavConteudos
-                .setItemIconTintList(ColorStateList.valueOf(corPrimariaClara));
-        refBttNavConteudos
-                .setItemTextColor(ColorStateList.valueOf(corPrimariaClara));
+//        // Seta a cor inicial da UI
+//        vm.getCoresUI().setTipoCoresAtuais(CoresUI.CORES_PRIMARIAS);
+//        refRlDiscAct.setBackgroundColor(corBranco);
+
+        setBttNavColorStateList(ColorStateList
+                .valueOf(vm.getCoresUI().getCoresAtuais().get(CoresUI.COR_CLARA)));
         refBttNavConteudos.setOnNavigationItemSelectedListener(bttNavConteudosClickListener);
     }
 
+    // Método para preencher um HashMap com cores
+    private Map<String, Map<String, Integer>> getCorMap() {
+        Map<String, Map<String, Integer>> corMapCompleto = new HashMap<>();
+        Map<String, Integer> corMapParte = new HashMap<>();
+
+        // Coloca cores Primárias no corMapParte
+        corMapParte.put(CoresUI.COR_CLARA, corPrimClara);
+        corMapParte.put(CoresUI.COR_PADRAO, corPrim);
+        corMapParte.put(CoresUI.COR_ESCURA, corPrimEscura);
+        // Coloca no corMapCompleto apenas as cores Primárias
+        corMapCompleto.put(CoresUI.CORES_PRIMARIAS, corMapParte);
+
+        Log.d(TAG, "MAP COMPLETO 1 = " + corMapCompleto.toString());
+
+        // Limpa o Map para colocar as cores Secundárias
+        corMapParte = new HashMap<>();
+        Log.d(TAG, "corMapParte.size() = " + corMapParte.size());
+        // Coloca cores Secundárias no corMapParte
+        corMapParte.put(CoresUI.COR_CLARA, corSecClara);
+        corMapParte.put(CoresUI.COR_PADRAO, corSec);
+        corMapParte.put(CoresUI.COR_ESCURA, corSecEscura);
+        // Coloca no corMapCompleto apenas as cores Secundárias
+        corMapCompleto.put(CoresUI.CORES_SECUNDARIAS, corMapParte);
+
+        Log.d(TAG, "MAP COMPLETO 2  = " + corMapCompleto.toString());
+
+        return corMapCompleto;
+    }
+
+    // Métodos usados para atualizar a UI
+    //
+    private void setBttNavColorStateList(ColorStateList csl) {
+        refBttNavConteudos.setItemIconTintList(csl);
+        refBttNavConteudos.setItemTextColor(csl);
+    }
+    // Métodos de Observer
+    //
+    private void onNomeDisciplinaChange(String s) {
+        refTbMenu.setTitle(s);
+        // Seta 'disciplina' igual à 'nomeDisciplina', no entanto,
+        // sem acentos e em Lower Case.
+        // Utilizado para as consultas no FireBase
+        vm.setDisciplina(StringUtils.tiraAcentos(s.toLowerCase()));
+    }
+
+    private void atualizaCoresUi(String constCoresUi) {
+        Log.d(TAG, "constCoresUI = " + constCoresUi);
+        // Obtém cores atuais da Ui
+        Map<String, Integer> cores = vm.getCoresUI().getCoresAtuais();
+
+        Log.d(TAG, "Map 'cores' = " + cores.toString());
+        Log.d(TAG, "Tipo cores atual = "  + vm.getCoresUI().getTipoCoresAtuais().getValue());
+
+        // Atualiza os componentes principais da UI
+        if(acabouDeIniciar) {
+            refRootViewMainAct.setBackgroundColor(corBranco);
+            acabouDeIniciar = false;
+        } else {
+            refRootViewMainAct.setBackgroundColor(cores.get(CoresUI.COR_CLARA));
+        }
+        refPbQuestoes.getIndeterminateDrawable().setColorFilter(cores.get(CoresUI.COR_PADRAO), PorterDuff.Mode.SRC_IN );
+        refTbMenu.setBackgroundColor(cores.get(CoresUI.COR_PADRAO));
+        refBttNavConteudos.setBackgroundColor(cores.get(CoresUI.COR_PADRAO));
+    }
+    //
+    // Métodos de Observer
+    //
+    // Métodos usados para atualizar a UI
+
+    /**
+     * @param frg fragment a ser ativado na UI
+     * @param TAG_FRAGMENT Tag referente ao 1° argumento, para ser colocado na BackStack,
+     *                     para poder ser identificado posteriormente
+     */
     private void iniciaFragment(Fragment frg, final String TAG_FRAGMENT) {
-        someConteudoActivity();
+        escondeConteudoCentral();
 
         FragmentManager frgManager = getSupportFragmentManager();
         FragmentTransaction transaction = frgManager.beginTransaction();
@@ -203,35 +280,10 @@ public class MainActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    private void someConteudoActivity() {
-        // Seta o conteúdo do meio da página como GONE
-        refTvToque.setVisibility(View.GONE);
-        refLlDisciplinas.setVisibility(View.GONE);
-    }
-
-    private void atualizaUi(int[] cores, String titulo, ColorStateList colorStateList) {
-        refRlDiscAct.setBackgroundColor(cores[0]);
-
-        refPbQuestoes.getIndeterminateDrawable().setColorFilter(cores[1], PorterDuff.Mode.SRC_IN );
-
-        refTbMenu.setTitle(titulo);
-        refTbMenu.setBackgroundColor(cores[1]);
-
-        refBttNavConteudos.setBackgroundColor(cores[1]);
-        refBttNavConteudos.setItemIconTintList(colorStateList);
-        refBttNavConteudos.setItemTextColor(colorStateList);
-    }
-
-    private void mostraHomeButton() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-    }
-
-    private void escondeHomeButton() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setHomeButtonEnabled(false);
-    }
-
+    /**
+     * Método chamado quando algum botão da ActionBar é clicado
+     * @param item o item clicado
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -240,11 +292,17 @@ public class MainActivity extends AppCompatActivity
                 Fragment frg = getSupportFragmentManager().findFragmentById(FRAGMENT_CONTAINER_ID);
                 if(frg != null && frg.isVisible()) {
                     if(frg instanceof QuestoesFragment) {
+                        // Seta o conteúdo como nulo, pois não há conteúdo selecionado
+                        vm.setConteudo(null);
+
                         mostraProgressBar();
                         onBackPressed();
                         escondeHomeButton();
                         return true;
                     } else if (frg instanceof VerQuestaoFragment) {
+                        // Seta a questão como nula, pois não há questão selecionada
+                        vm.setQst(null);
+
                         mostraProgressBar();
                         onBackPressed();
                         refBttNavConteudos.setVisibility(View.VISIBLE);
@@ -255,6 +313,23 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    // Métodos que alteram Visibility das Views
+    //
+    private void escondeConteudoCentral() {
+        // Seta o conteúdo do meio da página como GONE
+        refTvToque.setVisibility(View.GONE);
+    }
+
+    // Altera Visibility do Home Button
+    private void mostraHomeButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
+    private void escondeHomeButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
+    }
+
     @Override
     public void mostraProgressBar() {
         refPbQuestoes.setVisibility(View.VISIBLE);
@@ -263,21 +338,18 @@ public class MainActivity extends AppCompatActivity
     public void escondeProgressBar() {
         refPbQuestoes.setVisibility(View.GONE);
     }
+    //
+    // Métodos que alteram Visibility das Views
 
-    /*
-     * Métodos implementados de 'QuestoesFragment'
-     */
+    // Métodos implementados de 'QuestoesFragment'
+    //
     @Override
-    public void onVerQuestaoInteraction(QuestaoFechada qst, int[] cores) {
-        // Transforma o List<String> de alternativas num Array
-        String[] alternativas = qst.getAlternativas().toArray(new String[0]);
+    public void onVerQuestaoInteraction(QuestaoFechada qst) {
+        // Seta a questão ativa
+        vm.setQst(qst);
 
         // Obtém uma instância de 'VerQuestaoFragment'
-        final Fragment frgVerQst = VerQuestaoFragment.newInstance(
-                qst.getEnunciado(),
-                alternativas,
-                cores,
-                qst.getResposta());
+        final Fragment frgVerQst = VerQuestaoFragment.newInstance();
 
         // Faz a barra inferior desaparecer
         refBttNavConteudos.setVisibility(View.GONE);
@@ -287,34 +359,39 @@ public class MainActivity extends AppCompatActivity
         iniciaFragment(frgVerQst, TAG_VER_QUESTAO_FRAGMENT);
     }
     @Override
-    public void onVerMateriaInteraction(QuestaoFechada qst, int[] cores) {}
+    public void onVerMateriaInteraction(QuestaoFechada qst) {
 
-    /*
-     * Métodos implementados de 'ConteudosFragment'
-     */
+    }
+    //
+    // Métodos implementados de 'QuestoesFragment'
+
+    // Métodos implementados de 'ConteudosFragment'
+    //
     @Override
-    public void onConteudoInteraction(Conteudo conteudo, int[] coresTexto) {
+    public void onConteudoInteraction(Conteudo conteudo) {
         mostraProgressBar();
         mostraHomeButton();
 
-        final Fragment frgQsts = QuestoesFragment.newInstance(coresTexto, conteudo.getNome());
+        vm.setConteudo(conteudo);
+
+        final Fragment frgQsts = QuestoesFragment.newInstance();
         iniciaFragment(frgQsts, TAG_QUESTOES_FRAGMENT);
     }
+    //
+    // Métodos implementados de 'ConteudosFragment'
 
-    /*
-     * Métodos implementados de 'VerQuestaoFragment'
-     */
+    // Métodos implementados de 'VerQuestaoFragment'
+    //
     @Override
-    public void onAlternativaSelecionada(MaterialButton[] refMtrlBts,
-                                         int altSelecionada, int resposta) {
-        boolean altCerta = altSelecionada == resposta;
+    public void onAlternativaSelecionada(MaterialButton[] refMtrlBts, int altSelecionada) {
+        boolean altCerta = altSelecionada == vm.getQst().getResposta();
         // Verifica se o usuário tocou na alternativa certa e troca a cor do botão
         if(altCerta) {
             refMtrlBts[altSelecionada]
-                    .setBackgroundTintList(ColorStateList.valueOf(corSecundariaClara));
+                    .setBackgroundTintList(ColorStateList.valueOf(corSecClara));
         } else {
             refMtrlBts[altSelecionada]
-                    .setBackgroundTintList(ColorStateList.valueOf(corVermelho));
+                    .setBackgroundTintList(ColorStateList.valueOf(corAltErrada));
         }
 
         // Troca a cor do texto do botão para branco para melhorar a visualização
@@ -336,4 +413,6 @@ public class MainActivity extends AppCompatActivity
             }
         }, 1000);
     }
+    //
+    //  Métodos implementados de 'VerQuestaoFragment'
 }

@@ -4,7 +4,8 @@ public class Conteudo {
     private String nome;
     private String descricao;
 
-    public Conteudo() { }
+    public Conteudo() {
+    }
 
     public Conteudo(String nome, String descricao) {
         this.nome = nome;
