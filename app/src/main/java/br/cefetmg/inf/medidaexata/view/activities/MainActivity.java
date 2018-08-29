@@ -7,9 +7,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +21,7 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity
     // Declaração de campos static final
     //
     // Referência a View que receberá os Fragments
-    private static final int FRAGMENT_CONTAINER_ID = R.id.fragment_container;
+    private static final int FRAGMENT_CONTAINER_ID = R.id.frg_container;
     // Tags referentes aos Fragment do app
     private static final String TAG_CONTEUDOS_FRAGMENT = "conteudos_fragment";
     private static final String TAG_QUESTOES_FRAGMENT = "questoes_fragment";
@@ -71,10 +70,9 @@ public class MainActivity extends AppCompatActivity
 
     // Binding de Views
     //
-    @BindView(R.id.rl_rootv_disciplinas_act) RelativeLayout refRlDiscAct;
-    @BindView(R.id.bttnav_conteudos) BottomNavigationView refBttNavConteudos;
-    @BindView(R.id.ll_disciplinas) LinearLayout refLlDisciplinas;
-    @BindView(R.id.pb_questoes)ProgressBar refPbQuestoes;
+    @BindView(R.id.bttnav_app) BottomNavigationView refBttNavConteudos;
+    @BindView(R.id.rl_rootv_disciplinas_act) ConstraintLayout refRootViewMainAct;
+    @BindView(R.id.pb_carregando)ProgressBar refPbQuestoes;
     @BindView(R.id.tv_toque) TextView refTvToque;
     @BindView(R.id.tb_menu_disciplinas_act) Toolbar refTbMenu;
     //
@@ -183,6 +181,7 @@ public class MainActivity extends AppCompatActivity
 
         // Seta a Toolbar como a SupportActionBar
         setSupportActionBar(refTbMenu);
+
         // Esconde o botão de Home e a ProgressBar
         // (quando a Activity é criada esses itens não são necessários)
         escondeHomeButton();
@@ -252,10 +251,10 @@ public class MainActivity extends AppCompatActivity
 
         // Atualiza os componentes principais da UI
         if(acabouDeIniciar) {
-            refRlDiscAct.setBackgroundColor(corBranco);
+            refRootViewMainAct.setBackgroundColor(corBranco);
             acabouDeIniciar = false;
         } else {
-            refRlDiscAct.setBackgroundColor(cores.get(CoresUI.COR_CLARA));
+            refRootViewMainAct.setBackgroundColor(cores.get(CoresUI.COR_CLARA));
         }
         refPbQuestoes.getIndeterminateDrawable().setColorFilter(cores.get(CoresUI.COR_PADRAO), PorterDuff.Mode.SRC_IN );
         refTbMenu.setBackgroundColor(cores.get(CoresUI.COR_PADRAO));
@@ -319,7 +318,6 @@ public class MainActivity extends AppCompatActivity
     private void escondeConteudoCentral() {
         // Seta o conteúdo do meio da página como GONE
         refTvToque.setVisibility(View.GONE);
-        refLlDisciplinas.setVisibility(View.GONE);
     }
 
     // Altera Visibility do Home Button
