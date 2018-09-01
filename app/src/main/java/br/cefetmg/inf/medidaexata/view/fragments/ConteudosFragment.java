@@ -38,15 +38,14 @@ public class ConteudosFragment extends Fragment {
     // Listener de toque em conteúdos
     private OnConteudoInteractionListener frgListener;
     // Objeto para permitir a mudança de visibilidade da ProgressBar
-    private ConteudoAdapter.IAlteraProgressBar iAltPbListener;
+    private ConteudoAdapter.IAlteraProgressBar altPbListener;
 
     // Construtor vazio obrigatório, favor não apagar
     public ConteudosFragment() { }
 
     // Obtém instância
     public static Fragment newInstance() {
-        ConteudosFragment frg = new ConteudosFragment();
-        return frg;
+        return new ConteudosFragment();
     }
 
     @Override
@@ -59,7 +58,7 @@ public class ConteudosFragment extends Fragment {
                     + " tem de implementar OnConteudoInteractionListener");
         }
         if(ctxt instanceof ConteudoAdapter.IAlteraProgressBar) {
-            iAltPbListener = (ConteudoAdapter.IAlteraProgressBar) ctxt;
+            altPbListener = (ConteudoAdapter.IAlteraProgressBar) ctxt;
         } else {
             throw new RuntimeException(ctxt.toString()
                     + "tem de implementar QuestaoAdapter.IAlteraProgressBar");
@@ -129,7 +128,7 @@ public class ConteudosFragment extends Fragment {
                 .build();
 
         Map<String, Integer> coresTexto = vm.getCoresUI().getCoresAtuais();
-        adapter = new ConteudoAdapter(options, frgListener, iAltPbListener, coresTexto);
+        adapter = new ConteudoAdapter(options, frgListener, altPbListener, coresTexto);
         adapter.notifyDataSetChanged();
         rv.setAdapter(adapter);
     }

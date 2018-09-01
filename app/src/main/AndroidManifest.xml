@@ -9,19 +9,22 @@
         android:roundIcon="@drawable/ic_medida_exata"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.MainActivity" />
-        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.BoasVindasActivity" />
-        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.IntroducaoActivity" />
-        <!--<activity
-            android:name="br.cefetmg.inf.medidaexata.view.activities.OnboardingActivity"
-            android:label="@string/title_activity_guia_usuario"></activity>-->
-        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.OnboardingActivity"
-            android:screenOrientation="landscape" >
+        android:theme="@style/AppTheme.Azul">
+        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.MainActivity">
+            <!-- Se quiser começar pelo Onboarding para testar, comenta o intent filter abaixo
+                    e descomenta o intent-filter do OnboardingActivity -->
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.BoasVindasActivity" />
+        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.IntroducaoActivity" />
+        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.OnboardingActivity" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
     </application>
 </manifest>

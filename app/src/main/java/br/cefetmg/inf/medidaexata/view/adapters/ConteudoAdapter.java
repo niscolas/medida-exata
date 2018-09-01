@@ -1,6 +1,7 @@
 package br.cefetmg.inf.medidaexata.view.adapters;
 
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -16,7 +17,9 @@ import java.util.Map;
 
 import br.cefetmg.inf.medidaexata.model.Conteudo;
 import br.cefetmg.inf.medidaexata.model.CoresUI;
+import br.cefetmg.inf.medidaexata.view.activities.MainActivity;
 import br.cefetmg.inf.medidaexata.view.fragments.ConteudosFragment;
+import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -58,7 +61,7 @@ public class ConteudoAdapter
     protected void onBindViewHolder(final ConteudoHolder conteudoHolder,
                                     int posicao,
                                     final Conteudo conteudo) {
-        int corClara = coresTexto.get(CoresUI.COR_CLARA);
+//        int corClara = coresTexto.get(CoresUI.COR_CLARA);
 //        int corPadrao = coresTexto.get(CoresUI.COR_PADRAO);
         int corEscura = coresTexto.get(CoresUI.COR_ESCURA);
 
@@ -66,7 +69,7 @@ public class ConteudoAdapter
         conteudoHolder.refTvNomeConteudo.setTextColor(corEscura);
         conteudoHolder.refTvNomeConteudo.setText(conteudo.getNome());
         // Altera o texto e sua cor a ser mostrada na descrição de cada Conteúdo
-        conteudoHolder.refTvDesConteudo.setTextColor(corClara);
+//        conteudoHolder.refTvDesConteudo.setTextColor(corClara);
         conteudoHolder.refTvDesConteudo.setText(conteudo.getDescricao());
         // Seta um novo ClickListener à CardView
         conteudoHolder.cardView.setOnClickListener(v -> {

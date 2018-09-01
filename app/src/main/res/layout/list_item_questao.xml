@@ -25,7 +25,7 @@
 
             tools:text="João é legal"
             android:maxLength="100"
-            android:textColor="@color/cinza"/>
+            android:textColor="?attr/colorPrimary"/>
 
         <TextView
             android:id="@+id/tv_conhecimento_abordado"
@@ -35,10 +35,10 @@
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginRight="@dimen/text_margin"
             android:layout_marginTop="4dp"
-            android:gravity="right"
+            android:gravity="end"
 
             android:text="@string/con_abordado"
-            android:textColor="@color/preto" />
+            android:textColor="?attr/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/tv_obj_con"
@@ -47,12 +47,14 @@
 
             android:layout_marginLeft="64dp"
             android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginStart="64dp"
+            android:layout_marginEnd="@dimen/text_margin"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="4dp"
             android:gravity="end"
 
             tools:text="asdasdasdasdsadasd"
-            android:textColor="@color/cinza"/>
+            android:textColor="?attr/colorPrimary" />
 
         <LinearLayout
             android:layout_width="match_parent"

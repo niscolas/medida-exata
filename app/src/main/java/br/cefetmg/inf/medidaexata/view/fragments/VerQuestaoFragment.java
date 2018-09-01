@@ -16,6 +16,7 @@ import java.util.Map;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import br.cefetmg.inf.medidaexata.model.CoresUI;
+import br.cefetmg.inf.medidaexata.view.adapters.ConteudoAdapter;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
 import br.cefetmg.inf.util.TextViewUtils;
 import butterknife.BindView;
@@ -29,6 +30,7 @@ public class VerQuestaoFragment extends Fragment {
 
     // Listener da Activity
     private OnAlternativaSelecionadaListener frgListener;
+    private ConteudoAdapter.IAlteraProgressBar altPbListener;
     // ViewModel
     private MedidaExataViewModel vm;
 
@@ -59,6 +61,12 @@ public class VerQuestaoFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " deve implementar OnAlternativaSelecionadaListener");
         }
+        if(context instanceof ConteudoAdapter.IAlteraProgressBar) {
+            altPbListener = (ConteudoAdapter.IAlteraProgressBar) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + "tem de implementar QuestaoAdapter.IAlteraProgressBar");
+        }
     }
 
     @Override
@@ -73,8 +81,13 @@ public class VerQuestaoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+        // Some com a ProgressBar
+        altPbListener.escondeProgressBar();
+
         View v = inflater.inflate(R.layout.fragment_ver_questao, container, false);
         ButterKnife.bind(this, v);
+
+        // Some com a ProgressBar
 
         // Obtém os recursos necessários do ViewModel para popular os campos da questão
         // Obtém cores para o texto

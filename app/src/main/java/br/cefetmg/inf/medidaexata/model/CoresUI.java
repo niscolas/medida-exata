@@ -17,6 +17,7 @@ public class CoresUI {
     public static final String COR_CLARA = "cor_clara";
     public static final String COR_PADRAO = "cor_padrao";
     public static final String COR_ESCURA = "cor_escura";
+    public static final String TEMA = "tema";
 
     private MutableLiveData<String> tipoCoresAtuais;
     private static Map<String, Map<String, Integer>> conjCores;

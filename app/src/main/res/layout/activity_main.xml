@@ -37,7 +37,7 @@
         android:layout_marginRight="32dp"
         android:gravity="center"
         android:text="@string/toque_em_um_botao"
-        android:textColor="@color/colorPrimary"
+        android:textColor="?attr/colorAccent"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/bttnav_app"
         app:layout_constraintEnd_toEndOf="parent"

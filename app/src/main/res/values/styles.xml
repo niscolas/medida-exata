@@ -1,14 +1,21 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <!-- Customize your theme here. -->
+    <!-- Base application theme -->
+    <style name="AppTheme.Verde" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Cores -->
-            <!--Cores do aplicativo-->
-                <item name="colorPrimary">@color/colorPrimary</item>
-                <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-                <item name="colorSecondary">@color/colorSecondary</item>
-                <!-- Coloquei só por precaução, porque equivale ao secondary color -->
-                    <item name="colorAccent">?attr/colorSecondary</item>
+        <!--Cores do aplicativo-->
+        <item name="colorPrimary">@color/colorSecondaryLight</item>
+        <item name="colorPrimaryDark">@color/quantum</item>
+        <!-- Coloquei só por precaução, porque equivale ao secondary color -->
+       <item name="colorAccent">@color/colorSecondary</item>
+    </style>
+
+    <style name="AppTheme.Azul" parent="Theme.MaterialComponents.NoActionBar">
+        <!-- Cores -->
+        <!--Cores do aplicativo-->
+        <item name="colorPrimary">@color/colorPrimaryLight</item>
+        <item name="colorPrimaryDark">@color/quantum</item>
+        <!-- Coloquei só por precaução, porque equivale ao secondary color -->
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
     <!-- Estilo padrão para botões Material preenchidos -->

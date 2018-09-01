@@ -1,13 +1,95 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.cefetmg.inf.medidaexata.view.fragments.PontuacaoFragment">
+    tools:context="br.cefetmg.inf.medidaexata.view.fragments.PontuacaoFragment" >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <View
+        android:id="@+id/v_page_top"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="0dp" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_parabens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/v_page_top"
+        android:gravity="center"
+        android:text="@string/parabens"
+        android:textSize="72sp"
+
+        tools:textColor="@color/branco" />
+
+    <TextView
+        android:id="@+id/tv_vc_ganhou"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_parabens"
+        android:layout_centerInParent="true"
+        android:text="@string/voce_ganhou"
+        android:textSize="30sp"
+
+        tools:textColor="@color/branco" />
+
+    <TextView
+        android:id="@+id/tv_qtd_pontos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv_vc_ganhou"
+        android:textSize="72sp"
+
+        tools:text="99"
+        tools:textColor="@color/branco" />
+
+    <TextView
+        android:id="@+id/tv_pontos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_qtd_pontos"
+        android:layout_centerHorizontal="true"
+        android:text="@string/pontos"
+        android:textSize="30sp"
+
+        tools:textColor="@color/branco" />
+
+    <TextView
+        android:id="@+id/tv_vc_e_bom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"
+        android:layout_above="@id/bt_claro_que_sim"
+        android:layout_below="@+id/tv_pontos"
+        android:text="@string/vc_e_bom"
+        android:textSize="20sp"
+
+        tools:textColor="@color/branco" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_claro_que_sim"
+        style="@style/AppTheme.MaterialButtonFilled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mtrl_bt_margin_hrz"
+        android:layout_marginRight="@dimen/mtrl_bt_margin_hrz"
+        android:layout_above="@+id/bt_nao_quero_voltar"
+        android:layout_centerInParent="true"
+        android:text="@string/claro_que_sim" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_nao_quero_voltar"
+        style="@style/AppTheme.MaterialButtonFilled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/mtrl_bt_margin_btt"
+        android:layout_marginLeft="@dimen/mtrl_bt_margin_hrz"
+        android:layout_marginRight="@dimen/mtrl_bt_margin_hrz"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/quero_voltar"/>
+</RelativeLayout>

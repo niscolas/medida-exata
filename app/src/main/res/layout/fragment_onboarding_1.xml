@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:contentDescription="@string/BemVindo"
+        android:contentDescription="@string/bem_vindo"
         android:text="@string/texto_onboarding_1"
         android:textSize="24sp" />
 </LinearLayout>

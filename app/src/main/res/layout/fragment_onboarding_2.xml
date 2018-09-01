@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/ComoEstudarUmaDisciplina"
+        android:text="@string/como_estudar_uma_disciplina"
         android:textSize="48sp" />
 
     <TextView

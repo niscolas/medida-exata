@@ -37,12 +37,8 @@
     <!-- Content Description(s)-->
     <string name="ctntdes_iv_medida_exata_logo">Logo do aplicativo Medida Exata</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_guia_usuario">GuiaUsuarioActivity</string>
-    <string name="BemVindo">Seja bem vindo</string>
-    <string name="ComoEstudar">Como estudar?</string>
-    <string name="ComoEstudarUmaDisciplina">Como estudar uma disciplina?</string>
+    <string name="como_estudar">Como estudar?</string>
+    <string name="como_estudar_uma_disciplina">Como estudar uma disciplina?</string>
     <string name="selecione_disciplina">Selecione a disciplina que você quer estudar primeiro: Ciências ou Matemática!</string>
     <string name="escolha_um_conteudo">Após clicar em uma disciplina, escolha um conteúdo dentre vários. Ao selecionar o conteúdo, você irá aprendê-lo e fazer exercícios.</string>
     <string name="escolha_assunto">Escolha um conteúdo da disciplina</string>
@@ -50,4 +46,13 @@
     <string name="proximo">Próximo</string>
     <string name="seja_bem_vindo">Seja bem-vindo</string>
     <string name="texto_onboarding_1">Se você está usando o aplicativo pela primeira vez, assista a este tutorial para aprender mais.</string>
+    <string name="voce_ganhou">Você ganhou</string>
+    <string name="pontos">Pontos!</string>
+    <string name="vc_e_bom">Você é bom mesmo hein, quer ver a matéria para aumentar seu conhecimento?</string>
+    <string name="claro_que_sim">Claro que sim!</string>
+    <string name="quero_voltar">Não, quero voltar pra o Menu</string>
+    <string name="parabens">Parabéns!!!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

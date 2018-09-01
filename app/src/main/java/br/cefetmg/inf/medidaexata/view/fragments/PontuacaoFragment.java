@@ -1,73 +1,89 @@
 package br.cefetmg.inf.medidaexata.view.fragments;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.cefetmg.inf.android.medidaexata.activities.R;
+import com.google.android.material.button.MaterialButton;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import br.cefetmg.inf.medidaexata.view.adapters.ConteudoAdapter;
+import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class PontuacaoFragment extends Fragment {
 
-    private OnFragmentInteractionListener frgListener;
+    // Listeners necessários
+    private OnPontuacaoFragmentInteractionListener frgListener;
+    private ConteudoAdapter.IAlteraProgressBar altPbListener;
 
+    // Nosso ViewModel
+    private MedidaExataViewModel vm;
+
+    @BindView(R.id.bt_claro_que_sim) MaterialButton refBtClaroQSim;
+    @BindView(R.id.bt_nao_quero_voltar) MaterialButton refBtNQroVoltar;
+    @BindView(R.id.tv_qtd_pontos) TextView refTvQtdPontuacao;
+
+    // Construtor vazio necessário
     public PontuacaoFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PontuacaoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PontuacaoFragment newInstance(String param1, String param2) {
-        PontuacaoFragment fragment = new PontuacaoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pontuacao, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (frgListener != null) {
-            frgListener.onFragmentInteraction(uri);
-        }
+    public static Fragment newInstance() {
+        return new PontuacaoFragment();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            frgListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnPontuacaoFragmentInteractionListener) {
+            frgListener = (OnPontuacaoFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " deve implementar OnPontuacaoFragmentInteractionListener");
         }
+        if(context instanceof ConteudoAdapter.IAlteraProgressBar) {
+            altPbListener = (ConteudoAdapter.IAlteraProgressBar) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + "tem de implementar QuestaoAdapter.IAlteraProgressBar");
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Obtém o ViewModel
+        if(getActivity() != null)
+            vm = ViewModelProviders.of(getActivity()).get(MedidaExataViewModel.class);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_pontuacao, container, false);
+        ButterKnife.bind(this, v);
+
+        // Seta Listeners para os botões do Fragment
+        refBtClaroQSim.setOnClickListener(view -> frgListener.onVerMateriaSelecionado());
+        refBtNQroVoltar.setOnClickListener(view -> frgListener.onVoltarParaOMenuSelecionado());
+
+        return v;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        altPbListener.escondeProgressBar();
+        iniciaAnimacaoNumero(0, vm.getQst().getQtdPontos(), 1000, refTvQtdPontuacao);
     }
 
     @Override
@@ -77,17 +93,25 @@ public class PontuacaoFragment extends Fragment {
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * Cria uma animação de números que aumentam numa TextView num período de tempo
+     * @param tv será o recipiente da aniimação
+     * @param nroInicial a animação começará nesse número e
+     * @param nroFinal acabará nesse,
+     * @param tempoEmMs nesse período de tempo (em Milisegundos)
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    private void iniciaAnimacaoNumero(int nroInicial, int nroFinal, int tempoEmMs, TextView tv) {
+        ValueAnimator animator = ValueAnimator.ofInt(nroInicial, nroFinal);
+        animator.setDuration(5000);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            public void onAnimationUpdate(ValueAnimator animation) {
+                tv.setText(animation.getAnimatedValue().toString());
+            }
+        });
+        animator.start();
+    }
+
+    public interface OnPontuacaoFragmentInteractionListener {
+        void onVerMateriaSelecionado();
+        void onVoltarParaOMenuSelecionado();
     }
 }

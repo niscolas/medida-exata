@@ -63,21 +63,23 @@ public class QuestaoAdapter
                                     int posicao,
                                     final QuestaoFechada qst) {
         // Obtém cores do Map<S, I> coresTexto
-        int corClara = coresTexto.get(CoresUI.COR_CLARA);
-        int corPadrao = coresTexto.get(CoresUI.COR_PADRAO);
-//        int corEscura = coresTexto.get(CoresUI.COR_ESCURA);
+//        int corClara = coresTexto.get(CoresUI.COR_CLARA);
+//        int corPadrao = coresTexto.get(CoresUI.COR_PADRAO);
+        int corEscura = coresTexto.get(CoresUI.COR_ESCURA);
+
+        qstHolder.refTvConAbord.setTextColor(corEscura);
 
         // Seta cor mais clara ao enunciado de cada questão
-        qstHolder.refTvEnunciado.setTextColor(corClara);
+//        qstHolder.refTvEnunciado.setTextColor(corClara);
         qstHolder.refTvEnunciado.setText(qst.getEnunciado());
 
         // Seta cor mais clara ao objeto de conhecimento
-        qstHolder.refTvObjCon.setTextColor(corClara);
+//        qstHolder.refTvObjCon.setTextColor(corClara);
         qstHolder.refTvObjCon.setText(qst.getObjCon());
 
         // Seta cores padrão para os botões das questões
-        qstHolder.refBtVerQuestao.setTextColor(corPadrao);
-        qstHolder.refBtVerMateria.setTextColor(corPadrao);
+//        qstHolder.refBtVerQuestao.setTextColor(corPadrao);
+//        qstHolder.refBtVerMateria.setTextColor(corPadrao);
 
         // Adiciona Listeners para cada botão
         if(frgListener != null) {
@@ -89,14 +91,11 @@ public class QuestaoAdapter
     }
 
     public class QuestaoHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_enunciado)
-        TextView refTvEnunciado;
-        @BindView(R.id.tv_obj_con)
-        TextView refTvObjCon;
-        @BindView(R.id.bt_ver_questao)
-        MaterialButton refBtVerQuestao;
-        @BindView(R.id.bt_ver_materia)
-        MaterialButton refBtVerMateria;
+        @BindView(R.id.tv_conhecimento_abordado) TextView refTvConAbord;
+        @BindView(R.id.tv_enunciado) TextView refTvEnunciado;
+        @BindView(R.id.tv_obj_con) TextView refTvObjCon;
+        @BindView(R.id.bt_ver_questao) MaterialButton refBtVerQuestao;
+        @BindView(R.id.bt_ver_materia) MaterialButton refBtVerMateria;
 
         QuestaoHolder(View v) {
             super(v);
