@@ -1,21 +1,20 @@
 <resources>
-    <!-- Base application theme -->
-    <style name="AppTheme.Verde" parent="Theme.MaterialComponents.NoActionBar">
-        <!-- Cores -->
-        <!--Cores do aplicativo-->
-        <item name="colorPrimary">@color/colorSecondaryLight</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimaryDark">@color/quantum</item>
-        <!-- Coloquei só por precaução, porque equivale ao secondary color -->
+    </style>
+
+    <style name="AppTheme.Verde" parent="AppTheme">
+        <item name="colorPrimary">@color/colorSecondaryLight</item>
        <item name="colorAccent">@color/colorSecondary</item>
     </style>
 
-    <style name="AppTheme.Azul" parent="Theme.MaterialComponents.NoActionBar">
-        <!-- Cores -->
-        <!--Cores do aplicativo-->
+    <style name="AppTheme.Azul" parent="AppTheme">
         <item name="colorPrimary">@color/colorPrimaryLight</item>
-        <item name="colorPrimaryDark">@color/quantum</item>
-        <!-- Coloquei só por precaução, porque equivale ao secondary color -->
         <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/tela_launch</item>
     </style>
 
     <!-- Estilo padrão para botões Material preenchidos -->

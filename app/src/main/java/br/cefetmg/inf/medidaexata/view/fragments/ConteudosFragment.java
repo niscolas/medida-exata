@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.cefetmg.inf.medidaexata.model.Conteudo;
+import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.adapters.ConteudoAdapter;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
 import butterknife.ButterKnife;
@@ -38,7 +39,7 @@ public class ConteudosFragment extends Fragment {
     // Listener de toque em conteúdos
     private OnConteudoInteractionListener frgListener;
     // Objeto para permitir a mudança de visibilidade da ProgressBar
-    private ConteudoAdapter.IAlteraProgressBar altPbListener;
+    private IAlteraProgressBar altPbListener;
 
     // Construtor vazio obrigatório, favor não apagar
     public ConteudosFragment() { }
@@ -57,8 +58,8 @@ public class ConteudosFragment extends Fragment {
             throw new RuntimeException(ctxt.toString()
                     + " tem de implementar OnConteudoInteractionListener");
         }
-        if(ctxt instanceof ConteudoAdapter.IAlteraProgressBar) {
-            altPbListener = (ConteudoAdapter.IAlteraProgressBar) ctxt;
+        if(ctxt instanceof IAlteraProgressBar) {
+            altPbListener = (IAlteraProgressBar) ctxt;
         } else {
             throw new RuntimeException(ctxt.toString()
                     + "tem de implementar QuestaoAdapter.IAlteraProgressBar");

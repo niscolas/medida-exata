@@ -8,7 +8,7 @@ public class QuestaoFechada {
     private String codigo;
     private String disciplina;
     private String conteudo;
-    private String objCon;
+    private String materiaAbordada;
     private String enunciado;
     private List<String> alternativas;
     private int resposta;
@@ -17,11 +17,11 @@ public class QuestaoFechada {
 
     public QuestaoFechada() { }
 
-    public QuestaoFechada(String codigo, String disciplina, String conteudo, String objCon, String enunciado, List<String> alternativas, int resposta, int qtdPontos, DocumentReference materiaRel) {
+    public QuestaoFechada(String codigo, String disciplina, String conteudo, String materiaAbordada, String enunciado, List<String> alternativas, int resposta, int qtdPontos, DocumentReference materiaRel) {
         this.codigo = codigo;
         this.disciplina = disciplina;
         this.conteudo = conteudo;
-        this.objCon = objCon;
+        this.materiaAbordada = materiaAbordada;
         this.enunciado = enunciado;
         this.alternativas = alternativas;
         this.resposta = resposta;
@@ -53,12 +53,12 @@ public class QuestaoFechada {
         this.conteudo = conteudo;
     }
 
-    public String getObjCon() {
-        return objCon;
+    public String getMateriaAbordada() {
+        return materiaAbordada;
     }
 
-    public void setObjCon(String objCon) {
-        this.objCon = objCon;
+    public void setMateriaAbordada(String materiaAbordada) {
+        this.materiaAbordada = materiaAbordada;
     }
 
     public String getEnunciado() {

@@ -1,9 +1,15 @@
 package br.cefetmg.inf.util;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class TextViewUtils {
 
@@ -25,5 +31,31 @@ public class TextViewUtils {
 
         Log.d(TAG, spannable.toString());
         return spannable;
+    }
+
+    public static  TextView criaTextView(
+            int largura,
+            int altura,
+            String texto,
+            int tamanhoFonte,
+            int margem,
+            int padding,
+            int corTexto,
+            Context context) {
+
+        TextView novoTv = new TextView(context);
+
+        LinearLayout.LayoutParams parametros
+                = new LinearLayout.LayoutParams(largura, altura);
+
+        parametros.setMargins(margem, margem, margem, margem);
+        novoTv.setLayoutParams(parametros);
+
+        novoTv.setText(texto);
+        novoTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, tamanhoFonte);
+        novoTv.setTextColor(corTexto);
+        novoTv.setPadding(padding, padding, padding, padding);
+
+        return novoTv;
     }
 }

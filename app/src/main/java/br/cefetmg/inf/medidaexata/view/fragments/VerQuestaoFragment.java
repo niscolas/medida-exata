@@ -16,6 +16,7 @@ import java.util.Map;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import br.cefetmg.inf.medidaexata.model.CoresUI;
+import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.adapters.ConteudoAdapter;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
 import br.cefetmg.inf.util.TextViewUtils;
@@ -30,7 +31,7 @@ public class VerQuestaoFragment extends Fragment {
 
     // Listener da Activity
     private OnAlternativaSelecionadaListener frgListener;
-    private ConteudoAdapter.IAlteraProgressBar altPbListener;
+    private IAlteraProgressBar altPbListener;
     // ViewModel
     private MedidaExataViewModel vm;
 
@@ -61,8 +62,8 @@ public class VerQuestaoFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " deve implementar OnAlternativaSelecionadaListener");
         }
-        if(context instanceof ConteudoAdapter.IAlteraProgressBar) {
-            altPbListener = (ConteudoAdapter.IAlteraProgressBar) context;
+        if(context instanceof IAlteraProgressBar) {
+            altPbListener = (IAlteraProgressBar) context;
         } else {
             throw new RuntimeException(context.toString()
                     + "tem de implementar QuestaoAdapter.IAlteraProgressBar");
@@ -96,8 +97,8 @@ public class VerQuestaoFragment extends Fragment {
         int corPadrao = coresAtuais.get(CoresUI.COR_PADRAO);
         int corEscura = coresAtuais.get(CoresUI.COR_ESCURA);
         // Obtém informações da questão
-        String enunciado = vm.getQst().getEnunciado();
-        String[] alternativas = vm.getQst().getAlternativas().toArray(new String[0]);
+        String enunciado = vm.getQst().getValue().getEnunciado();
+        String[] alternativas = vm.getQst().getValue().getAlternativas().toArray(new String[0]);
 
         // Seta o enunciado da questão
         refTvEnunComp.setTextColor(corPadrao);

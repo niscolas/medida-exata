@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import br.cefetmg.inf.medidaexata.view.adapters.ConteudoAdapter;
+import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +24,7 @@ public class PontuacaoFragment extends Fragment {
 
     // Listeners necessários
     private OnPontuacaoFragmentInteractionListener frgListener;
-    private ConteudoAdapter.IAlteraProgressBar altPbListener;
+    private IAlteraProgressBar altPbListener;
 
     // Nosso ViewModel
     private MedidaExataViewModel vm;
@@ -50,8 +50,8 @@ public class PontuacaoFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " deve implementar OnPontuacaoFragmentInteractionListener");
         }
-        if(context instanceof ConteudoAdapter.IAlteraProgressBar) {
-            altPbListener = (ConteudoAdapter.IAlteraProgressBar) context;
+        if(context instanceof IAlteraProgressBar) {
+            altPbListener = (IAlteraProgressBar) context;
         } else {
             throw new RuntimeException(context.toString()
                     + "tem de implementar QuestaoAdapter.IAlteraProgressBar");
@@ -73,7 +73,7 @@ public class PontuacaoFragment extends Fragment {
         ButterKnife.bind(this, v);
 
         // Seta Listeners para os botões do Fragment
-        refBtClaroQSim.setOnClickListener(view -> frgListener.onVerMateriaSelecionado());
+        refBtClaroQSim.setOnClickListener(view -> frgListener.onClaroQueSimInteraction());
         refBtNQroVoltar.setOnClickListener(view -> frgListener.onVoltarParaOMenuSelecionado());
 
         return v;
@@ -83,7 +83,7 @@ public class PontuacaoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         altPbListener.escondeProgressBar();
-        iniciaAnimacaoNumero(0, vm.getQst().getQtdPontos(), 1000, refTvQtdPontuacao);
+        iniciaAnimacaoNumero(0, vm.getQtdPontosAtuais(), 1000, refTvQtdPontuacao);
     }
 
     @Override
@@ -111,7 +111,7 @@ public class PontuacaoFragment extends Fragment {
     }
 
     public interface OnPontuacaoFragmentInteractionListener {
-        void onVerMateriaSelecionado();
+        void onClaroQueSimInteraction();
         void onVoltarParaOMenuSelecionado();
     }
 }

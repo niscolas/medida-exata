@@ -16,6 +16,7 @@ import java.util.Map;
 
 import br.cefetmg.inf.medidaexata.model.CoresUI;
 import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
+import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.fragments.QuestoesFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,14 +29,14 @@ public class QuestaoAdapter
     // Listener de interações com os ViewHolders deste adapter
     private final QuestoesFragment.OnQuestaoInteractionListener frgListener;
     // Listener para executar alterações na ProgressBar indicadora de Loading
-    private final ConteudoAdapter.IAlteraProgressBar altPbListener;
+    private final IAlteraProgressBar altPbListener;
 
     // int[] que armazena as cores do texto de cada ViewHolder
     private final Map<String, Integer> coresTexto;
 
     public QuestaoAdapter(FirestoreRecyclerOptions<QuestaoFechada> options,
                           QuestoesFragment.OnQuestaoInteractionListener frgListener,
-                          ConteudoAdapter.IAlteraProgressBar altPbListener,
+                          IAlteraProgressBar altPbListener,
                           Map<String, Integer> coresTexto) {
         super(options);
         this.frgListener = frgListener;
@@ -75,7 +76,7 @@ public class QuestaoAdapter
 
         // Seta cor mais clara ao objeto de conhecimento
 //        qstHolder.refTvObjCon.setTextColor(corClara);
-        qstHolder.refTvObjCon.setText(qst.getObjCon());
+        qstHolder.refTvObjCon.setText(qst.getMateriaAbordada());
 
         // Seta cores padrão para os botões das questões
 //        qstHolder.refBtVerQuestao.setTextColor(corPadrao);

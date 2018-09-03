@@ -1,9 +1,5 @@
 package br.cefetmg.inf.medidaexata.view.adapters;
 
-import androidx.cardview.widget.CardView;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +11,12 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import java.util.Map;
 
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import br.cefetmg.inf.medidaexata.model.Conteudo;
 import br.cefetmg.inf.medidaexata.model.CoresUI;
-import br.cefetmg.inf.medidaexata.view.activities.MainActivity;
+import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.fragments.ConteudosFragment;
-import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -100,10 +97,5 @@ public class ConteudoAdapter
         public String toString() {
             return super.toString() + " '" + refTvDesConteudo.getText() + "'";
         }
-    }
-
-    public interface IAlteraProgressBar {
-        void mostraProgressBar();
-        void escondeProgressBar();
     }
 }

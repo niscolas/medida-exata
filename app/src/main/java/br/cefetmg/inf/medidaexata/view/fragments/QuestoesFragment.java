@@ -22,6 +22,7 @@ import com.google.firebase.firestore.Query;
 import java.util.Map;
 
 import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
+import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.adapters.ConteudoAdapter;
 import br.cefetmg.inf.medidaexata.view.adapters.QuestaoAdapter;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
@@ -39,7 +40,7 @@ public class QuestoesFragment extends Fragment {
     private QuestaoAdapter adapter;
     // Listeners
     private OnQuestaoInteractionListener frgListener;
-    private ConteudoAdapter.IAlteraProgressBar altPbListener;
+    private IAlteraProgressBar altPbListener;
     // ViewModel
     private MedidaExataViewModel vm;
 
@@ -53,18 +54,18 @@ public class QuestoesFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context ctxt) {
-        super.onAttach(ctxt);
-        if (ctxt instanceof OnQuestaoInteractionListener) {
-            frgListener = (OnQuestaoInteractionListener) ctxt;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnQuestaoInteractionListener) {
+            frgListener = (OnQuestaoInteractionListener) context;
         } else {
-            throw new RuntimeException(ctxt.toString()
+            throw new RuntimeException(context.toString()
                     + " tem de implementar IProgressBarShower");
         }
-        if(ctxt instanceof ConteudoAdapter.IAlteraProgressBar) {
-            altPbListener = (ConteudoAdapter.IAlteraProgressBar) ctxt;
+        if(context instanceof IAlteraProgressBar) {
+            altPbListener = (IAlteraProgressBar) context;
         } else {
-            throw new RuntimeException(ctxt.toString()
+            throw new RuntimeException(context.toString()
                     + "tem de implementar QuestaoAdapter.IAlteraProgressBar");
         }
     }

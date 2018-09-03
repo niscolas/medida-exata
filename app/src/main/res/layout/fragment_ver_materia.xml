@@ -1,13 +1,62 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="br.cefetmg.inf.medidaexata.view.fragments.VerMateriaFragment"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.cefetmg.inf.medidaexata.view.fragments.VerMateriaFragment">
+    android:orientation="vertical" >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/tv_materia"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"
+        android:orientation="vertical"
+        android:animateLayoutChanges="true" >
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tv_materia_abordada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="32dp"
+
+            tools:text="Aaaaaaaaaaaaaaaaaaa"
+            tools:textColor="@color/preto"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_materia_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="38dp"
+
+            tools:text="Aaaaaaaaaaaaaaaaaaa"
+            tools:textColor="@color/preto"
+            android:textSize="18sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bt_qro_ver_materia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.MaterialButtonFilled"
+            android:layout_marginTop="64dp"
+            android:visibility="gone"
+
+            android:text="@string/qro_ver_materias"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bt_gostei_mas_quero_voltar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.MaterialButtonFilled"
+            android:layout_marginBottom="@dimen/mtrl_bt_margin_btt"
+            android:visibility="gone"
+
+            android:text="@string/qro_ir_para_menu"/>
+    </LinearLayout>
+
+</ScrollView>

@@ -19,9 +19,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="autoMirrored" value="true" />
-                            <entry key="outputName" value="ic_seta" />
-                            <entry key="sourceFile" value="C:\Users\User\Pictures\fiXer\INFaliveis\imgs\seta.svg" />
+                            <entry key="height" value="282" />
+                            <entry key="outputName" value="ic_medida_exata_logo" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="C:\Users\User\Pictures\fiXer\INFaliveis\SVG\medida_exata-logo.svg" />
+                            <entry key="width" value="282" />
                           </map>
                         </option>
                       </PersistentState>

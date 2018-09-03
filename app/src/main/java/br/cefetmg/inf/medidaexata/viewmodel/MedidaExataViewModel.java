@@ -13,14 +13,16 @@ public class MedidaExataViewModel extends ViewModel {
     private MutableLiveData<String> titulo;
     private String disciplina;
     private Conteudo conteudo;
-    private QuestaoFechada qst;
+    private MutableLiveData<QuestaoFechada> qst;
+    private int qtdPontosAtuais;
     private CoresUI coresUI;
 
     public void initViewModel(Map<String, Map<String, Integer>> corMap) {
         titulo = new MutableLiveData<>();
         disciplina = "";
         conteudo = new Conteudo();
-        qst = new QuestaoFechada();
+        qst = new MutableLiveData<>();
+        qtdPontosAtuais = 0;
         coresUI = CoresUI.getInstance(corMap);
     }
 
@@ -45,11 +47,18 @@ public class MedidaExataViewModel extends ViewModel {
         this.conteudo = conteudo;
     }
 
-    public QuestaoFechada getQst() {
+    public MutableLiveData<QuestaoFechada> getQst() {
         return qst;
     }
     public void setQst(QuestaoFechada qst) {
-        this.qst = qst;
+        this.qst.setValue(qst);
+    }
+
+    public int getQtdPontosAtuais() {
+        return qtdPontosAtuais;
+    }
+    public void setQtdPontosAtuais(int qtdPontosAtuais) {
+        this.qtdPontosAtuais = qtdPontosAtuais;
     }
 
     public CoresUI getCoresUI() {
