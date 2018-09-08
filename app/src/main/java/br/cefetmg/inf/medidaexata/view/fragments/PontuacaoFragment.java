@@ -83,7 +83,7 @@ public class PontuacaoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         altPbListener.escondeProgressBar();
-        iniciaAnimacaoNumero(0, vm.getQtdPontosAtuais(), 1000, refTvQtdPontuacao);
+        iniciaAnimacaoNumero(0, vm.getQtdPontosAtiva(), 3000, refTvQtdPontuacao);
     }
 
     @Override
@@ -94,19 +94,15 @@ public class PontuacaoFragment extends Fragment {
 
     /**
      * Cria uma animação de números que aumentam numa TextView num período de tempo
-     * @param tv será o recipiente da aniimação
+     * @param tv será o recipiente da animação
      * @param nroInicial a animação começará nesse número e
      * @param nroFinal acabará nesse,
      * @param tempoEmMs nesse período de tempo (em Milisegundos)
      */
-    private void iniciaAnimacaoNumero(int nroInicial, int nroFinal, int tempoEmMs, TextView tv) {
+    static void iniciaAnimacaoNumero(int nroInicial, int nroFinal, int tempoEmMs, TextView tv) {
         ValueAnimator animator = ValueAnimator.ofInt(nroInicial, nroFinal);
-        animator.setDuration(5000);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            public void onAnimationUpdate(ValueAnimator animation) {
-                tv.setText(animation.getAnimatedValue().toString());
-            }
-        });
+        animator.setDuration(tempoEmMs);
+        animator.addUpdateListener(animation -> tv.setText(animation.getAnimatedValue().toString()));
         animator.start();
     }
 

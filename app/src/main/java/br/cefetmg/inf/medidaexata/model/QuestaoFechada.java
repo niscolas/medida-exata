@@ -9,7 +9,7 @@ public class QuestaoFechada {
     private String disciplina;
     private String conteudo;
     private String materiaAbordada;
-    private String enunciado;
+    private List<String> enunciado;
     private List<String> alternativas;
     private int resposta;
     private int qtdPontos;
@@ -17,7 +17,7 @@ public class QuestaoFechada {
 
     public QuestaoFechada() { }
 
-    public QuestaoFechada(String codigo, String disciplina, String conteudo, String materiaAbordada, String enunciado, List<String> alternativas, int resposta, int qtdPontos, DocumentReference materiaRel) {
+    public QuestaoFechada(String codigo, String disciplina, String conteudo, String materiaAbordada, List<String> enunciado, List<String> alternativas, int resposta, int qtdPontos, DocumentReference materiaRel) {
         this.codigo = codigo;
         this.disciplina = disciplina;
         this.conteudo = conteudo;
@@ -61,11 +61,11 @@ public class QuestaoFechada {
         this.materiaAbordada = materiaAbordada;
     }
 
-    public String getEnunciado() {
+    public List<String> getEnunciado() {
         return enunciado;
     }
 
-    public void setEnunciado(String enunciado) {
+    public void setEnunciado(List<String> enunciado) {
         this.enunciado = enunciado;
     }
 

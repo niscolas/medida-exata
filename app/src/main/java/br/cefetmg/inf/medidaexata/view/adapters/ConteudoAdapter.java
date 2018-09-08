@@ -78,7 +78,7 @@ public class ConteudoAdapter
 
     public class ConteudoHolder extends RecyclerView.ViewHolder {
         final CardView cardView;
-        @BindView(R.id.tv_nome_conteudo)
+        @BindView(R.id.tv_nome_materia)
         TextView refTvNomeConteudo;
         @BindView(R.id.tv_des_conteudo)
         TextView refTvDesConteudo;

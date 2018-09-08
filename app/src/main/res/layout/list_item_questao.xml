@@ -28,7 +28,6 @@
             android:textColor="?attr/colorPrimary"/>
 
         <TextView
-            android:id="@+id/tv_conhecimento_abordado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
@@ -38,10 +37,10 @@
             android:gravity="end"
 
             android:text="@string/con_abordado"
-            android:textColor="?attr/colorPrimaryDark" />
+            android:textColor="?attr/colorAccent" />
 
         <TextView
-            android:id="@+id/tv_obj_con"
+            android:id="@+id/tv_nome_materia_abordada"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 

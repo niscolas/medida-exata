@@ -6,7 +6,7 @@
         android:color="@color/branco" />
     <item
         android:state_checked="false"
-        android:color="@color/colorPrimaryLight" />
+        android:color="@color/azul_claro" />
     <!-- Estado Default -->
-    <item android:color="@color/colorPrimary"/>
+    <item android:color="@color/azul"/>
 </selector>

@@ -6,59 +6,68 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import br.cefetmg.inf.medidaexata.model.Conteudo;
 import br.cefetmg.inf.medidaexata.model.CoresUI;
+import br.cefetmg.inf.medidaexata.model.Materia;
 import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
 
 public class MedidaExataViewModel extends ViewModel {
-    // Campo que armazena o valor acima, sem acentos e em Lower Case
-    private MutableLiveData<String> titulo;
-    private String disciplina;
-    private Conteudo conteudo;
-    private MutableLiveData<QuestaoFechada> qst;
-    private int qtdPontosAtuais;
+    private MutableLiveData<String> tituloAtivo;
+    private String disciplinaAtiva;
+    private Conteudo conteudoAtivo;
+    private MutableLiveData<QuestaoFechada> qstAtiva;
+    private Materia materiaAtiva;
+    private int qtdPontosAtiva;
     private CoresUI coresUI;
 
     public void initViewModel(Map<String, Map<String, Integer>> corMap) {
-        titulo = new MutableLiveData<>();
-        disciplina = "";
-        conteudo = new Conteudo();
-        qst = new MutableLiveData<>();
-        qtdPontosAtuais = 0;
+        tituloAtivo = new MutableLiveData<>();
+        disciplinaAtiva = "";
+        conteudoAtivo = new Conteudo();
+        qstAtiva = new MutableLiveData<>();
+        materiaAtiva = new Materia();
+        qtdPontosAtiva = 0;
         coresUI = CoresUI.getInstance(corMap);
     }
 
-    public MutableLiveData<String> getTitulo() {
-        return titulo;
+    public MutableLiveData<String> getTituloAtivo() {
+        return tituloAtivo;
     }
-    public void setTitulo(String titulo) {
-        this.titulo.setValue(titulo);
-    }
-
-    public String getDisciplina() {
-        return disciplina;
-    }
-    public void setDisciplina(String disciplina) {
-        this.disciplina = disciplina;
+    public void setTituloAtivo(String tituloAtivo) {
+        this.tituloAtivo.setValue(tituloAtivo);
     }
 
-    public Conteudo getConteudo() {
-        return conteudo;
+    public String getDisciplinaAtiva() {
+        return disciplinaAtiva;
     }
-    public void setConteudo(Conteudo conteudo) {
-        this.conteudo = conteudo;
-    }
-
-    public MutableLiveData<QuestaoFechada> getQst() {
-        return qst;
-    }
-    public void setQst(QuestaoFechada qst) {
-        this.qst.setValue(qst);
+    public void setDisciplinaAtiva(String disciplinaAtiva) {
+        this.disciplinaAtiva = disciplinaAtiva;
     }
 
-    public int getQtdPontosAtuais() {
-        return qtdPontosAtuais;
+    public Conteudo getConteudoAtivo() {
+        return conteudoAtivo;
     }
-    public void setQtdPontosAtuais(int qtdPontosAtuais) {
-        this.qtdPontosAtuais = qtdPontosAtuais;
+    public void setConteudoAtivo(Conteudo conteudoAtivo) {
+        this.conteudoAtivo = conteudoAtivo;
+    }
+
+    public MutableLiveData<QuestaoFechada> getQstAtiva() {
+        return qstAtiva;
+    }
+    public void setQstAtiva(QuestaoFechada qstAtiva) {
+        this.qstAtiva.setValue(qstAtiva);
+    }
+
+    public Materia getMateriaAtiva() {
+        return materiaAtiva;
+    }
+    public void setMateriaAtiva(Materia materiaAtiva) {
+        this.materiaAtiva = materiaAtiva;
+    }
+
+    public int getQtdPontosAtiva() {
+        return qtdPontosAtiva;
+    }
+    public void setQtdPontosAtiva(int qtdPontosAtiva) {
+        this.qtdPontosAtiva = qtdPontosAtiva;
     }
 
     public CoresUI getCoresUI() {

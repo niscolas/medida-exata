@@ -68,11 +68,9 @@ public class QuestaoAdapter
 //        int corPadrao = coresTexto.get(CoresUI.COR_PADRAO);
         int corEscura = coresTexto.get(CoresUI.COR_ESCURA);
 
-        qstHolder.refTvConAbord.setTextColor(corEscura);
-
         // Seta cor mais clara ao enunciado de cada questão
 //        qstHolder.refTvEnunciado.setTextColor(corClara);
-        qstHolder.refTvEnunciado.setText(qst.getEnunciado());
+        qstHolder.refTvEnunciado.setText(qst.getEnunciado().get(0));
 
         // Seta cor mais clara ao objeto de conhecimento
 //        qstHolder.refTvObjCon.setTextColor(corClara);
@@ -92,9 +90,8 @@ public class QuestaoAdapter
     }
 
     public class QuestaoHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_conhecimento_abordado) TextView refTvConAbord;
         @BindView(R.id.tv_enunciado) TextView refTvEnunciado;
-        @BindView(R.id.tv_obj_con) TextView refTvObjCon;
+        @BindView(R.id.tv_nome_materia_abordada) TextView refTvObjCon;
         @BindView(R.id.bt_ver_questao) MaterialButton refBtVerQuestao;
         @BindView(R.id.bt_ver_materia) MaterialButton refBtVerMateria;
 

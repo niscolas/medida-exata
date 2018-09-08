@@ -10,6 +10,6 @@
         android:icon="@drawable/ic_atom"/>
     <item
         android:id="@+id/i_btt_nav_perfil"
-        android:title="@string/perfil"
+        android:title="@string/conquistas"
         android:icon="@drawable/ic_profile"/>
 </menu>

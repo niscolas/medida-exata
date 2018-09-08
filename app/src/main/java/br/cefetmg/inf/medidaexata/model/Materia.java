@@ -3,8 +3,8 @@ package br.cefetmg.inf.medidaexata.model;
 import java.util.List;
 
 public class Materia {
-    String titulo;
-    List<String> materia;
+    private String titulo;
+    private List<String> materia;
 
     public Materia() {
     }

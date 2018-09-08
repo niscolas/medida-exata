@@ -4,13 +4,18 @@
     </style>
 
     <style name="AppTheme.Verde" parent="AppTheme">
-        <item name="colorPrimary">@color/colorSecondaryLight</item>
-       <item name="colorAccent">@color/colorSecondary</item>
+        <item name="colorPrimary">@color/verde_claro</item>
+       <item name="colorAccent">@color/verde</item>
     </style>
 
     <style name="AppTheme.Azul" parent="AppTheme">
-        <item name="colorPrimary">@color/colorPrimaryLight</item>
-        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/azul_claro</item>
+        <item name="colorAccent">@color/azul</item>
+    </style>
+
+    <style name="AppTheme.AzulClaro" parent="AppTheme">
+        <item name="colorPrimary">@color/branco</item>
+        <item name="colorAccent">@color/azul_claro</item>
     </style>
 
     <style name="AppTheme.Launcher">

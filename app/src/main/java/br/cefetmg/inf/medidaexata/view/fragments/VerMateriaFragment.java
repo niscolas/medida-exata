@@ -14,6 +14,8 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -50,8 +52,7 @@ public class VerMateriaFragment extends Fragment {
 
     // Views
     @BindView(R.id.tv_materia) LinearLayout refLlMateria;
-    @BindView(R.id.tv_materia_titulo) TextView refTvMatTitulo;
-    @BindView(R.id.tv_materia_abordada) TextView refTvMatAbordada;
+    @BindView(R.id.tv_nome_materia) TextView refTvTituloMat;
     @BindView(R.id.bt_qro_ver_materia) MaterialButton refBtQroVerMat;
     @BindView(R.id.bt_gostei_mas_quero_voltar) MaterialButton refBtQroVoltar;
 
@@ -100,8 +101,18 @@ public class VerMateriaFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_ver_materia, container, false);
         ButterKnife.bind(this, v);
-        // Obtém os dados da matéria
-        getDadosMateria();
+
+        // Atribui ao TextView de MatériaAbordada, texto e cor
+        refTvTituloMat.setTextColor(vm.getCoresUI().getCoresAtuais().get(CoresUI.COR_ESCURA));
+
+        if(vm.getQstAtiva().getValue() != null) {
+            // Obtém os dados da matéria
+            getDadosMateria();
+        } else {
+            materia = vm.getMateriaAtiva();
+            refTvTituloMat.setText(materia.getTitulo());
+            populaFragmentComMateria();
+        }
 
         return v;
     }
@@ -113,67 +124,29 @@ public class VerMateriaFragment extends Fragment {
     }
 
     private void getDadosMateria() {
-        DocumentReference docMateria = vm.getQst().getValue().getMateriaRel();
+        DocumentReference docMateria = vm.getQstAtiva().getValue().getMateriaRel();
         docMateria.get().addOnSuccessListener(documentSnapshot -> {
             materia = documentSnapshot.toObject(Materia.class);
 
-            // Atribui ao TextView de MatériaAbordada, texto e cor
-            refTvMatAbordada.setTextColor(vm.getCoresUI().getCoresAtuais().get(CoresUI.COR_ESCURA));
-            refTvMatAbordada.append(vm.getQst().getValue().getMateriaAbordada());
-            refTvMatAbordada.append(":");
+            refTvTituloMat.setText(materia.getTitulo());
 
-            // Atribui ao TextView de Título da Matéria, texto e cor
-            refTvMatTitulo.setTextColor(vm.getCoresUI().getCoresAtuais().get(CoresUI.COR_ESCURA));
-            refTvMatTitulo.setText(materia.getTitulo());
             populaFragmentComMateria();
         });
     }
 
     private void populaFragmentComMateria() {
-        int i = 2;
-        for (String pedacoMateria : materia.getMateria()) {
-            if(pedacoMateria.startsWith("$$") && pedacoMateria.endsWith("$$")) {
-                // Cria uma nova ImageView com os parâmetros passados
-                ImageView img = ImageViewUtils.criaImageView(
-                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
-                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
-                        -1,
-                        -1,
+        populaLinearLayoutComTextoEImagens
+                (refLlMateria,
+                        1,
+                        materia.getMateria(),
+                        corBranco,
+                        16,
+                        0,
+                        0,
                         0,
                         0,
                         this.getContext());
 
-                // Obtém a Url da imagem, que foi padronizada como sendo as Strings
-                // que começam e terminam com "$$", ou seja, tirando essa parte da String, obtém-se
-                // a Url
-                String urlImagem
-                        = pedacoMateria
-                        .substring(
-                                2,
-                                pedacoMateria.length() - 2);
-
-                // Carrega a Url existente em 'pedacoMateria' numa ImageView e dispõe na tela
-                Picasso.get()
-                        .load(urlImagem)
-                        .into(img);
-                refLlMateria.addView(img, i);
-            } else {
-                // Cria uma nova ImageView com os parâmetros passados
-                refLlMateria
-                        .addView(
-                                TextViewUtils.criaTextView(
-                                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
-                                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
-                                        pedacoMateria,
-                                        16,
-                                        0,
-                                        0,
-                                        corBranco,
-                                        this.getContext()),
-                                i);
-            }
-            i++;
-        }
         // Seta o ClickListener no botão de retorno para o Menu e torna o botão visível e clicável
         refBtQroVoltar.setOnClickListener(view ->
                 frgListener.onQroVoltarParaMenuInteraction());
@@ -184,6 +157,72 @@ public class VerMateriaFragment extends Fragment {
         refBtQroVerMat.setOnClickListener(view ->
                 frgListener.onQroVerOutrasMateriasInteraction());
         refBtQroVerMat.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Popula um LinearLayout com texto e imagens de um List<String>
+     * @param container o LinearLayout onde serão dispostos os textos e imagens
+     * @param posViewInicial a posição do Layout onde começará a ser colocado o conteúdo
+     * @param textoEImagens um List com texto e URLs de imagens
+     *                      URLs devem começar e terminar com '$$' (sem as aspas)
+     * @param corTexto a cor do Texto
+     * @param context o contexto
+     */
+    public static void populaLinearLayoutComTextoEImagens(
+            LinearLayout container,
+            int posViewInicial,
+            List<String> textoEImagens,
+            int corTexto,
+            int tamanhoFonte,
+            int paddingImagem,
+            int paddingTexto,
+            int margemTexto,
+            int margemImagem,
+            Context context) {
+
+        for (String item : textoEImagens) {
+            if(item.startsWith("$$") && item.endsWith("$$")) {
+                // Cria uma nova ImageView com os parâmetros passados
+                ImageView img = ImageViewUtils.criaImageView(
+                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
+                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
+                        -1,
+                        -1,
+                        margemImagem,
+                        paddingImagem,
+                        context);
+
+                // Obtém a Url da imagem, que foi padronizada como sendo as Strings
+                // que começam e terminam com "$$", ou seja, tirando essa parte da String, obtém-se
+                // a Url
+                String urlImagem
+                        = item
+                        .substring(
+                                2,
+                                item.length() - 2);
+
+                // Carrega a Url existente em 'pedacoConteudo' numa ImageView e dispõe na tela
+                Picasso.get()
+                        .load(urlImagem)
+                        .into(img);
+                container.addView(img, posViewInicial);
+            } else {
+                // Cria uma nova ImageView com os parâmetros passados
+                container
+                        .addView(
+                                TextViewUtils.criaTextView(
+                                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+                                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
+                                        item,
+                                        tamanhoFonte,
+                                        margemTexto,
+                                        paddingTexto,
+                                        corTexto,
+                                        context),
+                                posViewInicial);
+            }
+            posViewInicial++;
+        }
     }
 
     public interface OnVerMateriaFragmentInteractionListener {

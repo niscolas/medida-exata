@@ -17,26 +17,16 @@
         android:animateLayoutChanges="true" >
 
         <TextView
-            android:id="@+id/tv_materia_abordada"
+            android:id="@+id/tv_nome_materia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
 
             tools:text="Aaaaaaaaaaaaaaaaaaa"
             tools:textColor="@color/preto"
             android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/tv_materia_titulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="38dp"
-
-            tools:text="Aaaaaaaaaaaaaaaaaaa"
-            tools:textColor="@color/preto"
-            android:textSize="18sp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bt_qro_ver_materia"

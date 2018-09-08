@@ -17,12 +17,23 @@
             android:layout_height="wrap_content"
             style="@style/AppTheme.MaterialCardView">
 
-            <TextView
-                android:id="@+id/tv_enunciado_completo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/AppTheme.MaterialCardText"
-                android:textColor="?attr/colorPrimary" />
+            <LinearLayout
+                android:id="@+id/ll_ver_questao"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tv_materia_abordada_questao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    style="@style/AppTheme.MaterialCardText"
+                    android:textColor="?attr/colorAccent" />
+            </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton

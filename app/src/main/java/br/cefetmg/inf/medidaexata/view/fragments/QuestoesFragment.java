@@ -23,7 +23,6 @@ import java.util.Map;
 
 import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
-import br.cefetmg.inf.medidaexata.view.adapters.ConteudoAdapter;
 import br.cefetmg.inf.medidaexata.view.adapters.QuestaoAdapter;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
 import butterknife.ButterKnife;
@@ -82,6 +81,8 @@ public class QuestoesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+        vm.setTituloAtivo("Escolha uma questão");
+
         View v = inflater.inflate(R.layout.fragment_questoes_list, container, false);
         ButterKnife.bind(this, v);
 
@@ -106,7 +107,7 @@ public class QuestoesFragment extends Fragment {
         FirebaseFirestore bd = FirebaseFirestore.getInstance();
 
         // Obtém o nome do conteúdo ativo
-        String conteudo = vm.getConteudo().getNome();
+        String conteudo = vm.getConteudoAtivo().getNome();
 
         Query qstsQry = bd
                 .collection("questoes")

@@ -1,5 +1,7 @@
 package br.cefetmg.inf.medidaexata.view.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -28,17 +30,20 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import br.cefetmg.inf.medidaexata.model.Conteudo;
 import br.cefetmg.inf.medidaexata.model.CoresUI;
+import br.cefetmg.inf.medidaexata.model.Materia;
 import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
+import br.cefetmg.inf.medidaexata.view.dialogs.NomeUsuarioDialog;
+import br.cefetmg.inf.medidaexata.view.fragments.ConquistasFragment;
 import br.cefetmg.inf.medidaexata.view.fragments.ConteudosFragment;
 import br.cefetmg.inf.medidaexata.view.fragments.MateriasFragment;
 import br.cefetmg.inf.medidaexata.view.fragments.PontuacaoFragment;
 import br.cefetmg.inf.medidaexata.view.fragments.QuestoesFragment;
+import br.cefetmg.inf.medidaexata.view.fragments.QuestoesOuMateriasFragment;
 import br.cefetmg.inf.medidaexata.view.fragments.VerMateriaFragment;
 import br.cefetmg.inf.medidaexata.view.fragments.VerQuestaoFragment;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
 import br.cefetmg.inf.util.MaterialButtonUtils;
-import br.cefetmg.inf.util.StringUtils;
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -48,12 +53,13 @@ public class MainActivity
         extends
         AppCompatActivity
         implements
-        ConteudosFragment.OnConteudoInteractionListener ,
+        QuestoesOuMateriasFragment.OnQuestoesOuMateriasFragmentInteractionListener,
+        MateriasFragment.OnMateriasFragmentInteractionListener,
+        ConteudosFragment.OnConteudoInteractionListener,
         QuestoesFragment.OnQuestaoInteractionListener,
         VerQuestaoFragment.OnAlternativaSelecionadaListener,
         PontuacaoFragment.OnPontuacaoFragmentInteractionListener,
         VerMateriaFragment.OnVerMateriaFragmentInteractionListener,
-        MateriasFragment.OnMateriasFragmentInteractionListener,
         IAlteraProgressBar {
 
 
@@ -64,11 +70,15 @@ public class MainActivity
     private static final int FRAGMENT_CONTAINER_ID = R.id.frg_container;
 
     // Tags referentes aos Fragment do app
+    private static final String TAG_QUESTOES_OU_MATERIAS_FRAGMENT = "questoes_ou_materias_fragment";
+    private static final String TAG_MATERIAS_FRAGMENT = "materias_fragment";
     private static final String TAG_CONTEUDOS_FRAGMENT = "conteudos_fragment";
     private static final String TAG_QUESTOES_FRAGMENT = "questoes_fragment";
     private static final String TAG_VER_QUESTAO_FRAGMENT = "ver_questao_fragment";
     private static final String TAG_VER_MATERIA_FRAGMENT = "ver_materia_fragment";
     private static final String TAG_PONTUACAO_FRAGMENT = "pontuacao_fragment";
+    private static final String TAG_CONQUISTAS_FRAGMENT = "conquistas_fragment";
+    private static final String TAG_NOME_USUARIO_DIALOG = "nome_usuario_dialog";
 
     // TAG usada para Logging
     private static final String TAG  = MainActivity.class.getSimpleName();
@@ -95,15 +105,10 @@ public class MainActivity
     //
 
     @BindView(R.id.bttnav_app) BottomNavigationView refBttNavConteudos;
-
     @BindView(R.id.rl_rootv_disciplinas_act) ConstraintLayout refRootViewMainAct;
-
     @BindView(R.id.pb_carregando)ProgressBar refPbQuestoes;
-
     @BindView(R.id.tv_toque) TextView refTvToque;
-
     @BindView(R.id.tb_menu_disciplinas_act) Toolbar refTbMenu;
-
     @BindView(R.id.dw_sombra_btt_nav) View refSombraBttNav;
     @BindView(R.id.dw_sombra_tb) View refSombraTb;
 
@@ -114,20 +119,22 @@ public class MainActivity
     //
 
     // Cores Primárias
-    @BindColor(R.color.colorPrimaryLight) int corPrimClara;
-    @BindColor(R.color.colorPrimary) int corPrim;
-    @BindColor(R.color.colorPrimaryDark) int corPrimEscura;
+    @BindColor(R.color.azul_claro) int corPrimClara;
+    @BindColor(R.color.azul) int corPrim;
+    @BindColor(R.color.azul_escuro) int corPrimEscura;
 
     // Cores Primárias - ColorStateLists e Selectors
     @BindColor(R.color.selector_bttnav_colors_mat) ColorStateList selectorItemBttNavMat;
 
     // Cores Secundárias
-    @BindColor(R.color.colorSecondaryLight) int corSecClara;
-    @BindColor(R.color.colorSecondary) int corSec;
-    @BindColor(R.color.colorSecondaryDark) int corSecEscura;
+    @BindColor(R.color.verde_claro) int corSecClara;
+    @BindColor(R.color.verde) int corSec;
+    @BindColor(R.color.verde_escuro) int corSecEscura;
 
     // Cores Secundárias - ColorStateLists e Selectors
     @BindColor(R.color.selector_bttnav_colors_cie) ColorStateList selectorItemBttNavCie;
+
+    @BindColor(R.color.selector_bttnav_colors_conquistas) ColorStateList selectorItemBttNavConquistas;
 
     //Outras cores
     @BindColor(R.color.vermelho) int corAltErrada;
@@ -140,6 +147,7 @@ public class MainActivity
 
     @BindString(R.string.disc_matematica) String discMat;
     @BindString(R.string.disc_ciencias) String discCie;
+    @BindString(R.string.conquistas) String conquistas;
 
     //
     //// Binding de Strings
@@ -162,31 +170,42 @@ public class MainActivity
                         mostraProgressBar();
                         switch (itemClicado) {
                             case R.id.i_btt_nav_matematica:
+                                setTheme(R.style.AppTheme_Azul);
                                 // Atualiza UI
                                 // Atualiza título
-                                vm.setTitulo(discMat);
+                                vm.setTituloAtivo(discMat);
                                 // Atualiza a UI para as cores Primárias
                                 vm.getCoresUI().setTipoCoresAtuais(CoresUI.CORES_PRIMARIAS);
                                 setBttNavColorStateList(selectorItemBttNavMat);
 
-                                final Fragment frgMat = ConteudosFragment.newInstance();
-                                iniciaFragment(frgMat, TAG_CONTEUDOS_FRAGMENT, false);
+                                iniciaFragment(TAG_QUESTOES_OU_MATERIAS_FRAGMENT, false);
                                 break;
 
                             case R.id.i_btt_nav_ciencias:
+                                setTheme(R.style.AppTheme_Verde);
                                 // Atualiza UI
                                 // Atualiza título
-                                vm.setTitulo(discCie);
+                                vm.setTituloAtivo(discCie);
                                 // Atualiza a UI para as cores Primárias
                                 vm.getCoresUI().setTipoCoresAtuais(CoresUI.CORES_SECUNDARIAS);
                                 setBttNavColorStateList(selectorItemBttNavCie);
 
-                                final Fragment frgCie = ConteudosFragment.newInstance();
-                                iniciaFragment(frgCie, TAG_CONTEUDOS_FRAGMENT, false);
+                                iniciaFragment(TAG_QUESTOES_OU_MATERIAS_FRAGMENT, false);
                                 break;
 
                             case R.id.i_btt_nav_perfil:
-                                mostraToast("TODO", Toast.LENGTH_SHORT);
+                                setTheme(R.style.AppTheme_AzulClaro);
+                                // Atualiza UI
+                                // Atualiza título
+                                vm.setTituloAtivo(conquistas);
+                                // Atualiza a UI
+                                setBttNavColorStateList(selectorItemBttNavConquistas);
+
+                                refRootViewMainAct.setBackgroundColor(corBranco);
+
+                                refBttNavConteudos.setBackgroundColor(corBranco);
+
+                                iniciaFragment(TAG_CONQUISTAS_FRAGMENT, false);
                                 break;
                         }
                     }
@@ -197,10 +216,18 @@ public class MainActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme_Azul);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Vincula as Views que estão no topo do arquivo com a Activity
         ButterKnife.bind(this);
+
+        // Verifica se já foi pedido o nome do usuário, caso não tenha sido, abre o Dialog que o pede
+        SharedPreferences sp = getPreferences(Context.MODE_PRIVATE);
+        boolean nomeDoUsuarioJaFoiSetado = sp.getBoolean(ConquistasFragment.NOME_USUARIO_SETADO, false);
+        if(!nomeDoUsuarioJaFoiSetado) {
+            pedeNomeUsuario();
+        }
 
         // Instancia o ViewModel
         vm = ViewModelProviders
@@ -210,14 +237,20 @@ public class MainActivity
 
         // Seta os Observer do LiveData
         vm.getCoresUI().getTipoCoresAtuais().observe(this, this::atualizaCoresUi);
-        vm.getTitulo().observe(this, this::onNomeDisciplinaChange);
-        vm.getQst().observe(this, this::onQstFechadaChange);
+        vm.getTituloAtivo().observe(this, this::onNomeDisciplinaChange);
+        vm.getQstAtiva().observe(this, this::onQstFechadaChange);
 
         // Seta a Toolbar como a SupportActionBar
         setSupportActionBar(refTbMenu);
 
         setConteudoInicialUi(false);
         refBttNavConteudos.setOnNavigationItemSelectedListener(bttNavConteudosClickListener);
+    }
+
+    private void pedeNomeUsuario() {
+        NomeUsuarioDialog dialog = NomeUsuarioDialog.newInstance(this);
+        dialog.setCancelable(false);
+        dialog.show(getSupportFragmentManager(), TAG_NOME_USUARIO_DIALOG);
     }
 
     @Override
@@ -233,27 +266,33 @@ public class MainActivity
     @Override
     public void onBackPressed() {
         // Pega o Fragment visível
-        Fragment frg = getSupportFragmentManager().findFragmentById(FRAGMENT_CONTAINER_ID);
+        Fragment f = getSupportFragmentManager().findFragmentById(FRAGMENT_CONTAINER_ID);
 
-        if(frg != null && frg.isVisible()) {
-            if (frg instanceof ConteudosFragment) {
-                vm.setDisciplina(null);
+        if(f != null && f.isVisible()) {
+            if (f instanceof QuestoesOuMateriasFragment) {
                 super.onBackPressed();
                 setConteudoInicialUi(false);
                 return;
-            } else if (frg instanceof QuestoesFragment) {
-                vm.setConteudo(null);
+            } else if (f instanceof ConteudosFragment) {
                 mostraProgressBar();
                 escondeHomeButton();
-            } else if (frg instanceof VerQuestaoFragment) {
-                vm.setQst(null);
+            } else if (f instanceof QuestoesFragment) {
+                vm.setConteudoAtivo(null);
+                mostraProgressBar();
+            } else if (f instanceof VerQuestaoFragment) {
+                vm.setQstAtiva(null);
                 mostraProgressBar();
                 mostraBttNav();
-            } else if (frg instanceof PontuacaoFragment) {
-                vm.setQst(null);
+            } else if (f instanceof PontuacaoFragment) {
+                vm.setQstAtiva(null);
+                mostraProgressBar();
                 onVoltarParaOMenuSelecionado();
                 return;
-            } else if (frg instanceof VerMateriaFragment) {
+            }else if (f instanceof  MateriasFragment) {
+                setConteudoInicialUi(true);
+                return;
+            } else if (f instanceof VerMateriaFragment) {
+                setConteudoInicialUi(true);
                 return;
             }
         }
@@ -314,10 +353,11 @@ public class MainActivity
      */
     private void onNomeDisciplinaChange(String s) {
         refTbMenu.setTitle(s);
-        // Seta 'disciplina' igual à 'nomeDisciplina', no entanto,
-        // sem acentos e em Lower Case.
-        // Utilizado para as consultas no FireBase
-        vm.setDisciplina(StringUtils.tiraAcentos(s.toLowerCase()));
+
+        // Seta a disciplina ativa
+        if (s.equals(discMat) || s.equals(discCie)) {
+            vm.setDisciplinaAtiva(s);
+        }
     }
 
     /**
@@ -350,9 +390,9 @@ public class MainActivity
      */
     private void onQstFechadaChange(QuestaoFechada qst) {
         if(qst == null) {
-            vm.setQtdPontosAtuais(0);
+            vm.setQtdPontosAtiva(0);
         } else {
-             vm.setQtdPontosAtuais(qst.getQtdPontos());
+             vm.setQtdPontosAtiva(qst.getQtdPontos());
         }
     }
 
@@ -363,16 +403,58 @@ public class MainActivity
     //// Métodos usados para atualizar a UI
 
     /**
-     * @param frg fragment a ser ativado na UI
      * @param TAG_FRAGMENT Tag referente ao 1° argumento, para ser colocado na BackStack,
      *                     para poder ser identificado posteriormente
      */
-    private void iniciaFragment(Fragment frg, final String TAG_FRAGMENT, boolean limpaBackStack) {
+    private void iniciaFragment(final String TAG_FRAGMENT, boolean limpaBackStack) {
         mostraProgressBar();
-        if (!TAG_FRAGMENT.equals(TAG_CONTEUDOS_FRAGMENT)) {
-            mostraHomeButton();
-        } else {
-            setConteudoInicialUi(true);
+
+        Fragment f = null;
+        switch (TAG_FRAGMENT) {
+            case TAG_QUESTOES_OU_MATERIAS_FRAGMENT:
+                escondeHomeButton();
+                mostraToolbar();
+                mostraBttNav();
+                f = QuestoesOuMateriasFragment.newInstance();
+                break;
+            case TAG_MATERIAS_FRAGMENT:
+                vm.setQstAtiva(null);
+                mostraHomeButton();
+                mostraToolbar();
+                mostraBttNav();
+                f = MateriasFragment.newInstance();
+                break;
+            case TAG_CONTEUDOS_FRAGMENT:
+                mostraHomeButton();
+                mostraToolbar();
+                mostraBttNav();
+                f = ConteudosFragment.newInstance();
+                break;
+            case TAG_QUESTOES_FRAGMENT:
+                mostraHomeButton();
+                mostraToolbar();
+                mostraBttNav();
+                f = QuestoesFragment.newInstance();
+                break;
+            case TAG_VER_QUESTAO_FRAGMENT:
+                mostraHomeButton();
+                mostraToolbar();
+                escondeBttNav();
+                f = VerQuestaoFragment.newInstance();
+                break;
+            case TAG_VER_MATERIA_FRAGMENT:
+                escondeToolbar();
+                escondeBttNav();
+                f = VerMateriaFragment.newInstance();
+                break;
+            case TAG_PONTUACAO_FRAGMENT:
+                escondeToolbar();
+                escondeBttNav();
+                f = PontuacaoFragment.newInstance();
+                break;
+            case TAG_CONQUISTAS_FRAGMENT:
+                escondeToolbar();
+                f = ConquistasFragment.newInstance();
         }
         if(limpaBackStack) {
             // Limpa a pilha de Fragment abertos
@@ -382,7 +464,7 @@ public class MainActivity
 
         FragmentManager frgManager = getSupportFragmentManager();
         FragmentTransaction transaction = frgManager.beginTransaction();
-        transaction.replace(FRAGMENT_CONTAINER_ID, frg, TAG_FRAGMENT);
+        transaction.replace(FRAGMENT_CONTAINER_ID, f, TAG_FRAGMENT);
         transaction.addToBackStack(TAG_FRAGMENT);
         transaction.commit();
     }
@@ -394,22 +476,31 @@ public class MainActivity
      */
     private void setConteudoInicialUi(boolean conteudoAtivado) {
         // Ativa o estado Inicial do App sempre que o menu for chamado
-        //Esconde o botão de voltar na ActionBar
-        escondeHomeButton();
         // Torna as barras superior e inferior visíveis, só por garantia
         mostraToolbar();
         mostraBttNav();
 
+        // Seta o conteúdo e a questão atuais para 'null'
+        // já que vai para a tela de seleção de conteúdos
+        vm.setConteudoAtivo(null);
+        vm.setQstAtiva(null);
+        vm.setMateriaAtiva(null);
+        vm.setQtdPontosAtiva(0);
+
         if (conteudoAtivado) {
+            iniciaFragment(TAG_QUESTOES_OU_MATERIAS_FRAGMENT, true);
             escondeConteudoCentral();
         } else {
+            vm.setDisciplinaAtiva(null);
+            //Esconde o botão de voltar na ActionBar
+            escondeHomeButton();
             ultimoItemClicado = 0;
             // Esconde a ProgressBar caso esteja visível
             escondeProgressBar();
             setBttNavColorStateList(
                     ColorStateList
                             .valueOf(vm.getCoresUI().getCoresAtuais().get(CoresUI.COR_CLARA)));
-            getSupportActionBar().setTitle("Menu inicial");
+            vm.setTituloAtivo("Menu inicial");
             refRootViewMainAct.setBackgroundColor(corBranco);
             refTvToque.setTextColor(vm.getCoresUI().getCoresAtuais().get(CoresUI.COR_PADRAO));
             mostraConteudoCentral();
@@ -428,6 +519,43 @@ public class MainActivity
             toast.setText(s);
         }
         toast.show();
+    }
+
+    private void atualizaPontosUsuario() {
+        SharedPreferences sp = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor spEditor = sp.edit();
+
+        int pontosDisciplina;
+        if(vm.getDisciplinaAtiva().equals(discMat)) {
+            pontosDisciplina = sp.getInt(ConquistasFragment.PONTOS_MATEMATICA, -1);
+
+            if (pontosDisciplina == -1) {
+                spEditor.putInt(ConquistasFragment.PONTOS_MATEMATICA, vm.getQtdPontosAtiva());
+            } else {
+                spEditor.putInt(
+                        ConquistasFragment.PONTOS_MATEMATICA,
+                        pontosDisciplina + vm.getQtdPontosAtiva());
+            }
+        } else if (vm.getDisciplinaAtiva().equals(discCie)) {
+            pontosDisciplina = sp.getInt(ConquistasFragment.PONTOS_CIENCIAS, -1);
+
+            if (pontosDisciplina == -1) {
+                spEditor.putInt(ConquistasFragment.PONTOS_CIENCIAS, vm.getQtdPontosAtiva());
+            } else {
+                spEditor.putInt(
+                        ConquistasFragment.PONTOS_CIENCIAS,
+                        pontosDisciplina + vm.getQtdPontosAtiva());
+            }
+        }
+
+        int pontosTotais = sp.getInt(ConquistasFragment.PONTOS_TOTAIS, -1);
+        if (pontosTotais == -1) {
+            spEditor.putInt(ConquistasFragment.PONTOS_TOTAIS, vm.getQtdPontosAtiva());
+        } else {
+            spEditor.putInt(
+                    ConquistasFragment.PONTOS_TOTAIS,
+                    pontosTotais + vm.getQtdPontosAtiva());
+        }
     }
 
     //// Métodos que alteram Visibility das Views
@@ -490,26 +618,17 @@ public class MainActivity
     @Override
     public void onVerQuestaoInteraction(QuestaoFechada qst) {
         // Seta a questão ativa
-        vm.setQst(qst);
+        vm.setQstAtiva(qst);
 
-        // Faz a barra inferior desaparecer
-        escondeBttNav();
-
-        // Obtém uma instância de 'VerQuestaoFragment'
-        final Fragment frgVerQst = VerQuestaoFragment.newInstance();
         // Inicia o fragment
-        iniciaFragment(frgVerQst, TAG_VER_QUESTAO_FRAGMENT, false);
+        iniciaFragment(TAG_VER_QUESTAO_FRAGMENT, false);
     }
     @Override
     public void onVerMateriaInteraction(QuestaoFechada qst) {
         // Seta a questão ativa
-        vm.setQst(qst);
+        vm.setQstAtiva(qst);
 
-        escondeToolbar();
-        escondeBttNav();
-
-        final Fragment frgVerMateria = VerMateriaFragment.newInstance();
-        iniciaFragment(frgVerMateria, TAG_VER_MATERIA_FRAGMENT, true);
+        iniciaFragment(TAG_VER_MATERIA_FRAGMENT, true);
     }
 
     //
@@ -521,10 +640,9 @@ public class MainActivity
     @Override
     public void onConteudoInteraction(Conteudo conteudo) {
         // Seta o conteúdo que poderá ser buscado posteriormente
-        vm.setConteudo(conteudo);
+        vm.setConteudoAtivo(conteudo);
 
-        final Fragment frgQsts = QuestoesFragment.newInstance();
-        iniciaFragment(frgQsts, TAG_QUESTOES_FRAGMENT, false);
+        iniciaFragment(TAG_QUESTOES_FRAGMENT, false);
     }
 
     //
@@ -535,7 +653,7 @@ public class MainActivity
 
     @Override
     public void onAlternativaSelecionada(MaterialButton[] refMtrlBts, int altSelecionada) {
-        boolean altCerta = altSelecionada == vm.getQst().getValue().getResposta();
+        boolean altCerta = altSelecionada == vm.getQstAtiva().getValue().getResposta();
 
         // Troca a cor do texto do botão para branco para melhorar a visualização
         String textoAlt = String.valueOf(refMtrlBts[altSelecionada].getText());
@@ -552,8 +670,11 @@ public class MainActivity
 
             // Esconde a Actionbar
             escondeToolbar();
+
+            // Atualiza os pontos do usuário
+            atualizaPontosUsuario();
         } else {
-            vm.setQtdPontosAtuais(vm.getQtdPontosAtuais() / 2);
+            vm.setQtdPontosAtiva(vm.getQtdPontosAtiva() / 2);
             refMtrlBts[altSelecionada]
                     .setBackgroundTintList(ColorStateList.valueOf(corAltErrada));
 
@@ -567,8 +688,7 @@ public class MainActivity
         handler.postDelayed(() -> {
             if (altCerta) {
                 // Redireciona para a página de pontuação da questão
-                final Fragment frgPont = PontuacaoFragment.newInstance();
-                iniciaFragment(frgPont, TAG_PONTUACAO_FRAGMENT, true);
+                iniciaFragment(TAG_PONTUACAO_FRAGMENT, true);
             } else {
                 // Permite que o usuário toque novamente nos botões
                 // e retorna o botão a sua cor original
@@ -591,19 +711,12 @@ public class MainActivity
 
     @Override
     public void onClaroQueSimInteraction() {
-        final Fragment frgVerMateria = VerMateriaFragment.newInstance();
-        iniciaFragment(frgVerMateria, TAG_VER_MATERIA_FRAGMENT, true);
+        iniciaFragment(TAG_VER_MATERIA_FRAGMENT, true);
     }
 
     @Override
     public void onVoltarParaOMenuSelecionado() {
-        // Seta o conteúdo e a questão atuais para 'null'
-        // já que vai para a tela de seleção de conteúdos
-        vm.setConteudo(null);
-        vm.setQst(null);
-
-        final Fragment frgConteudos = ConteudosFragment.newInstance();
-        iniciaFragment(frgConteudos, TAG_CONTEUDOS_FRAGMENT, true);
+        setConteudoInicialUi(true);
     }
 
     //
@@ -618,7 +731,7 @@ public class MainActivity
     }
     @Override
     public void onQroVerOutrasMateriasInteraction() {
-        // TODO
+        iniciaFragment(TAG_MATERIAS_FRAGMENT, false);
     }
 
     //
@@ -628,10 +741,28 @@ public class MainActivity
     //
 
     @Override
-    public void onMateriaInteraction() {
+    public void onMateriaInteraction(Materia m) {
+        // Seta matéria atual
+        vm.setMateriaAtiva(m);
 
+        iniciaFragment(TAG_VER_MATERIA_FRAGMENT, true);
     }
 
     //
     //// Métodos implementados de 'MateriasFragment'
+
+    //// Métodos implementados de 'QuestoesOuMateriasFragment'
+    //
+
+    @Override
+    public void onQuestoesOuMateriasInteraction(int cvSelecionado) {
+        if(cvSelecionado == QuestoesOuMateriasFragment.CARD_VIEW_VER_MATERIA_SELECIONADO) {
+            iniciaFragment(TAG_MATERIAS_FRAGMENT, false);
+        } else if (cvSelecionado == QuestoesOuMateriasFragment.CARD_VIEW_VER_QUESTOES_SELECIONADO) {
+            iniciaFragment(TAG_CONTEUDOS_FRAGMENT, false);
+        }
+    }
+
+    //
+    //// Métodos implementados de 'QuestoesOuMateriasFragment'
 }

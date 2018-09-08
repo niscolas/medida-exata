@@ -1,34 +1,45 @@
 <resources>
 
-    <string name="amo">Eu te amooo</string>
-    <string name="isabella">Isabellaaa</string>
     <!-- Nome do app -->
     <string name="app_name">Medida Exata</string>
 
-    <!-- Text Views -->
-    <!-- Boas Vindas -->
-    <string name="bem_vindo">Bem vindo\nao</string>
-    <!-- Introdução -->
-    <string name="introducao_ao_app">TEXTOO</string>
-    <!-- Disciplinas / Conteúdos -->
+    <!-- Main -->
     <string name="menu">Menu inicial</string>
     <string name="toque_em_um_botao">Toque em um dos botões abaixo para ver as questões</string>
-    <string name="perfil">Perfil</string>
+    <string name="conquistas">Conquistas</string>
+
+    <!-- Questões ou Matéria -->
+    <string name="qro_ver_as_questoes_da_disciplina">Quero ver as questões de </string>
+    <string name="qro_ver_as_materias_da_disciplina">Quero ver as matérias de </string>
+    <string name="toque_neste_botao_para_ver_conteudos">Toque neste botão para ver os conteúdos da disciplina, escolha um e veja as questões que o abordam</string>
+    <string name="toque_neste_botao_para_ver_as_materias_que_abordam_essa_disciplina">Toque neste botão para ver as matérias que abordam essa disciplina</string>
+
     <!-- Pontuação -->
     <string name="voce_ganhou">Você ganhou</string>
-    <string name="pontos">Pontos!</string>
-    <string name="vc_e_bom">Você é bom mesmo hein, quer ver a matéria para aumentar seu conhecimento?</string>
+    <string name="uhu_pontos">Pontos!</string>
+    <string name="vc_e_bom">Você é bom mesmo hein, quer ver a matéria para aumentar ainda mais o seu conhecimento?</string>
     <string name="claro_que_sim">Claro que sim!</string>
     <string name="quero_voltar">Não, quero voltar pra o Menu</string>
     <string name="parabens">Parabéns!!!</string>
+
     <!-- VerMatéria -->
     <string name="qro_ir_para_menu">Quero voltar para o menu agora</string>
 
-    <!-- Botões -->
-    <string name="vamos_comecar">Vamos começar</string>
-    <string name="interessante">Interessante!</string>
+    <!-- Onboarding -->
+    <string name="bem_vindo">Bem vindo</string>
+    <string name="como_estudar">Como estudar?</string>
+    <string name="como_estudar_uma_disciplina">Como estudar uma disciplinaAtiva?</string>
+    <string name="selecione_disciplina">Selecione a disciplinaAtiva que você quer estudar primeiro: Ciências ou Matemática!</string>
+    <string name="escolha_um_conteudo">Após clicar em uma disciplinaAtiva, escolha um conteúdo dentre vários. Ao selecionar o conteúdo, você irá aprendê-lo e fazer exercícios.</string>
+    <string name="escolha_assunto">Escolha um conteúdo da disciplinaAtiva</string>
+    <string name="pular">Pular</string>
+    <string name="proximo">Próximo</string>
+    <string name="seja_bem_vindo">Seja bem-vindo</string>
+    <string name="texto_onboarding_1">Se você está usando o aplicativo pela primeira vez, assista a este tutorial para aprender mais.</string>
+    <string name="qro_ver_materias">Quero ver outras matérias</string>
+
     <!-- ItemQuestao -->
-    <string name="con_abordado">Conhecimento abordado:</string>
+    <string name="con_abordado">Matéria abordada:</string>
     <string name="ver_questao">Ver questão</string>
     <string name="ver_materia">Ver matéria</string>
 
@@ -42,20 +53,19 @@
     <string name="fisica">Física</string>
     <string name="quimica">Química</string>
 
+    <!-- Conquistas -->
+    <string name="vc_tem">você tem</string>
+    <string name="pontos_em">pontos em</string>
+    <string name="e">e</string>
+    <string name="suas_conquistas">Suas conquistas</string>
+    <string name="totalizando">Totalizando</string>
+    <string name="seu_nome_aqui">Seu nome aqui</string>
+
+    <!-- NomeUsuarioDialog -->
+    <string name="ola_bem_vindo">Oi! Seja bem-vindo(a) ao Medida Exata. Como você prefere ser chamado(a)?</string>
+    <string name="pronto">Pronto!</string>
+    <string name="nome_vazio">Você digitou um nome vazio</string>
+
     <!-- Content Description(s)-->
     <string name="ctntdes_iv_medida_exata_logo">Logo do aplicativo Medida Exata</string>
-
-    <string name="como_estudar">Como estudar?</string>
-    <string name="como_estudar_uma_disciplina">Como estudar uma disciplina?</string>
-    <string name="selecione_disciplina">Selecione a disciplina que você quer estudar primeiro: Ciências ou Matemática!</string>
-    <string name="escolha_um_conteudo">Após clicar em uma disciplina, escolha um conteúdo dentre vários. Ao selecionar o conteúdo, você irá aprendê-lo e fazer exercícios.</string>
-    <string name="escolha_assunto">Escolha um conteúdo da disciplina</string>
-    <string name="pular">Pular</string>
-    <string name="proximo">Próximo</string>
-    <string name="seja_bem_vindo">Seja bem-vindo</string>
-    <string name="texto_onboarding_1">Se você está usando o aplicativo pela primeira vez, assista a este tutorial para aprender mais.</string>
-    <string name="qro_ver_materias">Quero ver outras matérias</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

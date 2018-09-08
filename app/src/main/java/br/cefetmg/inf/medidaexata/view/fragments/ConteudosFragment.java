@@ -11,6 +11,7 @@ import br.cefetmg.inf.medidaexata.model.Conteudo;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.adapters.ConteudoAdapter;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
+import br.cefetmg.inf.util.StringUtils;
 import butterknife.ButterKnife;
 
 import android.util.Log;
@@ -50,18 +51,18 @@ public class ConteudosFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context ctxt) {
-        super.onAttach(ctxt);
-        if (ctxt instanceof OnConteudoInteractionListener) {
-            frgListener = (OnConteudoInteractionListener) ctxt;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnConteudoInteractionListener) {
+            frgListener = (OnConteudoInteractionListener) context;
         } else {
-            throw new RuntimeException(ctxt.toString()
-                    + " tem de implementar OnConteudoInteractionListener");
+            throw new RuntimeException(context.toString()
+                    + " tem de implementar OnMateriasFragmentInteractionListener");
         }
-        if(ctxt instanceof IAlteraProgressBar) {
-            altPbListener = (IAlteraProgressBar) ctxt;
+        if(context instanceof IAlteraProgressBar) {
+            altPbListener = (IAlteraProgressBar) context;
         } else {
-            throw new RuntimeException(ctxt.toString()
+            throw new RuntimeException(context.toString()
                     + "tem de implementar QuestaoAdapter.IAlteraProgressBar");
         }
     }
@@ -73,13 +74,14 @@ public class ConteudosFragment extends Fragment {
         // Obtém o ViewModel
         vm = ViewModelProviders.of(getActivity()).get(MedidaExataViewModel.class);
         // Seta a disciplina utilizada nas Querys do FireStore
-        disciplina = vm.getDisciplina();
+        disciplina = StringUtils.tiraAcentos(vm.getDisciplinaAtiva().toLowerCase());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+        vm.setTituloAtivo("Escolha um conteúdo");
 
         View v = inflater.inflate(R.layout.fragment_conteudos_list, container, false);
         ButterKnife.bind(this, v);

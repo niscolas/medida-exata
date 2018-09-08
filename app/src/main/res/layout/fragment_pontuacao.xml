@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_qtd_pontos"
         android:layout_centerHorizontal="true"
-        android:text="@string/pontos"
+        android:text="@string/uhu_pontos"
         android:textSize="30sp"
 
         tools:textColor="@color/branco" />
