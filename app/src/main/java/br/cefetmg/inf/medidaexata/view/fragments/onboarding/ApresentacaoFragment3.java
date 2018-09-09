@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment;
 
 import com.cefetmg.inf.android.medidaexata.activities.R;
 
-public class OnboardingFragment3 extends Fragment {
+public class ApresentacaoFragment3 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle s) {
-        return inflater.inflate(R.layout.fragment_onboarding_3, container, false);
+        return inflater.inflate(R.layout.fragment_apresentacao_3, container, false);
     }
 }

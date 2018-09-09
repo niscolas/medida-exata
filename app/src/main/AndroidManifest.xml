@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme.Launcher">
 
 
-        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.OnboardingActivity" >
+        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.BoasVindasActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,5 +25,4 @@
         </activity>
 
     </application>
-
 </manifest>

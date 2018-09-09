@@ -23,18 +23,27 @@
     </style>
 
     <style name="AppTheme.Tutorial" parent="AppTheme">
-        <item name="colorPrimary">@color/colorPrimaryLight</item>
-        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/azul_claro</item>
+        <item name="colorAccent">@color/azul</item>
         <item name="android:windowBackground">@color/branco</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/azul</item>
     </style>
 
     <!-- Estilo padrão para botões Material preenchidos -->
     <style name="AppTheme.MaterialButtonFilled" parent="Widget.MaterialComponents.Button">
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
+
+        <item name="android:layout_marginStart">@dimen/mtrl_bt_soft_margin_hrz</item>
+        <item name="android:layout_marginLeft">@dimen/mtrl_bt_soft_margin_hrz</item>
+        <item name="android:layout_marginEnd">@dimen/mtrl_bt_soft_margin_hrz</item>
+        <item name="android:layout_marginRight">@dimen/mtrl_bt_soft_margin_hrz</item>
+        <item name="android:layout_marginTop">@dimen/mtrl_bt_soft_margin_vrt</item>
+        <item name="android:layout_marginBottom">@dimen/mtrl_bt_margin_btt</item>
+
         <item name="backgroundTint">?attr/colorAccent</item>
     </style>
+
     <!-- Estilo acima para alternativas de questões -->
     <style name="AppTheme.MaterialButtonFilled.Alternativa" parent="AppTheme.MaterialButtonFilled">
         <item name="android:minHeight">@dimen/mtrl_bt_alternativa_min_height</item>
