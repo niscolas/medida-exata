@@ -14,7 +14,6 @@ import java.util.Map;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import br.cefetmg.inf.medidaexata.model.Conteudo;
-import br.cefetmg.inf.medidaexata.model.CoresUI;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.fragments.ConteudosFragment;
 import butterknife.BindView;
@@ -26,17 +25,13 @@ public class ConteudoAdapter
     // Listeners
     private final ConteudosFragment.OnConteudoInteractionListener frgListener;
     private IAlteraProgressBar altPbListener;
-    // Cores dos textos mostrados
-    private Map<String, Integer> coresTexto;
 
     public ConteudoAdapter(FirestoreRecyclerOptions<Conteudo> options,
                            ConteudosFragment.OnConteudoInteractionListener frgListener,
-                           IAlteraProgressBar altPbListener,
-                           Map<String, Integer> coresTexto) {
+                           IAlteraProgressBar altPbListener) {
         super(options);
         this.frgListener = frgListener;
         this.altPbListener = altPbListener;
-        this.coresTexto = coresTexto;
     }
 
     @Override
@@ -58,12 +53,6 @@ public class ConteudoAdapter
     protected void onBindViewHolder(final ConteudoHolder conteudoHolder,
                                     int posicao,
                                     final Conteudo conteudo) {
-//        int corClara = coresTexto.get(CoresUI.COR_CLARA);
-//        int corPadrao = coresTexto.get(CoresUI.COR_PADRAO);
-        int corEscura = coresTexto.get(CoresUI.COR_ESCURA);
-
-        // Altera o texto e sua cor a ser mostrada no nome de cada Conteúdo
-        conteudoHolder.refTvNomeConteudo.setTextColor(corEscura);
         conteudoHolder.refTvNomeConteudo.setText(conteudo.getNome());
         // Altera o texto e sua cor a ser mostrada na descrição de cada Conteúdo
 //        conteudoHolder.refTvDesConteudo.setTextColor(corClara);
@@ -78,10 +67,8 @@ public class ConteudoAdapter
 
     public class ConteudoHolder extends RecyclerView.ViewHolder {
         final CardView cardView;
-        @BindView(R.id.tv_nome_materia)
-        TextView refTvNomeConteudo;
-        @BindView(R.id.tv_des_conteudo)
-        TextView refTvDesConteudo;
+        @BindView(R.id.tv_nome_materia) TextView refTvNomeConteudo;
+        @BindView(R.id.tv_des_conteudo) TextView refTvDesConteudo;
 
         ConteudoHolder(View v) {
             super(v);

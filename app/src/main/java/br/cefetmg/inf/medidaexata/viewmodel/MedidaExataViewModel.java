@@ -1,31 +1,28 @@
 package br.cefetmg.inf.medidaexata.viewmodel;
 
-import java.util.Map;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import br.cefetmg.inf.medidaexata.model.Conteudo;
-import br.cefetmg.inf.medidaexata.model.CoresUI;
 import br.cefetmg.inf.medidaexata.model.Materia;
 import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
 
 public class MedidaExataViewModel extends ViewModel {
     private MutableLiveData<String> tituloAtivo;
-    private String disciplinaAtiva;
+    private String contextoCoresAtivo;
+    private MutableLiveData<String> disciplinaAtiva;
     private Conteudo conteudoAtivo;
     private MutableLiveData<QuestaoFechada> qstAtiva;
     private Materia materiaAtiva;
     private int qtdPontosAtiva;
-    private CoresUI coresUI;
 
-    public void initViewModel(Map<String, Map<String, Integer>> corMap) {
+    public void initViewModel() {
         tituloAtivo = new MutableLiveData<>();
-        disciplinaAtiva = "";
+        contextoCoresAtivo = "";
+        disciplinaAtiva = new MutableLiveData<>();
         conteudoAtivo = new Conteudo();
         qstAtiva = new MutableLiveData<>();
         materiaAtiva = new Materia();
         qtdPontosAtiva = 0;
-        coresUI = CoresUI.getInstance(corMap);
     }
 
     public MutableLiveData<String> getTituloAtivo() {
@@ -35,11 +32,20 @@ public class MedidaExataViewModel extends ViewModel {
         this.tituloAtivo.setValue(tituloAtivo);
     }
 
-    public String getDisciplinaAtiva() {
+    public String getContextoCoresAtivo() {
+        return contextoCoresAtivo;
+    }
+
+    public void setContextoCoresAtivo(String contextoCoresAtivo) {
+        this.contextoCoresAtivo = contextoCoresAtivo;
+    }
+
+    public MutableLiveData<String> getDisciplinaAtiva() {
         return disciplinaAtiva;
     }
+
     public void setDisciplinaAtiva(String disciplinaAtiva) {
-        this.disciplinaAtiva = disciplinaAtiva;
+        this.disciplinaAtiva.setValue(disciplinaAtiva);
     }
 
     public Conteudo getConteudoAtivo() {
@@ -68,9 +74,5 @@ public class MedidaExataViewModel extends ViewModel {
     }
     public void setQtdPontosAtiva(int qtdPontosAtiva) {
         this.qtdPontosAtiva = qtdPontosAtiva;
-    }
-
-    public CoresUI getCoresUI() {
-        return coresUI;
     }
 }

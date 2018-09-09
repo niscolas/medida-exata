@@ -10,7 +10,6 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -31,8 +30,8 @@ dependencies {
     // AppCompat e Material
     implementation 'androidx.appcompat:appcompat:1.0.0-rc02'
     implementation 'androidx.fragment:fragment:1.0.0-rc02'
-    implementation 'com.google.android.material:material:1.0.0-rc01'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.google.android.material:material:1.0.0-rc02'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
     // View Model & Live Data
@@ -45,19 +44,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.3'
     // Butter Knife
     implementation 'com.jakewharton:butterknife:9.0.0-SNAPSHOT'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-SNAPSHOT'
     // Blibioteca do git para intro
     implementation 'com.github.navasmdc:MaterialDesign:1.5@aar'
     // a library that offers a custom title strip element for the ViewPager component
     implementation 'com.ogaclejapan.smarttablayout:library:1.2.1@aar'
-
-    // JUnit e testes
-//    testImplementation 'junit:junit:4.12'
-//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
 }
 // Google Services
 apply plugin: 'com.google.gms.google-services'

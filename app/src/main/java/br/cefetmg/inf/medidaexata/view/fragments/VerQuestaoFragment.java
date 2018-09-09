@@ -15,10 +15,12 @@ import com.google.android.material.button.MaterialButton;
 import java.util.List;
 import java.util.Map;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import br.cefetmg.inf.medidaexata.model.CoresUI;
+import br.cefetmg.inf.medidaexata.model.CoresUi;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
+import br.cefetmg.inf.medidaexata.view.activities.MainActivity;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
 import br.cefetmg.inf.util.TextViewUtils;
 import butterknife.BindView;
@@ -90,14 +92,17 @@ public class VerQuestaoFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_ver_questao, container, false);
         ButterKnife.bind(this, v);
 
-        // Some com a ProgressBar
-
         // Obtém os recursos necessários do ViewModel para popular os campos da questão
         // Obtém cores para o texto
-        Map<String, Integer> coresAtuais = vm.getCoresUI().getCoresAtuais();
-
-        int corClara = coresAtuais.get(CoresUI.COR_CLARA);
-        int corEscura = coresAtuais.get(CoresUI.COR_ESCURA);
+        int corClara = 0;
+        int corEscura = 0;
+        if(vm.getContextoCoresAtivo().equals(getString(R.string.disc_ciencias))) {
+            corClara = ContextCompat.getColor(getActivity(), R.color.verde_claro);
+            corEscura = ContextCompat.getColor(getActivity(), R.color.verde_escuro);
+        } else {
+            corClara = ContextCompat.getColor(getActivity(), R.color.azul_claro);
+            corEscura = ContextCompat.getColor(getActivity(), R.color.azul_escuro);
+        }
 
         // Obtém informações da questão
         List<String> enunciado = vm.getQstAtiva().getValue().getEnunciado();

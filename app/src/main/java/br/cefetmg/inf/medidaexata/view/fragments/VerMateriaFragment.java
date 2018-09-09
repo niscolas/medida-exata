@@ -2,6 +2,7 @@ package br.cefetmg.inf.medidaexata.view.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +15,17 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.Arrays;
 import java.util.List;
 
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import br.cefetmg.inf.medidaexata.model.CoresUI;
 import br.cefetmg.inf.medidaexata.model.Materia;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
+import br.cefetmg.inf.medidaexata.view.IOnSemResultados;
+import br.cefetmg.inf.medidaexata.view.dialogs.SemResultadosDialog;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
 import br.cefetmg.inf.util.ImageViewUtils;
 import br.cefetmg.inf.util.TextViewUtils;
@@ -44,6 +48,7 @@ public class VerMateriaFragment extends Fragment {
     // Listener do Fragment
     private OnVerMateriaFragmentInteractionListener frgListener;
     private IAlteraProgressBar altPbListener;
+    private IOnSemResultados semResultadosListener;
     // ViewModel
     private MedidaExataViewModel vm;
 
@@ -80,10 +85,16 @@ public class VerMateriaFragment extends Fragment {
                     + " must implement OnVerMateriaFragmentInteractionListener");
         }
         if (context instanceof IAlteraProgressBar) {
-            altPbListener= (IAlteraProgressBar) context;
+            altPbListener = (IAlteraProgressBar) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement IAlteraProgressBar");
+        }
+        if (context instanceof IOnSemResultados) {
+            semResultadosListener = (IOnSemResultados) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement IOnSemResultados");
         }
     }
 
@@ -97,22 +108,23 @@ public class VerMateriaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        altPbListener.escondeProgressBar();
-
         View v = inflater.inflate(R.layout.fragment_ver_materia, container, false);
         ButterKnife.bind(this, v);
 
-        // Atribui ao TextView de MatériaAbordada, texto e cor
-        refTvTituloMat.setTextColor(vm.getCoresUI().getCoresAtuais().get(CoresUI.COR_ESCURA));
-
         if(vm.getQstAtiva().getValue() != null) {
             // Obtém os dados da matéria
-            getDadosMateria();
+            if(vm.getQstAtiva().getValue() != null && vm.getQstAtiva().getValue().getMateriaRel() != null) {
+                getDadosMateria();
+            } else {
+                DialogFragment df = SemResultadosDialog.newInstance(SemResultadosDialog.SEM_MATERIA);
+                semResultadosListener.onSemQuestoes(df);
+            }
         } else {
             materia = vm.getMateriaAtiva();
             refTvTituloMat.setText(materia.getTitulo());
             populaFragmentComMateria();
         }
+        altPbListener.escondeProgressBar();
 
         return v;
     }
@@ -128,9 +140,13 @@ public class VerMateriaFragment extends Fragment {
         docMateria.get().addOnSuccessListener(documentSnapshot -> {
             materia = documentSnapshot.toObject(Materia.class);
 
-            refTvTituloMat.setText(materia.getTitulo());
-
-            populaFragmentComMateria();
+            if(materia != null) {
+                refTvTituloMat.setText(materia.getTitulo());
+                populaFragmentComMateria();
+            } else {
+                DialogFragment df = SemResultadosDialog.newInstance(SemResultadosDialog.SEM_MATERIA);
+                semResultadosListener.onSemQuestoes(df);
+            }
         });
     }
 
@@ -168,7 +184,8 @@ public class VerMateriaFragment extends Fragment {
      * @param corTexto a cor do Texto
      * @param context o contexto
      */
-    public static void populaLinearLayoutComTextoEImagens(
+
+    static void populaLinearLayoutComTextoEImagens(
             LinearLayout container,
             int posViewInicial,
             List<String> textoEImagens,

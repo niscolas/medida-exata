@@ -1,5 +1,6 @@
 package br.cefetmg.inf.medidaexata.view.adapters;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -12,11 +13,10 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.button.MaterialButton;
 
-import java.util.Map;
-
-import br.cefetmg.inf.medidaexata.model.CoresUI;
 import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
+import br.cefetmg.inf.medidaexata.view.IOnSemResultados;
+import br.cefetmg.inf.medidaexata.view.dialogs.SemResultadosDialog;
 import br.cefetmg.inf.medidaexata.view.fragments.QuestoesFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,18 +30,29 @@ public class QuestaoAdapter
     private final QuestoesFragment.OnQuestaoInteractionListener frgListener;
     // Listener para executar alterações na ProgressBar indicadora de Loading
     private final IAlteraProgressBar altPbListener;
-
-    // int[] que armazena as cores do texto de cada ViewHolder
-    private final Map<String, Integer> coresTexto;
+    // Listener para mostrar o Dialog Sem Resultados
+    private final IOnSemResultados semResultadosListener;
 
     public QuestaoAdapter(FirestoreRecyclerOptions<QuestaoFechada> options,
                           QuestoesFragment.OnQuestaoInteractionListener frgListener,
                           IAlteraProgressBar altPbListener,
-                          Map<String, Integer> coresTexto) {
+                          IOnSemResultados semResultadosListener) {
         super(options);
         this.frgListener = frgListener;
         this.altPbListener = altPbListener;
-        this.coresTexto = coresTexto;
+        this.semResultadosListener = semResultadosListener;
+    }
+
+
+    @Override
+    public void onDataChanged() {
+        super.onDataChanged();
+
+        if(getItemCount() == 0) {
+            altPbListener.escondeProgressBar();
+            DialogFragment df = SemResultadosDialog.newInstance(SemResultadosDialog.SEM_QUESTOES);
+            semResultadosListener.onSemQuestoes(df);
+        }
     }
 
     @Override
@@ -63,22 +74,11 @@ public class QuestaoAdapter
     protected void onBindViewHolder(final QuestaoHolder qstHolder,
                                     int posicao,
                                     final QuestaoFechada qst) {
-        // Obtém cores do Map<S, I> coresTexto
-//        int corClara = coresTexto.get(CoresUI.COR_CLARA);
-//        int corPadrao = coresTexto.get(CoresUI.COR_PADRAO);
-        int corEscura = coresTexto.get(CoresUI.COR_ESCURA);
-
         // Seta cor mais clara ao enunciado de cada questão
-//        qstHolder.refTvEnunciado.setTextColor(corClara);
         qstHolder.refTvEnunciado.setText(qst.getEnunciado().get(0));
 
         // Seta cor mais clara ao objeto de conhecimento
-//        qstHolder.refTvObjCon.setTextColor(corClara);
         qstHolder.refTvObjCon.setText(qst.getMateriaAbordada());
-
-        // Seta cores padrão para os botões das questões
-//        qstHolder.refBtVerQuestao.setTextColor(corPadrao);
-//        qstHolder.refBtVerMateria.setTextColor(corPadrao);
 
         // Adiciona Listeners para cada botão
         if(frgListener != null) {

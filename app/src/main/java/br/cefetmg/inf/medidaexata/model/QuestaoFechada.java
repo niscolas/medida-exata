@@ -5,7 +5,6 @@ import com.google.firebase.firestore.DocumentReference;
 import java.util.List;
 
 public class QuestaoFechada {
-    private String codigo;
     private String disciplina;
     private String conteudo;
     private String materiaAbordada;
@@ -17,8 +16,7 @@ public class QuestaoFechada {
 
     public QuestaoFechada() { }
 
-    public QuestaoFechada(String codigo, String disciplina, String conteudo, String materiaAbordada, List<String> enunciado, List<String> alternativas, int resposta, int qtdPontos, DocumentReference materiaRel) {
-        this.codigo = codigo;
+    public QuestaoFechada(String disciplina, String conteudo, String materiaAbordada, List<String> enunciado, List<String> alternativas, int resposta, int qtdPontos, DocumentReference materiaRel) {
         this.disciplina = disciplina;
         this.conteudo = conteudo;
         this.materiaAbordada = materiaAbordada;
@@ -27,14 +25,6 @@ public class QuestaoFechada {
         this.resposta = resposta;
         this.qtdPontos = qtdPontos;
         this.materiaRel = materiaRel;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     public String getDisciplina() {

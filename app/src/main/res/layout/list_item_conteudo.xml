@@ -28,7 +28,7 @@
 
             tools:text="Álgebra"
             android:textSize="20sp"
-            android:textColor="?attr/colorPrimaryDark"/>
+            android:textColor="?attr/colorAccent"/>
 
         <TextView
             android:id="@+id/tv_des_conteudo"

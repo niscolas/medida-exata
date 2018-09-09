@@ -3,10 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_checked="true"
-        android:color="@color/branco" />
+        android:color="@color/azul_escuro" />
     <item
         android:state_checked="false"
         android:color="@color/azul_claro" />
-    <!-- Estado Default -->
-    <item android:color="@color/azul_claro"/>
 </selector>

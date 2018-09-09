@@ -21,12 +21,12 @@ public class ConquistasFragment extends Fragment {
     //// Campos static final
     //
 
+    private static final String TAG = ConquistasFragment.class.getSimpleName();
     public static final String NOME_USUARIO = "nome_do_usuario";
     public static final String NOME_USUARIO_SETADO = "nome_do_usuario_foi_setado";
     public static final String PONTOS_MATEMATICA = "pontos_em_matematica";
     public static final String PONTOS_CIENCIAS = "pontos_em_ciencias";
     public static final String PONTOS_TOTAIS = "pontos_totais";
-    private static final String TAG = ConquistasFragment.class.getSimpleName();
 
     //
     //// Campos static final
@@ -77,7 +77,7 @@ public class ConquistasFragment extends Fragment {
 
         SharedPreferences sp = getActivity().getPreferences(Context.MODE_PRIVATE);
 
-        refTvNomeUsuario.setText(sp.getString(NOME_USUARIO, "Seu nome"));
+        refTvNomeUsuario.setText(String.format("%s,", sp.getString(NOME_USUARIO, "Seu nome")));
 
         refTvPontosMat.setText(String.valueOf(sp.getInt(PONTOS_MATEMATICA, 0)));
 

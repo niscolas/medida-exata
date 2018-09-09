@@ -6,7 +6,7 @@
     tools:context="br.cefetmg.inf.medidaexata.view.fragments.QuestoesOuMateriasFragment"
     android:orientation="vertical" >
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_ver_questoes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center" >
 
             <TextView
                 android:id="@+id/tv_qro_ver_as_questoes"
@@ -42,9 +42,9 @@
                 android:textSize="16sp"
                 android:textColor="?attr/colorPrimary" />
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_ver_materia"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -80,5 +80,5 @@
                 android:textSize="16sp"
                 android:textColor="?attr/colorPrimary" />
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

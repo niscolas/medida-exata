@@ -25,7 +25,7 @@
             android:layout_marginBottom="32dp"
 
             tools:text="Aaaaaaaaaaaaaaaaaaa"
-            tools:textColor="@color/preto"
+            tools:textColor="?attr/colorAccent"
             android:textSize="24sp" />
 
         <com.google.android.material.button.MaterialButton

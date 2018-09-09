@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ import java.util.Map;
 
 import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
+import br.cefetmg.inf.medidaexata.view.IOnSemResultados;
 import br.cefetmg.inf.medidaexata.view.adapters.QuestaoAdapter;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
 import butterknife.ButterKnife;
@@ -40,6 +42,7 @@ public class QuestoesFragment extends Fragment {
     // Listeners
     private OnQuestaoInteractionListener frgListener;
     private IAlteraProgressBar altPbListener;
+    private IOnSemResultados semResultadosListener;
     // ViewModel
     private MedidaExataViewModel vm;
 
@@ -59,14 +62,21 @@ public class QuestoesFragment extends Fragment {
             frgListener = (OnQuestaoInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " tem de implementar IProgressBarShower");
+                    + " tem de implementar OnQuestaoInteractionListener");
         }
         if(context instanceof IAlteraProgressBar) {
             altPbListener = (IAlteraProgressBar) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + "tem de implementar QuestaoAdapter.IAlteraProgressBar");
+                    + "tem de implementar IAlteraProgressBar");
         }
+        if(context instanceof IOnSemResultados) {
+            semResultadosListener = (IOnSemResultados) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + "tem de implementar IOnSemResultados");
+        }
+
     }
 
     @Override
@@ -118,10 +128,7 @@ public class QuestoesFragment extends Fragment {
                 .setQuery(qstsQry, QuestaoFechada.class)
                 .build();
 
-        // Obtém o set de cores ativas na interface
-        Map<String, Integer> coresTexto = vm.getCoresUI().getCoresAtuais();
-
-        adapter = new QuestaoAdapter(options, frgListener, altPbListener, coresTexto);
+        adapter = new QuestaoAdapter(options, frgListener, altPbListener, semResultadosListener);
         adapter.notifyDataSetChanged();
         rv.setAdapter(adapter);
     }

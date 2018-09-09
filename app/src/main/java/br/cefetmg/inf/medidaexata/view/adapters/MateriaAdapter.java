@@ -12,7 +12,6 @@ import com.cefetmg.inf.android.medidaexata.activities.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
-import br.cefetmg.inf.medidaexata.model.CoresUI;
 import br.cefetmg.inf.medidaexata.model.Materia;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.fragments.MateriasFragment;
@@ -27,17 +26,13 @@ public class MateriaAdapter
     // Listeners
     private final MateriasFragment.OnMateriasFragmentInteractionListener fListener;
     private IAlteraProgressBar altPbListener;
-    // Cores dos textos mostrados
-    private Map<String, Integer> coresTexto;
 
     public MateriaAdapter(FirestoreRecyclerOptions<Materia> options,
                            MateriasFragment.OnMateriasFragmentInteractionListener fListener,
-                           IAlteraProgressBar altPbListener,
-                           Map<String, Integer> coresTexto) {
+                           IAlteraProgressBar altPbListener) {
         super(options);
         this.fListener = fListener;
         this.altPbListener = altPbListener;
-        this.coresTexto = coresTexto;
     }
 
     @Override
@@ -59,10 +54,7 @@ public class MateriaAdapter
     protected void onBindViewHolder(final MateriaAdapter.MateriaHolder materiaHolder,
                                     int posicao,
                                     final Materia materia) {
-        int corEscura = coresTexto.get(CoresUI.COR_ESCURA);
-
         // Altera o texto e sua cor a ser mostrada no nome de cada Conteúdo
-        materiaHolder.refTvNomeMateria.setTextColor(corEscura);
         materiaHolder.refTvNomeMateria.setText(materia.getTitulo());
 
         // Seta um novo ClickListener à CardView

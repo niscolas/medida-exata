@@ -74,7 +74,7 @@ public class ConteudosFragment extends Fragment {
         // Obtém o ViewModel
         vm = ViewModelProviders.of(getActivity()).get(MedidaExataViewModel.class);
         // Seta a disciplina utilizada nas Querys do FireStore
-        disciplina = StringUtils.tiraAcentos(vm.getDisciplinaAtiva().toLowerCase());
+        disciplina = StringUtils.tiraAcentos(vm.getContextoCoresAtivo().toLowerCase());
     }
 
     @Override
@@ -130,8 +130,7 @@ public class ConteudosFragment extends Fragment {
                 .setQuery(conteudosQry, Conteudo.class)
                 .build();
 
-        Map<String, Integer> coresTexto = vm.getCoresUI().getCoresAtuais();
-        adapter = new ConteudoAdapter(options, frgListener, altPbListener, coresTexto);
+        adapter = new ConteudoAdapter(options, frgListener, altPbListener);
         adapter.notifyDataSetChanged();
         rv.setAdapter(adapter);
     }

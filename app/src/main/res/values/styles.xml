@@ -14,7 +14,7 @@
     </style>
 
     <style name="AppTheme.AzulClaro" parent="AppTheme">
-        <item name="colorPrimary">@color/branco</item>
+        <item name="colorPrimary">@color/azul_mais_claro</item>
         <item name="colorAccent">@color/azul_claro</item>
     </style>
 
@@ -26,6 +26,7 @@
     <style name="AppTheme.MaterialButtonFilled" parent="Widget.MaterialComponents.Button">
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
+        <item name="backgroundTint">?attr/colorAccent</item>
     </style>
     <!-- Estilo acima para alternativas de questões -->
     <style name="AppTheme.MaterialButtonFilled.Alternativa" parent="AppTheme.MaterialButtonFilled">
@@ -75,10 +76,6 @@
         <item name="cardCornerRadius">@dimen/mtrl_card_corner_radius</item>
         <item name="cardElevation">@dimen/mtrl_card_default_elevation</item>
     </style>
-    <!-- Estilo acima só que para as alternativas de cada questão -->
-    <!--<style name="AppTheme.MaterialCardView.Alternativa" parent="AppTheme.MaterialCardView">-->
-        <!--<item name="android:layout_marginBottom">@dimen/mtrl_card_alternativa_margin_btt</item>-->
-    <!--</style>-->
 
     <!-- Material Card Text -->
     <style name="AppTheme.MaterialCardText" parent="TextAppearance.MaterialComponents.Body1">

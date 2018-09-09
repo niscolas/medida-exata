@@ -17,11 +17,13 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:title="@string/menu"
+        android:background="?attr/colorAccent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="@string/menu" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/dw_sombra_tb"
@@ -48,25 +50,78 @@
         app:layout_constraintTop_toBottomOf="@+id/tb_menu_disciplinas_act"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/tv_toque"
-        android:layout_width="300dp"
+    <LinearLayout
+        android:id="@+id/ll_meio_tela_main"
+        android:layout_width="405dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:gravity="center"
-
-        android:text="@string/toque_em_um_botao"
-        android:textColor="?attr/colorAccent"
-        android:textSize="24sp"
-
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/bttnav_app"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tb_menu_disciplinas_act" />
+        app:layout_constraintStart_toStartOf="@+id/frg_container"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.501">
+
+        <TextView
+            android:id="@+id/tv_seja_bem_vindo_ao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/seja_bem_vindo_ao"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_medida_exata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/app_name"
+            android:textColor="?attr/colorAccent"
+            android:textSize="36sp" />
+
+        <ImageView
+            android:id="@+id/iv_logo_medida_exata"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/ctntdes_iv_medida_exata_logo"
+            android:src="@drawable/ic_medida_exata_2x" />
+
+        <TextView
+            android:id="@+id/tv_toque_em_um_dos_botoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/toque_em_um_botao"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/pb_carregando"
@@ -100,6 +155,7 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
         app:menu="@menu/menu_btt_nav"
+        android:background="?attr/colorAccent"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

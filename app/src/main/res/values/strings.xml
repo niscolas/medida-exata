@@ -5,7 +5,9 @@
 
     <!-- Main -->
     <string name="menu">Menu inicial</string>
-    <string name="toque_em_um_botao">Toque em um dos botões abaixo para ver as questões</string>
+    <string name="seja_bem_vindo_ao">Seja bem-vindo ao</string>
+
+    <string name="toque_em_um_botao">Toque em um dos botões abaixo para começar!</string>
     <string name="conquistas">Conquistas</string>
 
     <!-- Questões ou Matéria -->
@@ -28,10 +30,10 @@
     <!-- Onboarding -->
     <string name="bem_vindo">Bem vindo</string>
     <string name="como_estudar">Como estudar?</string>
-    <string name="como_estudar_uma_disciplina">Como estudar uma disciplinaAtiva?</string>
-    <string name="selecione_disciplina">Selecione a disciplinaAtiva que você quer estudar primeiro: Ciências ou Matemática!</string>
-    <string name="escolha_um_conteudo">Após clicar em uma disciplinaAtiva, escolha um conteúdo dentre vários. Ao selecionar o conteúdo, você irá aprendê-lo e fazer exercícios.</string>
-    <string name="escolha_assunto">Escolha um conteúdo da disciplinaAtiva</string>
+    <string name="como_estudar_uma_disciplina">Como estudar uma contextoCoresAtivo?</string>
+    <string name="selecione_disciplina">Selecione a contextoCoresAtivo que você quer estudar primeiro: Ciências ou Matemática!</string>
+    <string name="escolha_um_conteudo">Após clicar em uma contextoCoresAtivo, escolha um conteúdo dentre vários. Ao selecionar o conteúdo, você irá aprendê-lo e fazer exercícios.</string>
+    <string name="escolha_assunto">Escolha um conteúdo da contextoCoresAtivo</string>
     <string name="pular">Pular</string>
     <string name="proximo">Próximo</string>
     <string name="seja_bem_vindo">Seja bem-vindo</string>

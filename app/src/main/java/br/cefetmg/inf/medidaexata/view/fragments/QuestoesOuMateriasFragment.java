@@ -78,7 +78,7 @@ public class QuestoesOuMateriasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        vm.setTituloAtivo(vm.getDisciplinaAtiva());
+        vm.setTituloAtivo(vm.getContextoCoresAtivo());
 
         altPbListener.escondeProgressBar();
 
