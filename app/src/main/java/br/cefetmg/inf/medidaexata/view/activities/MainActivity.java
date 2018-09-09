@@ -203,6 +203,7 @@ public class MainActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         setTheme(R.style.AppTheme_Azul);
 
         super.onCreate(savedInstanceState);

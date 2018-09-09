@@ -10,14 +10,20 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.MainActivity" >
+
+
+        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.OnboardingActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.OnboardingActivity" />
+
+        <activity android:name="br.cefetmg.inf.medidaexata.view.activities.MainActivity" >
+
+        </activity>
+
     </application>
 
 </manifest>
