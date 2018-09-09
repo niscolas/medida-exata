@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_horizontal"
     android:padding="16dp"
-    android:gravity="center_horizontal">
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_medida_exata_2x" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:gravity="center"
-
         android:text="@string/escolha_assunto"
-        android:textSize="48sp" />
+        android:textSize="36sp"
+        tools:textColor="@color/quantum" />
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-
+        android:gravity="center"
         android:text="@string/escolha_um_conteudo"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        tools:textColor="@color/quantum" />
 </LinearLayout>
