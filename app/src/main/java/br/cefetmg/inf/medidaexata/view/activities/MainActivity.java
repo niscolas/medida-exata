@@ -1,5 +1,13 @@
 package br.cefetmg.inf.medidaexata.view.activities;
 
+<<<<<<< Updated upstream
+import android.content.Context;
+=======
+import android.content.Intent;
+>>>>>>> Stashed changes
+import android.content.SharedPreferences;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -196,6 +204,9 @@ public class MainActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        setTheme(R.style.AppTheme_Azul);
+
         setTheme(R.style.AppTheme_Azul);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
