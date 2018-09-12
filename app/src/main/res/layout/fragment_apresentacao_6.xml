@@ -17,10 +17,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/titulo_onboarding_3"
+        android:text="@string/titulo_onboarding_6"
         android:textSize="36sp"
         tools:textColor="@color/quantum" />
-    
+
     <View
         android:layout_width="match_parent"
         android:layout_height="16dp" />
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/texto_onboarding_3"
+        android:text="@string/texto_onboarding_6"
         android:textSize="24sp"
         tools:textColor="@color/quantum" />
 </LinearLayout>

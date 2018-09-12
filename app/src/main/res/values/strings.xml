@@ -26,20 +26,59 @@
 
     <!-- VerMatéria -->
     <string name="qro_ir_para_menu">Quero voltar para o menu agora</string>
+    <string name="qro_ver_materias">Quero ver outras matérias</string>
 
     <!-- Boas vindas -->
+    <string name="seja_bem_vindo">Seja bem-vindo</string>
     <string name="bem_vindo">Bem vindo</string>
-    <string name="como_estudar">Como estudar?</string>
-    <string name="como_estudar_uma_disciplina">Como estudar uma disciplina?</string>
-    <string name="selecione_disciplina">Selecione a disciplina que você quer estudar primeiro: Ciências ou Matemática!</string>
-    <string name="escolha_um_conteudo">Após clicar em uma disciplina, escolha um conteúdo dentre vários. Ao selecionar o conteúdo, você irá aprendê-lo e fazer exercícios.</string>
-    <string name="escolha_assunto">Escolha um conteúdo da disciplina</string>
+    <string name="texto_onboarding_1">
+        Se você está usando o aplicativo pela primeira vez, veja esse breve tutorial para aprender mais! O aplicativo foi desenvolvido pensando em reforçar seus conhecimentos do último ano do Ensino Fundamental em Matemática e Ciências.
+    </string>
+
+    <string name="titulo_onboarding_2">
+        Como estudar pelo aplicativo?
+    </string>
+    <string name="texto_onboarding_2">
+        O primeiro passo é escolher uma das duas disciplinas contempladas: Matemática ou Ciências. Clique sobre o botão da disciplina correspondente no menu inferior. Neste menu, há também um botão para seu Perfil, onde você poderá ver seus dados, como o seu desempenho nos estudos.
+    </string>
+
+    <string name="titulo_onboarding_3">
+        Escolha um conteúdo!
+    </string>
+    <string name="texto_onboarding_3">
+        Depois, é hora de escolher um dentre os vários conteúdos disponibilizados para a disciplina. Ao clicar sobre o conteúdo desejado, você será direcionado para uma nova tela com questões exibidas de forma minimizada.
+    </string>
+
+    <string name="titulo_onboarding_4">
+        Escolha uma questão!
+    </string>
+    <string name="texto_onboarding_4">
+        Cada uma das questões exibidas está relacionada ao conteúdo selecionado, abordando de forma específica uma matéria. Você pode então visualizar todo o conteúdo de uma questão e tentar respondê-la clicando sobre “VER QUESTÃO”. Ainda, ao clicar sobre “VER MATÉRIA” é apresentado um breve resumo sobre a matéria correspondente a uma determinada questão.
+    </string>
+
+    <string name="titulo_onboarding_5">
+        Ganhe pontos!
+    </string>
+    <string name="texto_onboarding_5">
+        Ao responder a questão selecionada, o sistema imediatamente exibe seu resultado, computando seus pontos e enviando as estatísticas para seu desempenho.
+    </string>
+
+    <string name="titulo_onboarding_6">
+        Veja matérias muito interessantes!
+    </string>
+    <string name="texto_onboarding_6">
+        Se você optou por ver a matéria, um resumo sobre a mesma será exibido, na forma de texto, podendo ter imagens para ajudar na explicação. Ao finalizar o estudo da matéria, você poderá voltar aos menus anteriores para estudar ainda mais!
+    </string>
+
+    <string name="titulo_onboarding_7">
+        Esperamos que você se divirta e aprenda muito!
+    </string>
+    <string name="texto_onboarding_7">
+    </string>
+
     <string name="pular">Pular</string>
     <string name="proximo">Próximo</string>
     <string name="vamos_comecar">Vamos começar!!</string>
-    <string name="seja_bem_vindo">Seja bem-vindo</string>
-    <string name="texto_onboarding_1">Se você está usando o aplicativo pela primeira vez, assista a este tutorial para aprender mais.</string>
-    <string name="qro_ver_materias">Quero ver outras matérias</string>
 
     <!-- ItemQuestao -->
     <string name="con_abordado">Matéria abordada:</string>
@@ -71,4 +110,7 @@
 
     <!-- Content Description(s)-->
     <string name="ctntdes_iv_medida_exata_logo">Logo do aplicativo Medida Exata</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

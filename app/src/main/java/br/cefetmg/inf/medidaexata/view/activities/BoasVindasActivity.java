@@ -17,13 +17,17 @@ import androidx.viewpager.widget.ViewPager;
 import br.cefetmg.inf.medidaexata.view.fragments.onboarding.ApresentacaoFragment1;
 import br.cefetmg.inf.medidaexata.view.fragments.onboarding.ApresentacaoFragment2;
 import br.cefetmg.inf.medidaexata.view.fragments.onboarding.ApresentacaoFragment3;
+import br.cefetmg.inf.medidaexata.view.fragments.onboarding.ApresentacaoFragment4;
+import br.cefetmg.inf.medidaexata.view.fragments.onboarding.ApresentacaoFragment5;
+import br.cefetmg.inf.medidaexata.view.fragments.onboarding.ApresentacaoFragment6;
+import br.cefetmg.inf.medidaexata.view.fragments.onboarding.ApresentacaoFragment7;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class BoasVindasActivity extends AppCompatActivity {
 
     private final static String TERMINOU_TUTORIAL = "boas_vindas_completa";
-    private final static int NRO_PAGS_TUTORIAL = 3;
+    private final static int NRO_PAGS_TUTORIAL = 7;
 
     //// Binding de Views
     //
@@ -58,6 +62,10 @@ public class BoasVindasActivity extends AppCompatActivity {
                     case 0 : return new ApresentacaoFragment1();
                     case 1 : return new ApresentacaoFragment2();
                     case 2 : return new ApresentacaoFragment3();
+                    case 3 : return new ApresentacaoFragment4();
+                    case 4 : return new ApresentacaoFragment5();
+                    case 5 : return new ApresentacaoFragment6();
+                    case 6 : return new ApresentacaoFragment7();
                     default: return null;
                 }
             }

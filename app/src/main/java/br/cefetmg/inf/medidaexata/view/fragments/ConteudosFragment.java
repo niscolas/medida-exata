@@ -33,8 +33,6 @@ public class ConteudosFragment extends Fragment {
 
     // View Model
     private MedidaExataViewModel vm;
-    // Variáveis relacionadas às Keys acima
-    private String disciplina;
     // Adapter da RecyclerView de Conteúdos
     private ConteudoAdapter adapter;
     // Listener de toque em conteúdos
@@ -73,8 +71,6 @@ public class ConteudosFragment extends Fragment {
 
         // Obtém o ViewModel
         vm = ViewModelProviders.of(getActivity()).get(MedidaExataViewModel.class);
-        // Seta a disciplina utilizada nas Querys do FireStore
-        disciplina = StringUtils.tiraAcentos(vm.getContextoCoresAtivo().toLowerCase());
     }
 
     @Override
@@ -122,8 +118,7 @@ public class ConteudosFragment extends Fragment {
 
         Query conteudosQry = bd
                 .collection("conteudos")
-                .document(disciplina)
-                .collection("conteudos_" + disciplina);
+                .whereEqualTo("disciplina", vm.getDisciplinaAtiva().getValue());
 
         FirestoreRecyclerOptions<Conteudo> options = new FirestoreRecyclerOptions
                 .Builder<Conteudo>()

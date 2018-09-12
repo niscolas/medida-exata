@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:text="@string/seja_bem_vindo_ao"
         android:textSize="30sp"
         tools:textColor="@color/quantum" />
@@ -32,7 +32,7 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/bem_vindo"
         android:text="@string/texto_onboarding_1"
-        android:textSize="24sp"
+        android:textSize="20sp"
         tools:textColor="@color/quantum" />
 
     <ImageView

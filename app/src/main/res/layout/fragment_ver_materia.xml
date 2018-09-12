@@ -34,6 +34,7 @@
             android:layout_height="wrap_content"
             style="@style/AppTheme.MaterialButtonFilled"
             android:layout_marginTop="64dp"
+            android:layout_marginBottom="0dp"
             android:visibility="gone"
 
             android:text="@string/qro_ver_materias"/>
@@ -43,10 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/AppTheme.MaterialButtonFilled"
-            android:layout_marginBottom="@dimen/mtrl_bt_margin_btt"
             android:visibility="gone"
 
             android:text="@string/qro_ir_para_menu"/>
     </LinearLayout>
-
 </ScrollView>

@@ -23,6 +23,7 @@ import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.activities.MainActivity;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
 import br.cefetmg.inf.util.TextViewUtils;
+import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
@@ -46,6 +47,8 @@ public class VerQuestaoFragment extends Fragment {
                     R.id.mtrl_bt_alt_b,
                     R.id.mtrl_bt_alt_c,
                     R.id.mtrl_bt_alt_d}) MaterialButton[] refMtrlBtsAlts;
+
+    @BindColor(R.color.azul_escuro) int azulEscuro;
 
     // Construtor vazio obrigatório
     public VerQuestaoFragment() {}
@@ -118,6 +121,7 @@ public class VerQuestaoFragment extends Fragment {
                         1,
                         enunciado,
                         corClara,
+                        azulEscuro,
                         16,
                         0,
                         0,

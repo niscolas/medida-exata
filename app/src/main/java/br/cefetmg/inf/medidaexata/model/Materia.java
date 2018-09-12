@@ -5,6 +5,7 @@ import java.util.List;
 public class Materia {
     private String titulo;
     private List<String> materia;
+    private String disciplina;
 
     public Materia() {
     }
@@ -23,5 +24,13 @@ public class Materia {
 
     public void setMateria(List<String> materia) {
         this.materia = materia;
+    }
+
+    public String getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(String disciplina) {
+        this.disciplina = disciplina;
     }
 }

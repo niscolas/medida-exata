@@ -35,8 +35,6 @@ public class MateriasFragment extends Fragment {
 
     // View Model
     private MedidaExataViewModel vm;
-    // Variáveis relacionadas às Keys acima
-    private String disciplina;
     // Adapter da RecyclerView de Conteúdos
     private MateriaAdapter adapter;
     // Listener de toque em conteúdos
@@ -76,8 +74,6 @@ public class MateriasFragment extends Fragment {
 
         // Obtém o ViewModel
         vm = ViewModelProviders.of(getActivity()).get(MedidaExataViewModel.class);
-        // Seta a disciplina utilizada nas Querys do FireStore
-        disciplina = StringUtils.tiraAcentos(vm.getContextoCoresAtivo().toLowerCase());
     }
 
     @Override
@@ -123,12 +119,11 @@ public class MateriasFragment extends Fragment {
     private void setRvConteudosAdapter(RecyclerView rv) {
         FirebaseFirestore bd = FirebaseFirestore.getInstance();
 
-        Log.d(TAG, "DISCIPLINA: " + disciplina);
+        Log.d(TAG, "DISCIPLINA: " + vm.getDisciplinaAtiva());
 
         Query qry = bd
                 .collection("materias")
-                .document(disciplina)
-                .collection("materias_" + disciplina);
+                .whereEqualTo("disciplina", vm.getDisciplinaAtiva().getValue());
 
         FirestoreRecyclerOptions<Materia> options = new FirestoreRecyclerOptions
                 .Builder<Materia>()

@@ -1,8 +1,9 @@
 package br.cefetmg.inf.medidaexata.view.fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.squareup.picasso.Picasso;
 
-import java.util.Arrays;
 import java.util.List;
 
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -63,6 +63,7 @@ public class VerMateriaFragment extends Fragment {
 
     // Cores
     @BindColor(R.color.branco) int corBranco;
+    @BindColor(R.color.azul_escuro) int azulEscuro;
 
     //
     //// Binding
@@ -156,6 +157,7 @@ public class VerMateriaFragment extends Fragment {
                         1,
                         materia.getMateria(),
                         corBranco,
+                        azulEscuro,
                         16,
                         0,
                         0,
@@ -190,6 +192,7 @@ public class VerMateriaFragment extends Fragment {
             int posViewInicial,
             List<String> textoEImagens,
             int corTexto,
+            int corLink,
             int tamanhoFonte,
             int paddingImagem,
             int paddingTexto,
@@ -201,8 +204,8 @@ public class VerMateriaFragment extends Fragment {
             if(item.startsWith("$$") && item.endsWith("$$")) {
                 // Cria uma nova ImageView com os parâmetros passados
                 ImageView img = ImageViewUtils.criaImageView(
-                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
-                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
                         -1,
                         -1,
                         margemImagem,
@@ -221,10 +224,34 @@ public class VerMateriaFragment extends Fragment {
                 // Carrega a Url existente em 'pedacoConteudo' numa ImageView e dispõe na tela
                 Picasso.get()
                         .load(urlImagem)
+                        .resize(1800, 500).centerInside()
                         .into(img);
                 container.addView(img, posViewInicial);
-            } else {
-                // Cria uma nova ImageView com os parâmetros passados
+            } else if (item.startsWith("##") && item.endsWith("##")){
+                String novoTexto = item.substring(2, item.length() - 2);
+
+                TextView novoTv = TextViewUtils.criaTextView(
+                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
+                        "\n-> " + novoTexto + " <-\n",
+                        tamanhoFonte,
+                        margemTexto,
+                        paddingTexto,
+                        corLink,
+                        context);
+
+                novoTv.setOnClickListener(view -> {
+                    Intent viewIntent =
+                            new Intent("android.intent.action.VIEW",
+                                    Uri.parse(novoTexto));
+                    context.startActivity(viewIntent);
+                });
+
+                container.addView(novoTv, posViewInicial);
+            }
+            else {
+
+                // Cria uma nova TextView com os parâmetros passados
                 container
                         .addView(
                                 TextViewUtils.criaTextView(
@@ -238,6 +265,7 @@ public class VerMateriaFragment extends Fragment {
                                         context),
                                 posViewInicial);
             }
+
             posViewInicial++;
         }
     }

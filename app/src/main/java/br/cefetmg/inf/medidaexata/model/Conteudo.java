@@ -3,13 +3,9 @@ package br.cefetmg.inf.medidaexata.model;
 public class Conteudo {
     private String nome;
     private String descricao;
+    private String disciplina;
 
     public Conteudo() {
-    }
-
-    public Conteudo(String nome, String descricao) {
-        this.nome = nome;
-        this.descricao = descricao;
     }
 
     public String getNome() {
@@ -26,5 +22,13 @@ public class Conteudo {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(String disciplina) {
+        this.disciplina = disciplina;
     }
 }
