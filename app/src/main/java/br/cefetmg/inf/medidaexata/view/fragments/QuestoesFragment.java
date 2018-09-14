@@ -121,7 +121,8 @@ public class QuestoesFragment extends Fragment {
 
         Query qstsQry = bd
                 .collection("questoes")
-                .whereEqualTo("conteudo", conteudo);
+                .whereEqualTo("conteudo", conteudo)
+                .orderBy("materiaAbordada");
 
         FirestoreRecyclerOptions<QuestaoFechada> options = new FirestoreRecyclerOptions
                 .Builder<QuestaoFechada>()

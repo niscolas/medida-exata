@@ -118,7 +118,8 @@ public class ConteudosFragment extends Fragment {
 
         Query conteudosQry = bd
                 .collection("conteudos")
-                .whereEqualTo("disciplina", vm.getDisciplinaAtiva().getValue());
+                .whereEqualTo("disciplina", vm.getDisciplinaAtiva().getValue())
+                .orderBy("nome");
 
         FirestoreRecyclerOptions<Conteudo> options = new FirestoreRecyclerOptions
                 .Builder<Conteudo>()
