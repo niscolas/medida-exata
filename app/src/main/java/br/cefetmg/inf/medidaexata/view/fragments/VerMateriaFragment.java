@@ -2,6 +2,7 @@ package br.cefetmg.inf.medidaexata.view.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -250,20 +251,31 @@ public class VerMateriaFragment extends Fragment {
                 container.addView(novoTv, posViewInicial);
             }
             else {
-
+                boolean negrito = false;
+                int tamanhoFonte2 = tamanhoFonte;
+                if(item.startsWith("@b@")) {
+                    negrito = true;
+                    item = item.substring(3);
+                }
+                if(item.endsWith("@@")) {
+                    tamanhoFonte2 = Integer.parseInt(item.substring(item.length() - 4, item.length() - 2));
+                    item = item.substring(0, item.length() - 2);
+                }
                 // Cria uma nova TextView com os parâmetros passados
-                container
-                        .addView(
-                                TextViewUtils.criaTextView(
-                                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
-                                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
-                                        item,
-                                        tamanhoFonte,
-                                        margemTexto,
-                                        paddingTexto,
-                                        corTexto,
-                                        context),
-                                posViewInicial);
+                TextView tv = TextViewUtils.criaTextView(
+                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
+                        "   " + item,
+                        tamanhoFonte2,
+                        margemTexto,
+                        paddingTexto,
+                        corTexto,
+                        context);
+
+                if (negrito) {
+                    tv.setTypeface(null, Typeface.BOLD);
+                }
+                container.addView(tv, posViewInicial);
             }
 
             posViewInicial++;
