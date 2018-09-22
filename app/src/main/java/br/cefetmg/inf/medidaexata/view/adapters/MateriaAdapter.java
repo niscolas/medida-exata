@@ -43,7 +43,7 @@ public class MateriaAdapter
                 .from(
                         parent.getContext())
                 .inflate(
-                        R.layout.list_item_conteudo,
+                        R.layout.list_item_materia,
                         parent,
                         false);
 

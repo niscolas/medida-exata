@@ -78,8 +78,6 @@
 
     <!-- Estilo para Material Card -->
     <style name="AppTheme.MaterialCardView" parent="Widget.MaterialComponents.CardView">
-        <item name="android:minHeight">@dimen/mtrl_card_min_height</item>
-
         <item name="android:layout_marginStart">@dimen/mtrl_card_margin_hrz</item>
         <item name="android:layout_marginLeft">@dimen/mtrl_card_margin_hrz</item>
         <item name="android:layout_marginEnd">@dimen/mtrl_card_margin_hrz</item>
@@ -96,5 +94,13 @@
     <!-- Material Card Text -->
     <style name="AppTheme.MaterialCardText" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:layout_margin">@dimen/text_margin</item>
+    </style>
+
+    <!-- Dialog Theme -->
+    <style name="AppTheme.Dialog" parent="Theme.MaterialComponents.Dialog">
+        <item name="android:background">@color/branco</item>
+        <item name="android:textColorPrimary">@color/azul_escuro</item>
+        <item name="colorAccent">@color/azul_escuro</item>
+        <item name="dialogCornerRadius">6dp</item>
     </style>
 </resources>

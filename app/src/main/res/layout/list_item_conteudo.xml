@@ -15,10 +15,11 @@
 
         <TextView
             android:id="@+id/tv_nome_materia"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:layout_gravity="center"
+            android:gravity="center"
             android:layout_marginStart="@dimen/text_margin"
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginEnd="@dimen/text_margin"

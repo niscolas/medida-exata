@@ -27,8 +27,8 @@
                 android:layout_marginLeft="@dimen/text_margin"
                 android:layout_marginRight="@dimen/text_margin"
                 android:layout_marginBottom="16dp"
-                android:text="@string/qro_ver_as_questoes_da_disciplina"
-                android:textSize="24sp"
+                android:text="@string/questoes"
+                android:textSize="36sp"
                 android:textColor="?attr/colorAccent"/>
 
             <TextView
@@ -39,7 +39,7 @@
                 android:layout_marginRight="@dimen/text_margin"
                 android:layout_marginTop="16dp"
                 android:text="@string/toque_neste_botao_para_ver_conteudos"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textColor="?attr/colorPrimary" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -65,8 +65,8 @@
                 android:layout_marginLeft="@dimen/text_margin"
                 android:layout_marginRight="@dimen/text_margin"
                 android:layout_marginBottom="16dp"
-                android:text="@string/qro_ver_as_materias_da_disciplina"
-                android:textSize="24sp"
+                android:text="@string/materias"
+                android:textSize="36sp"
                 android:textColor="?attr/colorAccent" />
 
             <TextView
@@ -77,7 +77,7 @@
                 android:layout_marginRight="@dimen/text_margin"
                 android:layout_marginTop="16dp"
                 android:text="@string/toque_neste_botao_para_ver_as_materias_que_abordam_essa_disciplina"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textColor="?attr/colorPrimary" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -80,10 +82,16 @@ public class MainActivity
 
     // Tags referentes aos Dialogs
     private static final String TAG_NOME_USUARIO_DIALOG = "nome_usuario_dialog";
+    private static final String TAG_SEM_CONEXAO_DIALOG = "sem_conexao_dialog";
     private static final String TAG_SEM_RESULTADOS_DIALOG = "sem_resultados_dialog";
 
     // TAG usada para Logging
     private static final String TAG  = MainActivity.class.getSimpleName();
+
+    // Mensagem para quando não há conexão
+    private static final String MSG_SEM_CONEXAO = "Ei! Pelo jeito você está sem internet \uD83D\uDE25.\n\n" +
+            "Nos desculpe, mas o Medida Exata só funciona totalmente com internet.\n\n" +
+            "Você pode usar o app, mas não garantimos que ele funcionará corretamente. Tudo bem?";
 
     //
     //// Declaração de campos static final
@@ -216,6 +224,16 @@ public class MainActivity
         boolean nomeDoUsuarioJaFoiSetado = sp.getBoolean(ConquistasFragment.NOME_USUARIO_SETADO, false);
         if(!nomeDoUsuarioJaFoiSetado) {
             pedeNomeUsuario();
+        }
+
+        if(!isConectado()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppTheme_Dialog);
+            builder
+                    .setMessage(MSG_SEM_CONEXAO)
+                    .setPositiveButton("Tudo bem!", (dialog, id) -> {})
+                    .setCancelable(false)
+                    .create()
+                    .show();
         }
 
         // Instancia o ViewModel
@@ -373,7 +391,7 @@ public class MainActivity
         if(qst == null) {
             vm.setQtdPontosAtiva(0);
         } else {
-             vm.setQtdPontosAtiva(qst.getQtdPontos());
+            vm.setQtdPontosAtiva(qst.getQtdPontos());
         }
     }
 
@@ -547,6 +565,20 @@ public class MainActivity
         }
 
         spEditor.apply();
+    }
+
+    /**
+     * Método que verifica se existe uma conexão ativa com a internet
+     * @return true se houver e false caso contrário
+     */
+    public  boolean isConectado() {
+        boolean conectado;
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        conectado = cm != null
+                && cm.getActiveNetworkInfo() != null
+                && cm.getActiveNetworkInfo().isAvailable()
+                && cm.getActiveNetworkInfo().isConnected();
+        return conectado;
     }
 
     //// Métodos que alteram Visibility das Views

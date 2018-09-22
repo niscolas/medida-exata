@@ -1,6 +1,5 @@
 package br.cefetmg.inf.medidaexata.view.dialogs;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -39,14 +38,14 @@ public class NomeUsuarioDialog extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public AlertDialog onCreateDialog(Bundle savedInstanceState) {
         View v = LayoutInflater.from(getContext())
                 .inflate(R.layout.dialog_nome_usuario, null, false);
         ButterKnife.bind(this, v);
 
         adicionaTextListener();
 
-        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext(), R.style.AppTheme_Dialog)
                 .setView(v)
                 .setCancelable(false)
                 .setPositiveButton(R.string.pronto, null)
@@ -63,18 +62,20 @@ public class NomeUsuarioDialog extends DialogFragment {
     }
 
     private void onProntoSelecionado() {
-            SharedPreferences sp = getActivity().getPreferences(Context.MODE_PRIVATE);
-            SharedPreferences.Editor spEditor = sp.edit();
+            if(eUmNomeValido(refTilNomeUsuario, refTilNomeUsuario.getEditText().getText().toString())) {
+                SharedPreferences sp = getActivity().getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor spEditor = sp.edit();
 
-            // Seta o nome do usuário para ser usado posteriormente
-            spEditor.putString(ConquistasFragment.NOME_USUARIO, nomeUsuario);
-            // Seta que o nome do usuário já foi escrito
-            spEditor.putBoolean(ConquistasFragment.NOME_USUARIO_SETADO, true);
+                // Seta o nome do usuário para ser usado posteriormente
+                spEditor.putString(ConquistasFragment.NOME_USUARIO, nomeUsuario);
+                // Seta que o nome do usuário já foi escrito
+                spEditor.putBoolean(ConquistasFragment.NOME_USUARIO_SETADO, true);
 
-            // Aplica as modificações feitas no SharedPreferences
-            spEditor.apply();
+                // Aplica as modificações feitas no SharedPreferences
+                spEditor.apply();
 
-            dismiss();
+                dismiss();
+            }
     }
 
     private boolean eUmNomeValido(TextInputLayout layout, String nome) {

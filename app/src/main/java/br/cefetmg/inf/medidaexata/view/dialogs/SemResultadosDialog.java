@@ -1,7 +1,5 @@
 package br.cefetmg.inf.medidaexata.view.dialogs;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -20,13 +18,13 @@ public class SemResultadosDialog extends DialogFragment {
     private static final String KEY_MSG = "mensagem";
 
     public static final String SEM_QUESTOES =
-            "Ops, nos desculpe. " +
-                    "Pelo jeito nós não temos questões que envolvem este conteúdo. " +
+            "Ops, nos desculpe.\n" +
+                    "Pelo jeito nós não temos questões que envolvem este conteúdo.\n" +
                     "Volte para o menu e procure outras questões, nós temos muito conteúdo legal!";
 
     public static final String SEM_MATERIA =
-            "Ops, nos desculpe. " +
-                    "Pelo jeito nós não temos a matéria que envolve esta questão. " +
+            "Ops, nos desculpe.\n" +
+                    "Pelo jeito nós não temos a matéria que envolve esta questão.\n" +
                     "Volte para o menu e procure outras matérias, nós temos muito conteúdo legal!";
 
     //
@@ -56,8 +54,8 @@ public class SemResultadosDialog extends DialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    public AlertDialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppTheme_Dialog);
         builder
                 .setMessage(msg)
                 .setPositiveButton("Sim!!", (dialog, id) -> {

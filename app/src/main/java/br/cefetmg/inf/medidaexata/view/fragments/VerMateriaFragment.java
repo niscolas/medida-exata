@@ -202,6 +202,9 @@ public class VerMateriaFragment extends Fragment {
             Context context) {
 
         for (String item : textoEImagens) {
+
+            // Caso seja uma imagem
+
             if(item.startsWith("$$") && item.endsWith("$$")) {
                 // Cria uma nova ImageView com os parâmetros passados
                 ImageView img = ImageViewUtils.criaImageView(
@@ -228,7 +231,11 @@ public class VerMateriaFragment extends Fragment {
                         .resize(1800, 500).centerInside()
                         .into(img);
                 container.addView(img, posViewInicial);
-            } else if (item.startsWith("##") && item.endsWith("##")){
+            }
+
+            // Caso seja na verdade um link
+
+            else if (item.startsWith("##") && item.endsWith("##")){
                 String novoTexto = item.substring(2, item.length() - 2);
 
                 TextView novoTv = TextViewUtils.criaTextView(
@@ -250,22 +257,45 @@ public class VerMateriaFragment extends Fragment {
 
                 container.addView(novoTv, posViewInicial);
             }
+
+            // Caso seja texto puro
+
             else {
                 boolean negrito = false;
                 int tamanhoFonte2 = tamanhoFonte;
+
+                // Verifica se o texto deve ser em negrito
                 if(item.startsWith("@b@")) {
                     negrito = true;
-                    item = item.substring(3);
+
+                    // Corta o marcador que indica o negrito da String
+                    item = item.replace("@b@", "");
                 }
+
+                // Verifica se a fonte do texto deve ser maior
                 if(item.endsWith("@@")) {
-                    tamanhoFonte2 = Integer.parseInt(item.substring(item.length() - 4, item.length() - 2));
-                    item = item.substring(0, item.length() - 2);
+                    // Obtém o tamanho que o texto deve ser em forma de int
+                    tamanhoFonte2 = Integer
+                            .parseInt(item.substring(
+                                    item.length() - 4,
+                                    item.length() - 2));
+
+                    // Corta o marcador que indica o tamanho do texto da String
+                    item = item.replace(tamanhoFonte2 + "@@", "");
                 }
+
+                // Troca os literais \n e \t por seus caracteres próprios
+                item = item.replace("\\n", "\n  ");
+                item = item.replace("\\t", "\t  ");
+
+                // Adiciona um Tab antes da String
+                item = "   " + item;
+
                 // Cria uma nova TextView com os parâmetros passados
                 TextView tv = TextViewUtils.criaTextView(
                         LinearLayoutCompat.LayoutParams.MATCH_PARENT,
                         LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
-                        "   " + item,
+                        item,
                         tamanhoFonte2,
                         margemTexto,
                         paddingTexto,
@@ -277,7 +307,6 @@ public class VerMateriaFragment extends Fragment {
                 }
                 container.addView(tv, posViewInicial);
             }
-
             posViewInicial++;
         }
     }

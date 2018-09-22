@@ -46,8 +46,8 @@ public class QuestoesOuMateriasFragment extends Fragment {
     }
 
     public static Fragment newInstance() {
-        QuestoesOuMateriasFragment fragment = new QuestoesOuMateriasFragment();
-        return fragment;
+        QuestoesOuMateriasFragment f = new QuestoesOuMateriasFragment();
+        return f;
     }
 
     @Override
@@ -84,10 +84,6 @@ public class QuestoesOuMateriasFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_questoes_ou_materias, container, false);
         ButterKnife.bind(this, v);
-
-        // Coloca o nome da Disciplina atual nas TextViews
-        refTvQroVerMaterias.append(" " + vm.getTituloAtivo().getValue());
-        refTvQroVerQuestoes.append(" " + vm.getTituloAtivo().getValue());
 
         // Seta os ClickListeners
         refCvVerMateria.setOnClickListener(view ->

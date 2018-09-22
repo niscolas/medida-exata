@@ -9,7 +9,7 @@
         android:gravity="center"
         android:layout_margin="@dimen/text_margin"
         android:text="@string/ola_bem_vindo"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="@color/azul"
         android:textSize="16sp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -21,8 +21,9 @@
             android:id="@+id/et_nome_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/seu_nome_aqui"
+            android:hint="@string/digite_seu_nome_aqui"
             android:maxLines="1"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:textColor="@color/azul_escuro" />
     </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

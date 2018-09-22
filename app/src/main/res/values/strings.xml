@@ -11,10 +11,10 @@
     <string name="conquistas">Conquistas</string>
 
     <!-- Questões ou Matéria -->
-    <string name="qro_ver_as_questoes_da_disciplina">Quero ver as questões de </string>
-    <string name="qro_ver_as_materias_da_disciplina">Quero ver as matérias de </string>
+    <string name="questoes">Questões</string>
+    <string name="materias">Matérias</string>
     <string name="toque_neste_botao_para_ver_conteudos">Toque neste botão para ver os conteúdos da disciplina, escolha um e veja as questões que o abordam</string>
-    <string name="toque_neste_botao_para_ver_as_materias_que_abordam_essa_disciplina">Toque neste botão para ver as matérias que abordam essa disciplina</string>
+    <string name="toque_neste_botao_para_ver_as_materias_que_abordam_essa_disciplina">Toque neste botão para ver as matérias que abordam esta disciplina</string>
 
     <!-- Pontuação -->
     <string name="voce_ganhou">Você ganhou</string>
@@ -101,10 +101,10 @@
     <string name="e">e</string>
     <string name="suas_conquistas">Suas conquistas</string>
     <string name="totalizando">Totalizando</string>
-    <string name="seu_nome_aqui">Seu nome aqui</string>
+    <string name="digite_seu_nome_aqui">Digite seu nome aqui</string>
 
     <!-- NomeUsuarioDialog -->
-    <string name="ola_bem_vindo">Oi! Seja bem-vindo(a) ao Medida Exata. Como você prefere ser chamado(a)?</string>
+    <string name="ola_bem_vindo">Oi!\nSeja bem-vindo(a) ao Medida Exata.\nComo você prefere ser chamado(a)?</string>
     <string name="pronto">Pronto!</string>
     <string name="nome_vazio">Você digitou um nome vazio</string>
 
