@@ -123,8 +123,7 @@ public class MateriasFragment extends Fragment {
 
         Query qry = bd
                 .collection("materias")
-                .whereEqualTo("disciplina", vm.getDisciplinaAtiva().getValue())
-                .orderBy("titulo");
+                .whereEqualTo("disciplina", vm.getDisciplinaAtiva().getValue());
 
         FirestoreRecyclerOptions<Materia> options = new FirestoreRecyclerOptions
                 .Builder<Materia>()
