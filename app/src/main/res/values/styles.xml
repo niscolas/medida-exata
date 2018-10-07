@@ -13,11 +13,6 @@
         <item name="colorAccent">@color/azul_escuro</item>
     </style>
 
-    <style name="AppTheme.AzulClaro" parent="AppTheme">
-        <item name="colorPrimary">@color/azul_mais_claro</item>
-        <item name="colorAccent">@color/azul_claro</item>
-    </style>
-
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/tela_launch</item>
     </style>

@@ -2,17 +2,24 @@ package br.cefetmg.inf.medidaexata.view.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cefetmg.inf.android.medidaexata.activities.R;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import br.cefetmg.inf.medidaexata.model.enums.Secao;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
+import br.cefetmg.inf.medidaexata.view.activities.MainActivity;
+import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
+import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -36,6 +43,9 @@ public class ConquistasFragment extends Fragment {
 
     //// Binding
     //
+
+    @BindColor(android.R.color.white) int branco;
+    @BindColor(R.color.selector_bttnav_colors_azul) ColorStateList cslBttNavAzul;
 
     @BindView(R.id.tv_pontos_matematica) TextView refTvPontosMat;
     @BindView(R.id.tv_pontos_ciencias) TextView refTvPontosCie;
@@ -63,26 +73,22 @@ public class ConquistasFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        altPbListener.escondeProgressBar();
-
         View v = inflater.inflate(R.layout.fragment_conquistas, container, false);
         ButterKnife.bind(this, v);
 
+        // Obtém o SharedPreferences e coloca o texto na tela
         SharedPreferences sp = getActivity().getPreferences(Context.MODE_PRIVATE);
 
         refTvNomeUsuario.setText(String.format("%s,", sp.getString(NOME_USUARIO, "Seu nome")));
-
         refTvPontosMat.setText(String.valueOf(sp.getInt(PONTOS_MATEMATICA, 0)));
-
         refTvPontosCie.setText(String.valueOf(sp.getInt(PONTOS_CIENCIAS, 0)));
 
+        // Esconde a PB depois que o texto completo estiver na tela
+        altPbListener.escondeProgressBar();
+
+        // Gera a animação do número que vai aumentando
         PontuacaoFragment.iniciaAnimacaoNumero(
                 0,
                 sp.getInt(PONTOS_TOTAIS, 0),

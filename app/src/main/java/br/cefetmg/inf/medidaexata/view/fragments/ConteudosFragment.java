@@ -11,7 +11,6 @@ import br.cefetmg.inf.medidaexata.model.Conteudo;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.adapters.ConteudoAdapter;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
-import br.cefetmg.inf.util.StringUtils;
 import butterknife.ButterKnife;
 
 import android.util.Log;
@@ -23,8 +22,6 @@ import com.cefetmg.inf.android.medidaexata.activities.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-
-import java.util.Map;
 
 public class ConteudosFragment extends Fragment {
 
@@ -118,7 +115,7 @@ public class ConteudosFragment extends Fragment {
 
         Query conteudosQry = bd
                 .collection("conteudos")
-                .whereEqualTo("disciplina", vm.getDisciplinaAtiva().getDisc());
+                .whereEqualTo("disciplina", vm.getSecaoAtiva().getSecao());
 
         FirestoreRecyclerOptions<Conteudo> options = new FirestoreRecyclerOptions
                 .Builder<Conteudo>()

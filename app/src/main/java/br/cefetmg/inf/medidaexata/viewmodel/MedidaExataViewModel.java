@@ -8,14 +8,14 @@ import br.cefetmg.inf.medidaexata.model.Conteudo;
 import br.cefetmg.inf.medidaexata.model.Materia;
 import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
 import br.cefetmg.inf.medidaexata.model.enums.ConjuntoCor;
+import br.cefetmg.inf.medidaexata.model.enums.Secao;
 import br.cefetmg.inf.medidaexata.model.enums.TonalidadeCor;
-import br.cefetmg.inf.medidaexata.model.enums.Disciplina;
 
 public class MedidaExataViewModel extends ViewModel {
     private MutableLiveData<String> tituloAtivo;
     private ConjuntoCor conjCorAtivo;
     private Map<ConjuntoCor, Map<TonalidadeCor, Integer>> coresMedidaExata;
-    private Disciplina disciplinaAtiva;
+    private Secao secaoAtiva;
     private Conteudo conteudoAtivo;
     private MutableLiveData<QuestaoFechada> qstAtiva;
     private Materia materiaAtiva;
@@ -66,12 +66,12 @@ public class MedidaExataViewModel extends ViewModel {
         return coresMedidaExata.get(conjCorAtivo).get(tonalidadeCor);
     }
 
-    public Disciplina getDisciplinaAtiva() {
-        return disciplinaAtiva;
+    public Secao getSecaoAtiva() {
+        return secaoAtiva;
     }
 
-    public void setDisciplinaAtiva(Disciplina disciplinaAtiva) {
-        this.disciplinaAtiva = disciplinaAtiva;
+    public void setSecaoAtiva(Secao secaoAtiva) {
+        this.secaoAtiva = secaoAtiva;
     }
 
     public Conteudo getConteudoAtivo() {

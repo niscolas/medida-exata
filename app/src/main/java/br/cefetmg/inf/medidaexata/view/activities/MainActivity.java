@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 
 import com.cefetmg.inf.android.medidaexata.activities.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.HashMap;
@@ -34,11 +34,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import br.cefetmg.inf.medidaexata.model.Conteudo;
-import br.cefetmg.inf.medidaexata.model.enums.ConjuntoCor;
-import br.cefetmg.inf.medidaexata.model.enums.Disciplina;
-import br.cefetmg.inf.medidaexata.model.enums.TonalidadeCor;
 import br.cefetmg.inf.medidaexata.model.Materia;
 import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
+import br.cefetmg.inf.medidaexata.model.enums.ConjuntoCor;
+import br.cefetmg.inf.medidaexata.model.enums.Secao;
+import br.cefetmg.inf.medidaexata.model.enums.TonalidadeCor;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.IOnSemResultados;
 import br.cefetmg.inf.medidaexata.view.dialogs.NomeUsuarioDialog;
@@ -53,7 +53,6 @@ import br.cefetmg.inf.medidaexata.view.fragments.VerQuestaoFragment;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
 import br.cefetmg.inf.util.MaterialButtonUtils;
 import butterknife.BindColor;
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -140,8 +139,6 @@ public class MainActivity
     @BindView(R.id.tv_medida_exata) TextView refTvMedidaExata;
     @BindView(R.id.tv_toque_em_um_dos_botoes) TextView refTvToqueBt;
 
-    @BindView(R.id.fl_frg_container) FrameLayout refFrgContainter;
-
     //
     //// Binding de Views
 
@@ -174,16 +171,6 @@ public class MainActivity
     //
     //// Binding de Cores
 
-    //// Binding de Strings
-    //
-
-    @BindString(R.string.disc_matematica) String discMat;
-    @BindString(R.string.disc_ciencias) String discCie;
-    @BindString(R.string.conquistas) String conquistas;
-
-    //
-    //// Binding de Strings
-
     //
     //// Termina área de Binding
 
@@ -193,6 +180,9 @@ public class MainActivity
             new BottomNavigationView.OnNavigationItemSelectedListener(){
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    refBttNavConteudos.getMenu().setGroupCheckable(0, true, true);
+                    refBttNavConteudos.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_SELECTED);
+
                     int itemClicado = menuItem.getItemId();
                     if(itemClicado != ultimoItemClicado) {
                         ultimoItemClicado = itemClicado;
@@ -202,8 +192,8 @@ public class MainActivity
                         mostraProgressBar();
                         switch (itemClicado) {
                             case R.id.i_btt_nav_matematica: {
-                                vm.setTituloAtivo(Disciplina.MATEMATICA.getDisc());
-                                vm.setDisciplinaAtiva(Disciplina.MATEMATICA);
+                                vm.setTituloAtivo(Secao.MATEMATICA.getSecao());
+                                vm.setSecaoAtiva(Secao.MATEMATICA);
                                 vm.setConjCorAtivo(ConjuntoCor.AZUL);
 
                                 setTheme(R.style.AppTheme_Azul);
@@ -213,8 +203,8 @@ public class MainActivity
                                 break;
                             }
                             case R.id.i_btt_nav_ciencias: {
-                                vm.setTituloAtivo(Disciplina.CIENCIAS.getDisc());
-                                vm.setDisciplinaAtiva(Disciplina.CIENCIAS);
+                                vm.setTituloAtivo(Secao.CIENCIAS.getSecao());
+                                vm.setSecaoAtiva(Secao.CIENCIAS);
                                 vm.setConjCorAtivo(ConjuntoCor.VERDE);
 
                                 setTheme(R.style.AppTheme_Verde);
@@ -224,8 +214,8 @@ public class MainActivity
                                 break;
                             }
                             case R.id.i_btt_nav_conquistas: {
-                                vm.setTituloAtivo(conquistas);
-                                refRootViewMainAct.setBackgroundColor(branco);
+                                vm.setTituloAtivo(Secao.CONQUISTAS.getSecao());
+                                atualizaFundo(branco);
                                 setBttNavColorStateList(selectorItemBttNavAzul);
                                 iniciaFragment(TAG_CONQUISTAS_FRAGMENT, true);
 
@@ -271,6 +261,7 @@ public class MainActivity
         setSupportActionBar(refTbMenu);
 
         atualizaUi(selectorItemBttNavAzul);
+        refBttNavConteudos.getMenu().setGroupCheckable(0, false, true);
         setConteudoInicialUi(false);
         refBttNavConteudos.setOnNavigationItemSelectedListener(bttNavConteudosClickListener);
     }
@@ -332,18 +323,18 @@ public class MainActivity
      * Atualiza as cores dos itens da BottomNavigationView
      * @param csl o novo seletor de cores
      */
-    private void setBttNavColorStateList(ColorStateList csl) {
+    public void setBttNavColorStateList(ColorStateList csl) {
         refBttNavConteudos.setItemIconTintList(csl);
         refBttNavConteudos.setItemTextColor(csl);
     }
 
-    private void atualizaUi(ColorStateList csl) {
+    public void atualizaUi(ColorStateList csl) {
         refTbMenu.setTitleTextColor(vm.getCorContextualEspecifica(TonalidadeCor.ESCURA));
         if (primeiraVezIniciado) {
-            refRootViewMainAct.setBackgroundColor(branco);
+            atualizaFundo(branco);
             primeiraVezIniciado = false;
         } else {
-            refRootViewMainAct.setBackgroundColor(vm.getCorContextualEspecifica(TonalidadeCor.CLARA));
+            atualizaFundo(vm.getCorContextualEspecifica(TonalidadeCor.CLARA));
             refPbQuestoes
                     .getIndeterminateDrawable()
                     .setColorFilter(
@@ -352,6 +343,10 @@ public class MainActivity
                             PorterDuff.Mode.SRC_IN );
             setBttNavColorStateList(csl);
         }
+    }
+
+    public void atualizaFundo(int cor) {
+        refRootViewMainAct.setBackgroundColor(cor);
     }
 
     //// Métodos de Observer
@@ -420,7 +415,7 @@ public class MainActivity
                 f = VerQuestaoFragment.newInstance();
                 break;
             case TAG_VER_MATERIA_FRAGMENT:
-                // refRootViewMainAct.setBackgroundColor(branco);
+                // atualizaFundo(branco);
                 escondeToolbar();
                 escondeBttNav();
                 f = VerMateriaFragment.newInstance();
@@ -490,7 +485,7 @@ public class MainActivity
                     TonalidadeCor.PADRAO));
 
             getSupportActionBar().setTitle("Menu inicial");
-            refRootViewMainAct.setBackgroundColor(branco);
+            atualizaFundo(branco);
             mostraConteudoCentral();
         }
     }
@@ -514,7 +509,7 @@ public class MainActivity
         SharedPreferences.Editor spEditor = sp.edit();
 
         int pontosDisciplina;
-        if(vm.getDisciplinaAtiva().equals(Disciplina.MATEMATICA)) {
+        if(vm.getSecaoAtiva().equals(Secao.MATEMATICA)) {
             pontosDisciplina = sp.getInt(ConquistasFragment.PONTOS_MATEMATICA, -1);
 
             if (pontosDisciplina == -1) {
@@ -524,7 +519,7 @@ public class MainActivity
                         ConquistasFragment.PONTOS_MATEMATICA,
                         pontosDisciplina + vm.getQtdPontosAtiva());
             }
-        } else if (vm.getDisciplinaAtiva().equals(Disciplina.CIENCIAS)) {
+        } else if (vm.getSecaoAtiva().equals(Secao.CIENCIAS)) {
             pontosDisciplina = sp.getInt(ConquistasFragment.PONTOS_CIENCIAS, -1);
 
             if (pontosDisciplina == -1) {

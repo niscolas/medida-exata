@@ -19,13 +19,10 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import java.util.Map;
-
 import br.cefetmg.inf.medidaexata.model.Materia;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.adapters.MateriaAdapter;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
-import br.cefetmg.inf.util.StringUtils;
 import butterknife.ButterKnife;
 
 public class MateriasFragment extends Fragment {
@@ -119,11 +116,11 @@ public class MateriasFragment extends Fragment {
     private void setRvConteudosAdapter(RecyclerView rv) {
         FirebaseFirestore bd = FirebaseFirestore.getInstance();
 
-        Log.d(TAG, "DISCIPLINA: " + vm.getDisciplinaAtiva());
+        Log.d(TAG, "DISCIPLINA: " + vm.getSecaoAtiva());
 
         Query qry = bd
                 .collection("materias")
-                .whereEqualTo("disciplina", vm.getDisciplinaAtiva().getDisc());
+                .whereEqualTo("disciplina", vm.getSecaoAtiva().getSecao());
 
         FirestoreRecyclerOptions<Materia> options = new FirestoreRecyclerOptions
                 .Builder<Materia>()
