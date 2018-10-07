@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,63 +9,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:animateLayoutChanges="true"
-    android:background="@color/branco">
+    android:animateLayoutChanges="true" >
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_menu_disciplinas_act"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:title="@string/menu"
-        android:background="?attr/colorAccent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/dw_sombra_tb"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/sombra_cima_baixo"
-
-        app:layout_constraintBottom_toBottomOf="@+id/bttnav_app"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frg_container"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <FrameLayout
-        android:id="@+id/frg_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-
-        app:layout_constraintBottom_toTopOf="@+id/bttnav_app"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tb_menu_disciplinas_act"
-        app:layout_constraintVertical_bias="0.0" />
+    <ProgressBar
+        android:id="@+id/pb_carregando"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/ll_meio_tela_main"
-        android:layout_width="405dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/bttnav_app"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/frg_container"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.501">
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/tv_seja_bem_vindo_ao"
@@ -111,53 +69,82 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:layout_marginBottom="8dp"
+            android:gravity="center"
             android:text="@string/toque_em_um_botao"
             android:textColor="?attr/colorPrimary"
             android:textSize="16sp" />
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/pb_carregando"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/dw_sombra_btt_nav"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/sombra_baixo_cima"
+        android:layout_height="match_parent" >
 
-        app:layout_constraintBottom_toTopOf="@+id/bttnav_app"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tb_menu_disciplinas_act"
-        app:layout_constraintVertical_bias="1.0" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bttnav_app"
-        style="@style/Widget.MaterialComponents.BottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentBottom="true"
-        app:menu="@menu/menu_btt_nav"
-        android:background="?attr/colorAccent"
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true" >
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/tb_menu_disciplinas_act"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/white"
+                    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                    app:layout_scrollFlags="scroll|enterAlways"
+
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:title="@string/menu" />
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <View
+                android:id="@+id/dw_sombra_tb"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@drawable/sombra_cima_baixo" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+
+                <FrameLayout
+                    android:id="@+id/fl_frg_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/bttnav_app"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bttnav_app"
+                    style="@style/Widget.MaterialComponents.BottomNavigationView"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_gravity="bottom"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:color/white"
+                    app:elevation="8dp"
+                    app:labelVisibilityMode="selected"
+                    app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+
+                    app:menu="@menu/menu_btt_nav" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</RelativeLayout>

@@ -46,8 +46,7 @@ public class QuestoesOuMateriasFragment extends Fragment {
     }
 
     public static Fragment newInstance() {
-        QuestoesOuMateriasFragment f = new QuestoesOuMateriasFragment();
-        return f;
+        return new QuestoesOuMateriasFragment();
     }
 
     @Override
@@ -78,7 +77,7 @@ public class QuestoesOuMateriasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        vm.setTituloAtivo(vm.getContextoCoresAtivo());
+        vm.setTituloAtivo(vm.getDisciplinaAtiva().getDisc());
 
         altPbListener.escondeProgressBar();
 

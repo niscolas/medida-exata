@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +26,15 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import br.cefetmg.inf.medidaexata.model.enums.TonalidadeCor;
 import br.cefetmg.inf.medidaexata.model.Materia;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.IOnSemResultados;
+import br.cefetmg.inf.medidaexata.view.activities.MainActivity;
 import br.cefetmg.inf.medidaexata.view.dialogs.SemResultadosDialog;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
 import br.cefetmg.inf.util.ImageViewUtils;
+import br.cefetmg.inf.util.StringUtils;
 import br.cefetmg.inf.util.TextViewUtils;
 import butterknife.BindColor;
 import butterknife.BindView;
@@ -63,7 +69,6 @@ public class VerMateriaFragment extends Fragment {
     @BindView(R.id.bt_gostei_mas_quero_voltar) MaterialButton refBtQroVoltar;
 
     // Cores
-    @BindColor(R.color.branco) int corBranco;
     @BindColor(R.color.azul_escuro) int azulEscuro;
 
     //
@@ -73,8 +78,7 @@ public class VerMateriaFragment extends Fragment {
     }
 
     public static Fragment newInstance() {
-        VerMateriaFragment frg = new VerMateriaFragment();
-        return frg;
+        return new VerMateriaFragment();
     }
 
     @Override
@@ -112,6 +116,8 @@ public class VerMateriaFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_ver_materia, container, false);
         ButterKnife.bind(this, v);
+
+        refTvTituloMat.setTextColor(vm.getCorContextualEspecifica(TonalidadeCor.ESCURA));
 
         if(vm.getQstAtiva().getValue() != null) {
             // Obtém os dados da matéria
@@ -157,7 +163,7 @@ public class VerMateriaFragment extends Fragment {
                 (refLlMateria,
                         1,
                         materia.getMateria(),
-                        corBranco,
+                        vm.getCorContextualEspecifica(TonalidadeCor.ESCURA),
                         azulEscuro,
                         16,
                         0,
@@ -241,12 +247,14 @@ public class VerMateriaFragment extends Fragment {
                 TextView novoTv = TextViewUtils.criaTextView(
                         LinearLayoutCompat.LayoutParams.MATCH_PARENT,
                         LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
-                        "\n-> " + novoTexto + " <-\n",
+                        novoTexto + "\n\n",
                         tamanhoFonte,
                         margemTexto,
                         paddingTexto,
                         corLink,
                         context);
+
+                StringUtils.tornaTextoLink(novoTv);
 
                 novoTv.setOnClickListener(view -> {
                     Intent viewIntent =

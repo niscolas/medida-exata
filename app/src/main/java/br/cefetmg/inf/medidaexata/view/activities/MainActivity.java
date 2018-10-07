@@ -4,13 +4,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,17 +21,22 @@ import com.cefetmg.inf.android.medidaexata.activities.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import br.cefetmg.inf.medidaexata.model.Conteudo;
+import br.cefetmg.inf.medidaexata.model.enums.ConjuntoCor;
+import br.cefetmg.inf.medidaexata.model.enums.Disciplina;
+import br.cefetmg.inf.medidaexata.model.enums.TonalidadeCor;
 import br.cefetmg.inf.medidaexata.model.Materia;
 import br.cefetmg.inf.medidaexata.model.QuestaoFechada;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
@@ -63,12 +71,11 @@ public class MainActivity
         IAlteraProgressBar,
         IOnSemResultados {
 
-
     //// Declaração de campos static final
     //
 
     // Referência a View que receberá os Fragments
-    private static final int FRAGMENT_CONTAINER_ID = R.id.frg_container;
+    private static final int FRAGMENT_CONTAINER_ID = R.id.fl_frg_container;
 
     // Tags referentes aos Fragment do app
     private static final String TAG_QUESTOES_OU_MATERIAS_FRAGMENT = "questoes_ou_materias_fragment";
@@ -86,7 +93,7 @@ public class MainActivity
     private static final String TAG_SEM_RESULTADOS_DIALOG = "sem_resultados_dialog";
 
     // TAG usada para Logging
-    private static final String TAG  = MainActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     // Mensagem para quando não há conexão
     private static final String MSG_SEM_CONEXAO = "Ei! Pelo jeito você está sem internet \uD83D\uDE25.\n\n" +
@@ -98,6 +105,9 @@ public class MainActivity
 
     // Indica que o app acabou de ser iniciado
     private boolean primeiraVezIniciado = true;
+
+    // Drawable que conterá a seta de voltar da Toolbar
+    private Drawable setaVoltar = null;
 
     // Indica o último item clicado, para impossibilitar que seja clicado de novo
     private int ultimoItemClicado = 0;
@@ -115,15 +125,22 @@ public class MainActivity
     //
 
     @BindView(R.id.bttnav_app) BottomNavigationView refBttNavConteudos;
-    @BindView(R.id.rl_rootv_disciplinas_act) ConstraintLayout refRootViewMainAct;
+
+    @BindView(R.id.rl_rootv_disciplinas_act) RelativeLayout refRootViewMainAct;
+
     @BindView(R.id.pb_carregando)ProgressBar refPbQuestoes;
+
     @BindView(R.id.ll_meio_tela_main) LinearLayout refLlMeioTela;
+
     @BindView(R.id.tb_menu_disciplinas_act) Toolbar refTbMenu;
-    @BindView(R.id.dw_sombra_btt_nav) View refSombraBttNav;
+
     @BindView(R.id.dw_sombra_tb) View refSombraTb;
+
     @BindView(R.id.tv_seja_bem_vindo_ao) TextView refTvSejaBemVindo;
     @BindView(R.id.tv_medida_exata) TextView refTvMedidaExata;
     @BindView(R.id.tv_toque_em_um_dos_botoes) TextView refTvToqueBt;
+
+    @BindView(R.id.fl_frg_container) FrameLayout refFrgContainter;
 
     //
     //// Binding de Views
@@ -138,21 +155,20 @@ public class MainActivity
 
 
     // Cores Primárias - ColorStateLists e Selectors
-    @BindColor(R.color.selector_bttnav_colors_mat) ColorStateList selectorItemBttNavMat;
+    @BindColor(R.color.selector_bttnav_colors_azul) ColorStateList selectorItemBttNavAzul;
 
     // Cores Secundárias
+    @BindColor(R.color.verde_mais_claro) int verdeMaisClaro;
     @BindColor(R.color.verde_claro) int verdeClaro;
     @BindColor(R.color.verde) int verde;
     @BindColor(R.color.verde_escuro) int verdeEscuro;
 
     // Cores Secundárias - ColorStateLists e Selectors
-    @BindColor(R.color.selector_bttnav_colors_cie) ColorStateList selectorItemBttNavCie;
-
-    @BindColor(R.color.selector_bttnav_colors_conquistas) ColorStateList selectorItemBttNavConquistas;
+    @BindColor(R.color.selector_bttnav_colors_verde) ColorStateList selectorItemBttNavVerde;
 
     //Outras cores
     @BindColor(R.color.vermelho) int corAltErrada;
-    @BindColor(R.color.branco) int branco;
+    @BindColor(android.R.color.white) int branco;
     @BindColor(R.color.azul_mais_claro) int azulMaisClaro;
 
     //
@@ -185,24 +201,36 @@ public class MainActivity
                         escondeConteudoCentral();
                         mostraProgressBar();
                         switch (itemClicado) {
-                            case R.id.i_btt_nav_matematica:
-                                // Atualiza título
-                                vm.setTituloAtivo(discMat);
+                            case R.id.i_btt_nav_matematica: {
+                                vm.setTituloAtivo(Disciplina.MATEMATICA.getDisc());
+                                vm.setDisciplinaAtiva(Disciplina.MATEMATICA);
+                                vm.setConjCorAtivo(ConjuntoCor.AZUL);
+
                                 setTheme(R.style.AppTheme_Azul);
+                                atualizaUi(selectorItemBttNavAzul);
                                 iniciaFragment(TAG_QUESTOES_OU_MATERIAS_FRAGMENT, true);
+
                                 break;
-                            case R.id.i_btt_nav_ciencias:
-                                // Atualiza título
-                                vm.setTituloAtivo(discCie);
+                            }
+                            case R.id.i_btt_nav_ciencias: {
+                                vm.setTituloAtivo(Disciplina.CIENCIAS.getDisc());
+                                vm.setDisciplinaAtiva(Disciplina.CIENCIAS);
+                                vm.setConjCorAtivo(ConjuntoCor.VERDE);
+
                                 setTheme(R.style.AppTheme_Verde);
+                                atualizaUi(selectorItemBttNavVerde);
                                 iniciaFragment(TAG_QUESTOES_OU_MATERIAS_FRAGMENT, true);
+
                                 break;
-                            case R.id.i_btt_nav_perfil:
-                                // Atualiza título
+                            }
+                            case R.id.i_btt_nav_conquistas: {
                                 vm.setTituloAtivo(conquistas);
-                                setTheme(R.style.AppTheme_AzulClaro);
+                                refRootViewMainAct.setBackgroundColor(branco);
+                                setBttNavColorStateList(selectorItemBttNavAzul);
                                 iniciaFragment(TAG_CONQUISTAS_FRAGMENT, true);
+
                                 break;
+                            }
                         }
                     }
                     return true;
@@ -211,7 +239,6 @@ public class MainActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         setTheme(R.style.AppTheme_Azul);
 
         super.onCreate(savedInstanceState);
@@ -227,38 +254,25 @@ public class MainActivity
         }
 
         if(!isConectado()) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppTheme_Dialog);
-            builder
-                    .setMessage(MSG_SEM_CONEXAO)
-                    .setPositiveButton("Tudo bem!", (dialog, id) -> {})
-                    .setCancelable(false)
-                    .create()
-                    .show();
+            avisaNaoHaConexao();
         }
 
-        // Instancia o ViewModel
+        // Obtém o ViewModel
         vm = ViewModelProviders
                 .of(this)
                 .get(MedidaExataViewModel.class);
-        vm.initViewModel();
+        vm.initViewModel(preencheMapCores());
 
         // Seta os Observer do LiveData
+        vm.getQstAtiva().observe(this, this::onQstAtivaChange);
         vm.getTituloAtivo().observe(this, this::onTituloAtivoChange);
-        vm.getDisciplinaAtiva().observe(this, this::onDisciplinaAtivaChange);
-        vm.getQstAtiva().observe(this, this::onQstFechadaChange);
 
         // Seta a Toolbar como a SupportActionBar
         setSupportActionBar(refTbMenu);
 
-        atualizaUi(discMat);
+        atualizaUi(selectorItemBttNavAzul);
         setConteudoInicialUi(false);
         refBttNavConteudos.setOnNavigationItemSelectedListener(bttNavConteudosClickListener);
-    }
-
-    private void pedeNomeUsuario() {
-        NomeUsuarioDialog dialog = NomeUsuarioDialog.newInstance(this);
-        dialog.setCancelable(false);
-        dialog.show(getSupportFragmentManager(), TAG_NOME_USUARIO_DIALOG);
     }
 
     @Override
@@ -302,6 +316,10 @@ public class MainActivity
             } else if (f instanceof VerMateriaFragment) {
                 setConteudoInicialUi(true);
                 return;
+            } else if(f instanceof ConquistasFragment) {
+                super.onBackPressed();
+                setConteudoInicialUi(false);
+                return;
             }
         }
         super.onBackPressed();
@@ -319,80 +337,40 @@ public class MainActivity
         refBttNavConteudos.setItemTextColor(csl);
     }
 
-    //// Métodos de Observer
-    //
-
-    /**
-     * Quando o nome da disciplina for alterado, atualiza o título da ActionBar
-     * e a variável 'disciplina' no ViewModel, usada para Querys no FireStore
-     * @param s o novo nome da Disciplina
-     */
-    private void onTituloAtivoChange(String s) {
-        refTbMenu.setTitle(s);
-
-        // Seta a disciplina ativa
-        if (s.equals(discMat) || s.equals(discCie) || s.equals(conquistas)) {
-            vm.setDisciplinaAtiva(s);
-        }
-    }
-
-    private void onDisciplinaAtivaChange(String s) {
-        atualizaUi(s);
-    }
-
-    /**
-     * Atualiza as cores de toda a UI a partir da cor setada em 'CoresUI', é chamada quando há
-     * uma alteração nessa variável
-     * @param contextoCores o nome atualizado do tipo de cor atual da UI (ex.: cor_primaria, ...)
-     */
-    private void atualizaUi(String contextoCores) {
-        vm.setContextoCoresAtivo(contextoCores);
-
+    private void atualizaUi(ColorStateList csl) {
+        refTbMenu.setTitleTextColor(vm.getCorContextualEspecifica(TonalidadeCor.ESCURA));
         if (primeiraVezIniciado) {
             refRootViewMainAct.setBackgroundColor(branco);
             primeiraVezIniciado = false;
         } else {
-            switch (contextoCores) {
-                case "Matemática": {
-                    setTheme(R.style.AppTheme_Azul);
-                    refRootViewMainAct.setBackgroundColor(azulClaro);
-                    refPbQuestoes.getIndeterminateDrawable().setColorFilter(azulEscuro, PorterDuff.Mode.SRC_IN );
-                    refTbMenu.setBackgroundColor(azul);
-                    refBttNavConteudos.setBackgroundColor(azul);
-                    setBttNavColorStateList(selectorItemBttNavMat);
-                    break;
-                }
-                case "Ciências": {
-                    setTheme(R.style.AppTheme_Verde);
-                    refRootViewMainAct.setBackgroundColor(verdeClaro);
-                    refPbQuestoes.getIndeterminateDrawable().setColorFilter(verdeEscuro, PorterDuff.Mode.SRC_IN );
-                    refTbMenu.setBackgroundColor(verde);
-                    refBttNavConteudos.setBackgroundColor(verde);
-                    setBttNavColorStateList(selectorItemBttNavCie);
-                    break;
-                }
-                case "Conquistas": {
-                    setTheme(R.style.AppTheme_AzulClaro);
-                    refRootViewMainAct.setBackgroundColor(azulMaisClaro);
-                    refPbQuestoes.getIndeterminateDrawable().setColorFilter(azul, PorterDuff.Mode.SRC_IN );
-                    refBttNavConteudos.setBackgroundColor(branco);
-                    setBttNavColorStateList(selectorItemBttNavConquistas);
-                    break;
-                }
-            }
+            refRootViewMainAct.setBackgroundColor(vm.getCorContextualEspecifica(TonalidadeCor.CLARA));
+            refPbQuestoes
+                    .getIndeterminateDrawable()
+                    .setColorFilter(
+                            vm.getCorContextualEspecifica(
+                                    TonalidadeCor.ESCURA),
+                            PorterDuff.Mode.SRC_IN );
+            setBttNavColorStateList(csl);
         }
     }
+
+    //// Métodos de Observer
+    //
 
     /**
      * Altera a quantidade de pontos de recompensa para a resposta certa da questão
      * @param qst a questão atualmente ativa
      */
-    private void onQstFechadaChange(QuestaoFechada qst) {
+    private void onQstAtivaChange(QuestaoFechada qst) {
         if(qst == null) {
             vm.setQtdPontosAtiva(0);
         } else {
             vm.setQtdPontosAtiva(qst.getQtdPontos());
         }
+    }
+
+    private void onTituloAtivoChange(String tituloAtivo) {
+        getSupportActionBar().setTitle(tituloAtivo);
     }
 
     //
@@ -442,6 +420,7 @@ public class MainActivity
                 f = VerQuestaoFragment.newInstance();
                 break;
             case TAG_VER_MATERIA_FRAGMENT:
+                // refRootViewMainAct.setBackgroundColor(branco);
                 escondeToolbar();
                 escondeBttNav();
                 f = VerMateriaFragment.newInstance();
@@ -493,22 +472,24 @@ public class MainActivity
             //Esconde o botão de voltar na ActionBar
             escondeHomeButton();
             ultimoItemClicado = 0;
+
             // Esconde a ProgressBar caso esteja visível
             escondeProgressBar();
 
-            if (vm.getContextoCoresAtivo().equals(discMat)) {
-                setBttNavColorStateList(ColorStateList.valueOf(azulClaro));
-                refTvSejaBemVindo.setTextColor(azul);
-                refTvMedidaExata.setTextColor(azulEscuro);
-                refTvToqueBt.setTextColor(azul);
-            } else if (vm.getContextoCoresAtivo().equals(discCie)) {
-                setBttNavColorStateList(ColorStateList.valueOf(verdeClaro));
-                refTvSejaBemVindo.setTextColor(verde);
-                refTvMedidaExata.setTextColor(verdeEscuro);
-                refTvToqueBt.setTextColor(verde);
-            }
+            setBttNavColorStateList(ColorStateList.valueOf(
+                    vm.getCorContextualEspecifica(
+                            TonalidadeCor.CLARA)));
 
-            vm.setTituloAtivo("Menu inicial");
+            refTvSejaBemVindo.setTextColor(vm.getCorContextualEspecifica(
+                    TonalidadeCor.PADRAO));
+
+            refTvMedidaExata.setTextColor(vm.getCorContextualEspecifica(
+                    TonalidadeCor.ESCURA));
+
+            refTvToqueBt.setTextColor(vm.getCorContextualEspecifica(
+                    TonalidadeCor.PADRAO));
+
+            getSupportActionBar().setTitle("Menu inicial");
             refRootViewMainAct.setBackgroundColor(branco);
             mostraConteudoCentral();
         }
@@ -533,7 +514,7 @@ public class MainActivity
         SharedPreferences.Editor spEditor = sp.edit();
 
         int pontosDisciplina;
-        if(vm.getContextoCoresAtivo().equals(discMat)) {
+        if(vm.getDisciplinaAtiva().equals(Disciplina.MATEMATICA)) {
             pontosDisciplina = sp.getInt(ConquistasFragment.PONTOS_MATEMATICA, -1);
 
             if (pontosDisciplina == -1) {
@@ -543,7 +524,7 @@ public class MainActivity
                         ConquistasFragment.PONTOS_MATEMATICA,
                         pontosDisciplina + vm.getQtdPontosAtiva());
             }
-        } else if (vm.getContextoCoresAtivo().equals(discCie)) {
+        } else if (vm.getDisciplinaAtiva().equals(Disciplina.CIENCIAS)) {
             pontosDisciplina = sp.getInt(ConquistasFragment.PONTOS_CIENCIAS, -1);
 
             if (pontosDisciplina == -1) {
@@ -563,7 +544,6 @@ public class MainActivity
                     ConquistasFragment.PONTOS_TOTAIS,
                     pontosTotais + vm.getQtdPontosAtiva());
         }
-
         spEditor.apply();
     }
 
@@ -573,12 +553,71 @@ public class MainActivity
      */
     public  boolean isConectado() {
         boolean conectado;
+
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         conectado = cm != null
                 && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().isAvailable()
                 && cm.getActiveNetworkInfo().isConnected();
+
         return conectado;
+    }
+
+    /**
+     * Atualiza a cor da seta da Toolbar
+     */
+    private void atualizaSetaVoltar() {
+        if(setaVoltar == null) {
+            setaVoltar = getResources().getDrawable(R.drawable.ic_arrow_back);
+        }
+        int corSeta = vm.getCorContextualEspecifica(TonalidadeCor.ESCURA);
+        setaVoltar.setColorFilter(corSeta, PorterDuff.Mode.SRC_ATOP);
+    }
+
+    /**
+     * Dá display de um Dialog que informa o usuário que não há conexão
+     */
+    private void avisaNaoHaConexao() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppTheme_Dialog);
+        builder
+                .setMessage(MSG_SEM_CONEXAO)
+                .setPositiveButton("Tudo bem!", (dialog, id) -> {})
+                .setCancelable(false)
+                .create()
+                .show();
+    }
+
+    /**
+     * Dá display de um Dialog que pede o nome do usuário
+     */
+    private void pedeNomeUsuario() {
+        NomeUsuarioDialog dialog = NomeUsuarioDialog.newInstance(this);
+        dialog.setCancelable(false);
+        dialog.show(getSupportFragmentManager(), TAG_NOME_USUARIO_DIALOG);
+    }
+
+    private Map<ConjuntoCor, Map<TonalidadeCor, Integer>> preencheMapCores() {
+        Map<ConjuntoCor, Map<TonalidadeCor, Integer>> m2 = new HashMap<>();
+
+        Map<TonalidadeCor, Integer> m = new HashMap<>();
+        m.put(TonalidadeCor.CLARA, azulClaro);
+        m.put(TonalidadeCor.MUITO_CLARA, azulMaisClaro);
+        m.put(TonalidadeCor.PADRAO, azul);
+        m.put(TonalidadeCor.ESCURA, azulEscuro);
+
+        m2.put(ConjuntoCor.AZUL, m);
+
+        m = null;
+
+        m = new HashMap<>();
+        m.put(TonalidadeCor.CLARA, verdeClaro);
+        m.put(TonalidadeCor.MUITO_CLARA, verdeMaisClaro);
+        m.put(TonalidadeCor.PADRAO, verde);
+        m.put(TonalidadeCor.ESCURA, verdeEscuro);
+
+        m2.put(ConjuntoCor.VERDE, m);
+
+        return m2;
     }
 
     //// Métodos que alteram Visibility das Views
@@ -594,8 +633,9 @@ public class MainActivity
 
     // Altera Visibility do Home Button
     private void mostraHomeButton() {
+        atualizaSetaVoltar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(setaVoltar);
     }
     private void escondeHomeButton() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -614,11 +654,11 @@ public class MainActivity
 
     // Altera visibilidade da BottomNavigationBar
     private void mostraBttNav() {
-        refSombraBttNav.setVisibility(View.VISIBLE);
+        // refSombraBttNav.setVisibility(View.VISIBLE);
         refBttNavConteudos.setVisibility(View.VISIBLE);
     }
     private void escondeBttNav() {
-        refSombraBttNav.setVisibility(View.GONE);
+        // refSombraBttNav.setVisibility(View.GONE);
         refBttNavConteudos.setVisibility(View.GONE);
     }
 
@@ -718,12 +758,8 @@ public class MainActivity
                 refMtrlBts[altSelecionada]
                         .setBackgroundTintList(ColorStateList.valueOf(branco));
 
-                String contextoCor = vm.getContextoCoresAtivo();
-                if (contextoCor.equals(discMat)) {
-                    refMtrlBts[altSelecionada].setTextColor(azulEscuro);
-                } else {
-                    refMtrlBts[altSelecionada].setTextColor(verdeEscuro);
-                }
+                refMtrlBts[altSelecionada].setTextColor(vm.getCorContextualEspecifica(TonalidadeCor.ESCURA));
+
                 MaterialButtonUtils.permiteClicks(refMtrlBts);
             }
         }, 500);

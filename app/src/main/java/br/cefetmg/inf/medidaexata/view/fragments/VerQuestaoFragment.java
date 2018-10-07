@@ -13,12 +13,10 @@ import com.cefetmg.inf.android.medidaexata.activities.R;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
-import java.util.Map;
 
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import br.cefetmg.inf.medidaexata.model.CoresUi;
+import br.cefetmg.inf.medidaexata.model.enums.TonalidadeCor;
 import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.activities.MainActivity;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
@@ -42,11 +40,12 @@ public class VerQuestaoFragment extends Fragment {
     // Binding
     @BindView(R.id.tv_materia_abordada_questao) TextView refTvMatAbordada;
     @BindView(R.id.ll_ver_questao) LinearLayout refLlVerQst;
-    @BindViews(
-            {R.id.mtrl_bt_alt_a,
-                    R.id.mtrl_bt_alt_b,
-                    R.id.mtrl_bt_alt_c,
-                    R.id.mtrl_bt_alt_d}) MaterialButton[] refMtrlBtsAlts;
+    @BindViews({
+            R.id.mtrl_bt_alt_a,
+            R.id.mtrl_bt_alt_b,
+            R.id.mtrl_bt_alt_c,
+            R.id.mtrl_bt_alt_d
+    }) MaterialButton[] refMtrlBtsAlts;
 
     @BindColor(R.color.azul_escuro) int azulEscuro;
 
@@ -95,18 +94,6 @@ public class VerQuestaoFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_ver_questao, container, false);
         ButterKnife.bind(this, v);
 
-        // Obtém os recursos necessários do ViewModel para popular os campos da questão
-        // Obtém cores para o texto
-        int corClara = 0;
-        int corEscura = 0;
-        if(vm.getContextoCoresAtivo().equals(getString(R.string.disc_ciencias))) {
-            corClara = ContextCompat.getColor(getActivity(), R.color.verde_claro);
-            corEscura = ContextCompat.getColor(getActivity(), R.color.verde_escuro);
-        } else {
-            corClara = ContextCompat.getColor(getActivity(), R.color.azul_claro);
-            corEscura = ContextCompat.getColor(getActivity(), R.color.azul_escuro);
-        }
-
         // Obtém informações da questão
         List<String> enunciado = vm.getQstAtiva().getValue().getEnunciado();
         String[] alternativas = vm.getQstAtiva().getValue().getAlternativas().toArray(new String[0]);
@@ -114,13 +101,17 @@ public class VerQuestaoFragment extends Fragment {
         // Seta o 'título' da página
         refTvMatAbordada.setText(vm.getQstAtiva().getValue().getMateriaAbordada());
 
+        // Obtém as cores contextuais clara e escura
+        int corPadrao = vm.getCorContextualEspecifica(TonalidadeCor.PADRAO);
+        int corEscura = vm.getCorContextualEspecifica(TonalidadeCor.ESCURA);
+
         // Seta o enunciado da questão em si
         VerMateriaFragment
                 .populaLinearLayoutComTextoEImagens(
                         refLlVerQst,
                         1,
                         enunciado,
-                        corClara,
+                        corPadrao,
                         azulEscuro,
                         16,
                         0,
@@ -138,7 +129,7 @@ public class VerQuestaoFragment extends Fragment {
                             .getStringColorida(String.format("%c) ", letra), corEscura));
             refMtrlBtsAlts[i]
                     .append(TextViewUtils
-                            .getStringColorida(alternativas[i], corClara));
+                            .getStringColorida(alternativas[i], corPadrao));
 
             // Seta o ClickListener
             final int finalI = i;

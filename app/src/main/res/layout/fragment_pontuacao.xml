@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.cefetmg.inf.medidaexata.view.fragments.PontuacaoFragment" >
+    tools:context="br.cefetmg.inf.medidaexata.view.fragments.PontuacaoFragment"
+    android:background="@android:color/white" >
 
     <View
         android:id="@+id/v_page_top"
@@ -21,7 +22,7 @@
         android:text="@string/parabens"
         android:textSize="72sp"
 
-        tools:textColor="@color/branco" />
+        android:textColor="?attr/colorAccent" />
 
     <TextView
         android:id="@+id/tv_vc_ganhou"
@@ -32,7 +33,7 @@
         android:text="@string/voce_ganhou"
         android:textSize="30sp"
 
-        tools:textColor="@color/branco" />
+        android:textColor="?attr/colorPrimary" />
 
     <TextView
         android:id="@+id/tv_qtd_pontos"
@@ -43,7 +44,7 @@
         android:textSize="72sp"
 
         tools:text="99"
-        tools:textColor="@color/branco" />
+        android:textColor="?attr/colorAccent" />
 
     <TextView
         android:id="@+id/tv_pontos"
@@ -54,7 +55,7 @@
         android:text="@string/uhu_pontos"
         android:textSize="30sp"
 
-        tools:textColor="@color/branco" />
+        android:textColor="?attr/colorPrimary" />
 
     <TextView
         android:id="@+id/tv_vc_e_bom"
@@ -68,7 +69,7 @@
         android:text="@string/vc_e_bom"
         android:textSize="20sp"
 
-        tools:textColor="@color/branco" />
+        android:textColor="?attr/colorAccent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_claro_que_sim"

@@ -27,6 +27,7 @@ import br.cefetmg.inf.medidaexata.view.IAlteraProgressBar;
 import br.cefetmg.inf.medidaexata.view.IOnSemResultados;
 import br.cefetmg.inf.medidaexata.view.adapters.QuestaoAdapter;
 import br.cefetmg.inf.medidaexata.viewmodel.MedidaExataViewModel;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class QuestoesFragment extends Fragment {
@@ -47,12 +48,10 @@ public class QuestoesFragment extends Fragment {
     private MedidaExataViewModel vm;
 
     public QuestoesFragment() {
-
     }
 
     public static Fragment newInstance() {
-        QuestoesFragment frg = new QuestoesFragment();
-        return frg;
+        return new QuestoesFragment();
     }
 
     @Override

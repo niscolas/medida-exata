@@ -30,9 +30,11 @@
                     android:id="@+id/tv_materia_abordada_questao"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:gravity="center"
                     style="@style/AppTheme.MaterialCardText"
-                    android:textColor="?attr/colorAccent" />
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="24sp"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

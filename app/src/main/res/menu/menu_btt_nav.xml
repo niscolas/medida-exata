@@ -9,7 +9,7 @@
         android:title="@string/disc_ciencias"
         android:icon="@drawable/ic_atom"/>
     <item
-        android:id="@+id/i_btt_nav_perfil"
+        android:id="@+id/i_btt_nav_conquistas"
         android:title="@string/conquistas"
         android:icon="@drawable/ic_profile"/>
 </menu>

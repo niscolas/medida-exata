@@ -1,16 +1,16 @@
 <resources>
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="colorPrimaryDark">@color/quantum</item>
+        <item name="colorPrimaryDark">@color/cinza_mais_claro</item>
     </style>
 
     <style name="AppTheme.Verde" parent="AppTheme">
-        <item name="colorPrimary">@color/verde_claro</item>
-       <item name="colorAccent">@color/verde</item>
+        <item name="colorPrimary">@color/verde</item>
+       <item name="colorAccent">@color/verde_escuro</item>
     </style>
 
     <style name="AppTheme.Azul" parent="AppTheme">
-        <item name="colorPrimary">@color/azul_claro</item>
-        <item name="colorAccent">@color/azul</item>
+        <item name="colorPrimary">@color/azul</item>
+        <item name="colorAccent">@color/azul_escuro</item>
     </style>
 
     <style name="AppTheme.AzulClaro" parent="AppTheme">
@@ -25,7 +25,7 @@
     <style name="AppTheme.Tutorial" parent="AppTheme">
         <item name="colorPrimary">@color/azul_claro</item>
         <item name="colorAccent">@color/azul</item>
-        <item name="android:windowBackground">@color/branco</item>
+        <item name="android:windowBackground">@android:color/white</item>
         <item name="android:textColor">@color/azul</item>
     </style>
 
@@ -48,16 +48,15 @@
     <style name="AppTheme.MaterialButtonFilled.Alternativa" parent="AppTheme.MaterialButtonFilled">
         <item name="android:minHeight">@dimen/mtrl_bt_alternativa_min_height</item>
 
-        <item name="android:layout_marginStart">@dimen/mtrl_bt_soft_margin_hrz</item>
-        <item name="android:layout_marginLeft">@dimen/mtrl_bt_soft_margin_hrz</item>
-        <item name="android:layout_marginEnd">@dimen/mtrl_bt_soft_margin_hrz</item>
-        <item name="android:layout_marginRight">@dimen/mtrl_bt_soft_margin_hrz</item>
         <item name="android:layout_marginTop">@dimen/mtrl_bt_soft_margin_vrt</item>
         <item name="android:layout_marginBottom">@dimen/mtrl_bt_alternativa_margin_btt</item>
 
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+
         <item name="android:gravity">left|center_vertical</item>
 
-        <item name="backgroundTint">@color/branco</item>
+        <item name="backgroundTint">@android:color/white</item>
 
         <item name="android:textAllCaps">false</item>
     </style>
@@ -78,6 +77,9 @@
 
     <!-- Estilo para Material Card -->
     <style name="AppTheme.MaterialCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+
         <item name="android:layout_marginStart">@dimen/mtrl_card_margin_hrz</item>
         <item name="android:layout_marginLeft">@dimen/mtrl_card_margin_hrz</item>
         <item name="android:layout_marginEnd">@dimen/mtrl_card_margin_hrz</item>
@@ -85,7 +87,7 @@
         <item name="android:layout_marginTop">@dimen/mtrl_card_margin_vrt</item>
         <item name="android:layout_marginBottom">@dimen/mtrl_card_margin_vrt</item>
 
-        <item name="cardBackgroundColor">@color/branco</item>
+        <item name="cardBackgroundColor">@android:color/white</item>
 
         <item name="cardCornerRadius">@dimen/mtrl_card_corner_radius</item>
         <item name="cardElevation">@dimen/mtrl_card_default_elevation</item>
@@ -98,7 +100,7 @@
 
     <!-- Dialog Theme -->
     <style name="AppTheme.Dialog" parent="Theme.MaterialComponents.Dialog">
-        <item name="android:background">@color/branco</item>
+        <item name="android:background">@android:color/white</item>
         <item name="android:textColorPrimary">@color/azul_escuro</item>
         <item name="colorAccent">@color/azul_escuro</item>
         <item name="dialogCornerRadius">6dp</item>
